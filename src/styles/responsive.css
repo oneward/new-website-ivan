@@ -42,6 +42,10 @@
   #top h1 { font-size: clamp(28px, 8.5vw, 52px) !important; }
   #top h1 span { white-space: normal !important; }
   h2 { font-size: clamp(24px, 7.5vw, 32px) !important; }
+  h2.hero-card-title { font-size: 18px !important; }
+  .h2-line { display: inline !important; }
+  .lifecycle-scroll { scrollbar-width: none; }
+  .lifecycle-scroll::-webkit-scrollbar { display: none; }
   .stub-hero h1 { font-size: clamp(30px, 9vw, 44px) !important; }
 
   /* the integrations diagram stays readable and scrolls sideways */
@@ -70,5 +74,15 @@
   .plan-row { grid-template-columns: 28px 1fr !important; }
   .plan-row > span:last-child { grid-column: 2; }
   .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+
+  /* legal pages: phone gutters, wrapping notes, tables become stacked rows */
+  .legal-body { padding: 48px 20px 80px !important; }
+  .legal-content .placeholder { white-space: normal; }
+  .legal-content table, .legal-content tbody, .legal-content tr, .legal-content td { display: block; width: 100%; box-sizing: border-box; }
+  .legal-content thead { display: none; }
+  .legal-content tr { padding: 12px 0; border-bottom: 1px solid #eceae4; }
+  .legal-content td { padding: 2px 0; border-bottom: 0; }
+  .legal-content td:first-child { font-weight: 600; color: #101828; }
+  .legal-content td:nth-child(2) { color: #030FFF; font-size: 13px; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
 }
