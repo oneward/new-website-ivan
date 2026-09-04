@@ -56,11 +56,10 @@
   .uc-grid { grid-template-columns: 1fr !important; }
   .uc-library-band { flex-direction: column; align-items: stretch !important; gap: 18px !important; padding: 20px !important; }
   .uc-library-band .btn-blue { text-align: center; }
-  .timeline { grid-template-columns: 1fr !important; gap: 24px; }
-  .timeline-marker { display: none !important; }
   .day30-text { order: -1; }
-  .timeline .uc-grid { gap: 22px !important; }
-  .timeline .uc-grid > div { border-left: 0 !important; padding: 0 !important; }
+  .tl-grid { grid-template-columns: 1fr !important; row-gap: 24px; }
+  .tl-grid > div { border-left: 0 !important; padding-left: 0 !important; padding-right: 0 !important; margin-top: 0 !important; }
+  .tl-arrow { display: none !important; }
   .plan-row { grid-template-columns: 28px 1fr !important; }
   .plan-row > span:last-child { grid-column: 2; }
   .uc-library-lead { flex-direction: column; align-items: flex-start !important; gap: 14px !important; }
