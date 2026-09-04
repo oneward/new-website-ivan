@@ -121,7 +121,7 @@ const talk = 'Prefer to talk first?';
         <p style={body}>Any HR task that follows rules and touches your systems can be a use case. Pick up to three, or start from <a href="/use-cases" style="color: #030FFF;">the agent library</a>. The 30 days are free; what happens after is your decision.</p>
       </div>
 
-      <div style="width: 100%; max-width: 720px; background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 30px 32px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.06); display: flex; flex-direction: column;">
+      <div class="tl-card" style="width: 100%; max-width: 720px; box-sizing: border-box; background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 30px 32px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.06); display: flex; flex-direction: column;">
         {phases.map((ph, i) => (
           <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 22px;">
             <div style={`display: flex; flex-direction: column; gap: 3px; ${i > 0 ? 'padding-top: 3px;' : ''}`}>
