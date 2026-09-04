@@ -1,0 +1,59 @@
+---
+// Full agent library: role filter, every card (click opens the detail
+// modal), and the modal itself. Behavior lives in main.js.
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+import UseCaseCard from './UseCaseCard.astro';
+import { useCases, roleOrder } from '../data/useCases';
+---
+<section id="library" style="background: #f7f6f3; padding: 64px 64px 104px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;" data-usecases>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+      {roleOrder.map((r) => (
+        <button type="button" class:list={['uc-filter', { 'is-current': r === 'All' }]} data-uc-filter={r} style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; border-radius: 999px; padding: 9px 16px; white-space: nowrap; transition: all 0.25s;">{r === 'All' ? 'All roles' : r}<span class="uc-count" style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;">{r === 'All' ? useCases.length : useCases.filter((u) => u.roles.includes(r)).length}</span></button>
+      ))}
+    </div>
+    <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+      {useCases.map((u) => <UseCaseCard u={u} clickable />)}
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; background: #ffffff; border: 1px solid #e3e1db; border-radius: 999px; padding: 12px 20px 12px 16px; align-self: center;">
+      <DotMark size={16} /><span style="font-size: 13.5px; color: #4a463c;">The integrity foundation runs continuously beneath every agent above. It is what makes the rest safe to act.</span>
+    </div>
+  </div>
+</section>
+
+<dialog class="uc-modal" data-uc-modal aria-labelledby="uc-modal-title">
+  <div class="uc-modal-panel">
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+        <span style="width: 44px; height: 44px; border-radius: 12px; background: rgba(3,15,255,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/ph-database.svg" size={22} color="#030FFF" style="--placeholder: 1;" /></span>
+        <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+          <span style="display: flex; align-items: center; gap: 10px;">
+            <span data-uc-field="cat" style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #9a968c;"></span>
+            <span class="uc-modal-foundation" style="align-items: center; gap: 6px; font-size: 11px; color: #030FFF; background: #f5f6ff; border: 1px solid rgba(3,15,255,0.2); border-radius: 999px; padding: 3px 8px 3px 6px; white-space: nowrap;"><DotMark size={10} />Always on</span>
+          </span>
+          <h2 id="uc-modal-title" data-uc-field="title" style="margin: 0; font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; color: #101828;"></h2>
+        </div>
+      </div>
+      <button type="button" class="uc-modal-close" data-uc-close aria-label="Close">×</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: #9a968c;">WHO USES IT</span>
+      <span data-uc-field="users" style="font-size: 14px; line-height: 1.6; color: #101828;"></span>
+    </div>
+    <div class="uc-modal-cols">
+      <div style="display: flex; flex-direction: column; gap: 8px; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 12px; padding: 18px 20px;">
+        <span style="display: flex; align-items: center; gap: 8px;"><Icon src="/assets/70316f42.svg" size={15} /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">Today</span></span>
+        <span data-uc-field="legacy" style="font-size: 13.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;"></span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); border-radius: 12px; padding: 18px 20px;">
+        <span style="display: flex; align-items: center; gap: 8px;"><DotMark size={15} /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">With Oneward</span></span>
+        <span data-uc-field="solution" style="font-size: 13.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;"></span>
+      </div>
+    </div>
+    <div class="uc-modal-footer" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid #eceae4;">
+      <span style="display: flex; align-items: center; gap: 7px;"><Icon src="/assets/00b81253.svg" size={13} color="#9a968c" /><span data-uc-field="roles" style="font-size: 12.5px; color: #6f6a5e;"></span></span>
+      <a href="/30-day-analysis" class="btn-blue" style="font-size: 14px; padding: 11px 22px; flex-shrink: 0;">Start your free 30-day analysis</a>
+    </div>
+  </div>
+</dialog>

@@ -47,6 +47,8 @@
 
   /* use cases, footer */
   .uc-grid { grid-template-columns: 1fr !important; }
+  .uc-library-band { flex-direction: column; align-items: stretch !important; gap: 18px !important; padding: 20px !important; }
+  .uc-library-band .btn-blue { text-align: center; }
   .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
 }

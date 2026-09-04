@@ -116,6 +116,54 @@ function initUseCaseFilter() {
   });
 }
 
+function initUseCaseModal() {
+  const dialog = document.querySelector('[data-uc-modal]');
+  if (!dialog) return;
+  const field = (name) => dialog.querySelector(`[data-uc-field="${name}"]`);
+  const iconEl = dialog.querySelector('[style*="--placeholder"]');
+  const cards = [...document.querySelectorAll('.uc-card[data-uc-slug]')];
+  const open = (card) => {
+    const d = card.dataset;
+    field('title').textContent = d.ucTitle;
+    field('cat').textContent = d.ucCat;
+    field('users').textContent = d.ucUsers;
+    field('legacy').textContent = d.ucLegacy;
+    field('solution').textContent = d.ucSolution;
+    field('roles').textContent = d.ucRoles;
+    if (iconEl) {
+      const url = `url('/assets/ph-${d.ucIcon}.svg')`;
+      iconEl.style.webkitMaskImage = url;
+      iconEl.style.maskImage = url;
+    }
+    dialog.classList.toggle('is-foundation', d.ucFoundation === 'true');
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+    history.replaceState(null, '', `#${d.ucSlug}`);
+  };
+  cards.forEach((card) => {
+    card.addEventListener('click', () => open(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open(card);
+      }
+    });
+  });
+  dialog.querySelector('[data-uc-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    if (location.hash) history.replaceState(null, '', location.pathname);
+  });
+  const slug = decodeURIComponent(location.hash.slice(1));
+  const match = slug && cards.find((c) => c.dataset.ucSlug === slug);
+  if (match) {
+    match.scrollIntoView({ block: 'center' });
+    open(match);
+  }
+}
+
 function initDiagramScale() {
   const wrap = document.querySelector('[data-diagram-wrap]');
   const inner = document.querySelector('[data-diagram]');
@@ -134,4 +182,5 @@ initTenantWord();
 initLifecycle();
 initChat();
 initUseCaseFilter();
+initUseCaseModal();
 initDiagramScale();
