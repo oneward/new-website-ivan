@@ -44,7 +44,12 @@
   h2 { font-size: clamp(24px, 7.5vw, 32px) !important; }
   .stub-hero h1 { font-size: clamp(30px, 9vw, 44px) !important; }
 
-  /* hero lifecycle card keeps its 5-column layout and scrolls sideways */
+  /* the integrations diagram stays readable and scrolls sideways */
+  .diagram-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; width: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .diagram-scroll::-webkit-scrollbar { display: none; }
+  [data-diagram-wrap] { min-width: 660px; }
+
+  /* lifecycle card keeps its 5-column layout and scrolls sideways */
   .lifecycle-scroll { overflow-x: auto; margin: 0 -20px; padding: 0 20px; width: auto !important; align-self: stretch; min-width: 0; -webkit-overflow-scrolling: touch; }
   [data-lifecycle] { min-width: 660px; }
 

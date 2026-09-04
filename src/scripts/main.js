@@ -221,16 +221,17 @@ function initFlowDemo() {
 }
 
 function initDiagramScale() {
-  const wrap = document.querySelector('[data-diagram-wrap]');
-  const inner = document.querySelector('[data-diagram]');
-  if (!wrap || !inner) return;
-  const measure = () => {
-    const sc = Math.min(1, wrap.clientWidth / 1032);
-    inner.style.transform = `scale(${sc.toFixed(4)})`;
-    wrap.style.height = `${Math.round(552 * sc)}px`;
-  };
-  new ResizeObserver(measure).observe(wrap);
-  measure();
+  document.querySelectorAll('[data-diagram-wrap]').forEach((wrap) => {
+    const inner = wrap.querySelector('[data-diagram]');
+    if (!inner) return;
+    const measure = () => {
+      const sc = Math.min(1, wrap.clientWidth / 1032);
+      inner.style.transform = `scale(${sc.toFixed(4)})`;
+      wrap.style.height = `${Math.round(552 * sc)}px`;
+    };
+    new ResizeObserver(measure).observe(wrap);
+    measure();
+  });
 }
 
 initStickyNav();
