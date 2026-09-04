@@ -27,7 +27,7 @@ const phases = [
 ];
 const decisions = [
   { title: 'Keep the plan and stop.', body: 'No cost, no obligation.' },
-  { title: 'Ask us to build it.', body: 'We send a written offer for the scope in the plan and build it with your team.' },
+  { title: 'Ask us to build it.', body: 'We send a written offer for the scope in the plan and build it with your team.', accent: true },
   { title: 'Build it with another partner.', body: 'The plan is yours to hand over.' },
 ];
 
@@ -156,9 +156,16 @@ const talk = 'Prefer to talk first?';
 
         <div style="margin-top: 26px; padding-top: 24px; border-top: 1px solid #eceae4; display: flex; flex-direction: column; gap: 16px;">
           <span style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">After day 30, you decide.</span>
-          <div style="display: flex; flex-direction: column; gap: 10px; max-width: 560px;">
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 560px;">
             {decisions.map((d) => (
-              <span style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.55; color: #4a463c;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF; flex-shrink: 0; margin-top: 7px;"></span><span><span style="font-weight: 600; color: #101828;">{d.title}</span> {d.body}</span></span>
+              <div style="display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 10px; align-items: start;">
+                {d.accent
+                  ? <span style="margin-top: 3px;"><DotMark size={16} /></span>
+                  : <span style="display: flex; justify-content: center; margin-top: 7px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF;"></span></span>}
+                {d.accent
+                  ? <span style="display: flex; flex-direction: column; gap: 3px; font-size: 14px; line-height: 1.55; color: #4a463c;"><span style="font-weight: 600; color: #101828;">{d.title}</span><span>{d.body}</span></span>
+                  : <span style="font-size: 14px; line-height: 1.55; color: #4a463c;"><span style="font-weight: 600; color: #101828;">{d.title}</span> {d.body}</span>}
+              </div>
             ))}
           </div>
         </div>
@@ -169,7 +176,7 @@ const talk = 'Prefer to talk first?';
   <!-- ============ What we need / your data ============ -->
   <section style="background: #ffffff; border-top: 1px solid #e3e1db; padding: 104px 64px;">
     <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
-      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 760px; margin: 0 auto;">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 980px; margin: 0 auto;">
         <h2 style={h2}>What we need from you, and how we treat your data.</h2>
       </div>
       <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch;">
