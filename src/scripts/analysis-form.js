@@ -95,6 +95,9 @@ function initForm(form) {
         hris: data.hris || null,
         hr_tools: data.tools ? data.tools.split(', ') : [],
       };
+      // A second submission with a different email on the same page must not
+      // be merged into the first person; start a fresh identity for it.
+      if (ph.get_property('$user_state') === 'identified' && ph.get_distinct_id() !== data.email) ph.reset();
       ph.identify(data.email, props);
       ph.capture(EVENT_NAME, { ...props, form_position: form.dataset.analysisForm || 'hero' }, { send_instantly: true });
     } else {
