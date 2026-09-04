@@ -11,7 +11,7 @@ interface Props {
   clickable?: boolean;
   moreLabel?: string;
 }
-const { u, href, clickable = false, moreLabel = 'Details →' } = Astro.props;
+const { u, href, clickable = false, moreLabel = 'Details' } = Astro.props;
 // Foundation agents (u.f) get the blue-tinted treatment.
 const c = { bg: u.f ? '#f5f6ff' : '#ffffff', border: u.f ? 'rgba(3,15,255,0.2)' : '#e3e1db', tile: u.f ? '#ffffff' : 'rgba(3,15,255,0.06)', icon: '#030FFF', cat: u.f ? '#030FFF' : '#9a968c', title: '#101828', body: '#6f6a5e', rule: u.f ? 'rgba(3,15,255,0.12)' : '#eceae4', roles: '#6f6a5e', rolesIcon: '#9a968c', more: '#030FFF' };
 const Tag = href ? 'a' : 'div';
@@ -49,6 +49,6 @@ const detail = clickable
   </div>
   <div style={`margin-top: auto; padding-top: 12px; border-top: 1px solid ${c.rule}; display: flex; align-items: center; justify-content: space-between; gap: 10px;`}>
     <span style="display: flex; align-items: center; gap: 7px; min-width: 0;"><Icon src="/assets/00b81253.svg" size={13} color={c.rolesIcon} /><span style={`font-size: 12px; color: ${c.roles};`}>{rolesText(u.roles)}</span></span>
-    {(clickable || href) && <span class="uc-card-more" style={`font-size: 12px; color: ${c.more}; white-space: nowrap;`}>{moreLabel}</span>}
+    {(clickable || href) && <span class="uc-card-more" style={`font-size: 12px; color: ${c.more}; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;`}>{moreLabel}<Icon src="/assets/ph-arrow-right.svg" size={12} color={c.more} /></span>}
   </div>
 </Tag>

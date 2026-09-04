@@ -103,7 +103,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
             </div>
             <span style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: #101828;">{s.title}</span>
             <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{s.body}</span>
-            {s.href && <a href={s.href} style="font-size: 13.5px; color: #030FFF; text-decoration: none; border-bottom: 1px solid rgba(3,15,255,0.3); align-self: flex-start;">{s.link} →</a>}
+            {s.href && <a href={s.href} style="font-size: 13.5px; color: #030FFF; text-decoration: none; border-bottom: 1px solid rgba(3,15,255,0.3); align-self: flex-start; display: inline-flex; align-items: center; gap: 5px;">{s.link}<Icon src="/assets/ph-arrow-right.svg" size={13} color="#030FFF" /></a>}
           </div>
         ))}
       </div>

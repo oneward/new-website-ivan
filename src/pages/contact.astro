@@ -60,7 +60,7 @@ const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text
             <span style="display: flex; flex-direction: column; gap: 6px;">
               <span style="font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #101828;">{w.title}</span>
               <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{w.body}</span>
-              <span class="contact-way-link" style="margin-top: 4px; font-size: 13.5px; color: #030FFF;">{w.link} →</span>
+              <span class="contact-way-link" style="margin-top: 4px; font-size: 13.5px; color: #030FFF; display: inline-flex; align-items: center; gap: 5px; align-self: flex-start;">{w.link}<Icon src="/assets/ph-arrow-right.svg" size={13} color="#030FFF" /></span>
             </span>
           </a>
         ))}

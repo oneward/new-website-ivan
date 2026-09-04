@@ -1,6 +1,7 @@
 ---
 // Homepage teaser: three featured agents with illustrated
 // previews, plus one call to action to the full library.
+import Icon from './Icon.astro';
 import UseCaseCard from './UseCaseCard.astro';
 import FeaturedPreview from './FeaturedPreview.astro';
 import { useCases, featuredSlugs } from '../data/useCases';
@@ -15,14 +16,14 @@ const featured = featuredSlugs.map((slug) => useCases.find((u) => u.slug === slu
     </div>
     <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
       {featured.map((u) => (
-        <UseCaseCard u={u} href={`/use-cases#${u.slug}`} moreLabel="See how it works →">
+        <UseCaseCard u={u} href={`/use-cases#${u.slug}`} moreLabel="See how it works">
           <FeaturedPreview slot="preview" slug={u.slug} />
         </UseCaseCard>
       ))}
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding-top: 12px;">
       <span style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.015em; color: #101828; text-wrap: pretty;">The full agent library covers the whole employee lifecycle.</span>
-      <a href="/use-cases" class="btn-blue" style="font-size: 15px; padding: 14px 28px;">Explore all agents →</a>
+      <a href="/use-cases" class="btn-blue" style="font-size: 15px; padding: 14px 26px 14px 28px; display: inline-flex; align-items: center; gap: 8px;">Explore all agents<Icon src="/assets/ph-arrow-right.svg" size={16} color="#ffffff" /></a>
     </div>
   </div>
 </section>
