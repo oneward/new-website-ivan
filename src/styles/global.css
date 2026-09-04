@@ -85,14 +85,27 @@ a.uc-card { text-decoration: none; color: inherit; }
 
 /* ---- analysis request form ---- */
 .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.field label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5e; }
-.field label .req { color: #030FFF; }
+.field > label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5e; }
+.field > label .req { color: #030FFF; }
 .field input, .field select { font-family: 'Inter', sans-serif; font-size: 14px; color: #101828; background: #ffffff; border: 1px solid #e3e1db; border-radius: 8px; padding: 11px 12px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; }
 .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' fill='none' stroke='%236f6a5e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
 .field select:invalid, .field select option[value=""] { color: #9a968c; }
 .field input::placeholder { color: #9a968c; }
 .field input:focus, .field select:focus { border-color: #030FFF; box-shadow: 0 0 0 3px rgba(3,15,255,0.12); }
 .field input:user-invalid { border-color: #d9463e; }
+/* multi-select (other HR tools) */
+[data-multiselect] { position: relative; }
+.ms-trigger { font-family: 'Inter', sans-serif; font-size: 14px; color: #9a968c; text-align: left; background: #ffffff; border: 1px solid #e3e1db; border-radius: 8px; padding: 11px 32px 11px 12px; width: 100%; box-sizing: border-box; cursor: pointer; outline: none; transition: border-color 0.2s, box-shadow 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' fill='none' stroke='%236f6a5e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ms-trigger:focus-visible, .ms-trigger[aria-expanded="true"] { border-color: #030FFF; box-shadow: 0 0 0 3px rgba(3,15,255,0.12); }
+.ms-trigger .is-set { color: #101828; }
+.ms-panel { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 30; background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; box-shadow: 0 16px 40px rgba(16,24,40,0.14); max-height: 280px; overflow-y: auto; padding: 6px 0; }
+.ms-group { padding: 6px 0; }
+.ms-group + .ms-group { border-top: 1px solid #eceae4; }
+.ms-group-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a968c; padding: 6px 12px 4px; }
+.ms-option { display: flex; align-items: center; gap: 10px; padding: 7px 12px; font-size: 13.5px; color: #101828; cursor: pointer; }
+.ms-option:hover { background: #f7f6f3; }
+.ms-option input { width: 15px; height: 15px; margin: 0; accent-color: #030FFF; flex-shrink: 0; }
+
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-grid .field.wide { grid-column: 1 / -1; }
 @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }

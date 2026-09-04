@@ -1,0 +1,49 @@
+---
+// Request form for the free 30-day analysis. Used twice on the page, so
+// every id is prefixed. Behavior lives in scripts/analysis-form.js.
+import DotMark from './DotMark.astro';
+import { hrisOptions, hrToolGroups } from '../data/hrSystems';
+
+interface Props {
+  id: string;
+}
+const { id: p } = Astro.props;
+---
+<div style="background: #ffffff; color: #101828; border-radius: 14px; padding: 28px 28px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.45);">
+  <form data-analysis-form novalidate style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">Request your free analysis</span>
+      <span style="font-size: 13px; color: #6f6a5e;">We reply within one business day to set up a first call.</span>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label for={`${p}-name`}>Name <span class="req">*</span></label><input id={`${p}-name`} name="name" type="text" autocomplete="name" required placeholder="Your name" /></div>
+      <div class="field"><label for={`${p}-email`}>Work email <span class="req">*</span></label><input id={`${p}-email`} name="email" type="email" autocomplete="email" required placeholder="you@company.com" /></div>
+      <div class="field"><label for={`${p}-company`}>Company</label><input id={`${p}-company`} name="company" type="text" autocomplete="organization" placeholder="Company name" /></div>
+      <div class="field"><label for={`${p}-location`}>Location</label><input id={`${p}-location`} name="location" type="text" autocomplete="country-name" placeholder="City or country" /></div>
+      <div class="field wide"><label for={`${p}-website`}>Company website</label><input id={`${p}-website`} name="website" type="url" autocomplete="url" placeholder="https://" /></div>
+      <div class="field"><label for={`${p}-hris`}>Current HRIS</label><select id={`${p}-hris`} name="hris"><option value="" selected>Select…</option>{hrisOptions.map((o) => <option value={o}>{o}</option>)}</select></div>
+      <div class="field" data-multiselect>
+        <label id={`${p}-tools-label`}>Other HR tools</label>
+        <button type="button" class="ms-trigger" aria-haspopup="true" aria-expanded="false" aria-labelledby={`${p}-tools-label`} data-ms-trigger><span data-ms-value data-placeholder="Select any that apply…">Select any that apply…</span></button>
+        <div class="ms-panel" data-ms-panel hidden>
+          {hrToolGroups.map((g) => (
+            <div class="ms-group">
+              <span class="ms-group-label">{g.label}</span>
+              {g.options.map((o) => <label class="ms-option"><input type="checkbox" value={o} /><span>{o}</span></label>)}
+            </div>
+          ))}
+          <div class="ms-group"><label class="ms-option"><input type="checkbox" value="Other" /><span>Other</span></label></div>
+        </div>
+        <input type="hidden" name="tools" data-ms-input />
+      </div>
+    </div>
+    <button type="submit" class="btn-blue" style="border: 0; cursor: pointer; font-size: 15px; padding: 14px 24px; width: 100%;">Request my free analysis</button>
+    <p data-analysis-error hidden style="margin: 0; font-size: 13px; color: #d9463e;">Something went wrong sending the request. Please email <a href="mailto:partners@getoneward.com" style="color: #d9463e;">partners@getoneward.com</a> instead.</p>
+    <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #9a968c; text-align: center;">Free, no commitment. Nothing is shared before an NDA is signed.</p>
+  </form>
+  <div data-analysis-done hidden style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 24px 0 16px;">
+    <DotMark size={44} />
+    <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">Thank you.</span>
+    <span style="font-size: 14px; line-height: 1.6; color: #4a463c; max-width: 320px;">We will reply within one business day to set up a first call and the NDA.</span>
+  </div>
+</div>
