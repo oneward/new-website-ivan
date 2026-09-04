@@ -29,6 +29,11 @@ a { color: #030FFF; } a:hover { color: #101828; }
 .analysis-done.is-shown > :nth-child(2) { transition-delay: 0.12s; }
 .analysis-done.is-shown > :nth-child(3) { transition-delay: 0.22s; }
 
+/* ---- company pages ---- */
+.contact-way { transition: background 0.2s ease; }
+.contact-way:hover { color: inherit; }
+.contact-way:hover .contact-way-link { text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---- hover styles (ported from style-hover attributes) ---- */
 .nav-link { font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; }
 .nav-link:hover { color: #ffffff; }

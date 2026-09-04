@@ -1,0 +1,141 @@
+---
+import PageShell from '../layouts/PageShell.astro';
+import Icon from '../components/Icon.astro';
+import DotMark from '../components/DotMark.astro';
+import Cta from '../components/Cta.astro';
+
+const beliefs = [
+  { title: 'The system of record stays yours.', body: 'We do not replace your HCM or HRIS. Agents read from it and write back to it through governed connections, so there is never a second copy of the truth.' },
+  { title: 'Agents finish work. They do not just answer.', body: 'The measure of an agent is a closed case: the record updated, the person informed, the audit line written. A good reply is not the job.' },
+  { title: 'Humans approve what matters.', body: 'Any change to a record, a payment, or an entitlement can wait for a named approval, in the tools your managers already use.' },
+  { title: 'Nothing is a black box.', body: 'Every step is logged with who, what, when, and why, and every step is reversible. Your security team can read the whole trail.' },
+];
+
+const stages = [
+  { icon: '/assets/ph-detective.svg', title: 'Analyze', body: 'Thirty days, free, read-only. We find where agents save the most time in your systems and write the plan. You keep it.', href: '/30-day-analysis', link: 'How the analysis works' },
+  { icon: '/assets/ph-git-merge.svg', title: 'Build', body: 'Our engineers build each agent with your HR and IT teams, inside your tenant, on the models and endpoints your security team approves.' },
+  { icon: '/assets/ph-chart-line-up.svg', title: 'Run', body: 'We tune and maintain the agents as your policies and systems change. You keep the approvals. Nothing ships that you have not signed off.' },
+];
+
+const steps = [
+  { label: 'AGENT', text: 'Checks policy, balance, blackout dates', time: '9:41' },
+  { label: 'APPROVAL', text: 'Manager approves in Slack', time: '11:05' },
+  { label: 'ACTION', text: 'Writes the record to your HRIS', time: '11:05' },
+  { label: 'NOTIFY', text: 'Confirms back to the employee', time: '11:06' },
+];
+
+const h2 = "margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;";
+const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text-wrap: pretty;';
+const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em;";
+---
+<PageShell
+  title="HR work should finish, not sit in a queue."
+  intro="Oneward builds AI agents that run inside the HR systems enterprises already own. They take the requests that today become tickets, spreadsheets, and follow-ups, and finish them."
+  description="Oneward builds AI agents that run inside the HR systems enterprises already own, with the permissions and audit trail those systems require."
+>
+  <!-- ============ Why Oneward exists ============ -->
+  <section style="background: #ffffff; padding: 104px 64px;">
+    <div class="two-col" style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 64px; align-items: center;">
+      <div style="display: flex; flex-direction: column; gap: 18px;">
+        <h2 style={h2}>Why Oneward exists.</h2>
+        <p style={body}>Every HR team runs on the same pattern. The system of record holds the data, but the work happens around it. A leave request becomes a policy check, a calendar update, a note to payroll, and a message back to the employee. Multiply that by every workflow and every employee, and HR spends its days moving information between systems instead of working with people.</p>
+        <p style={body}>Language models made it possible to finish this work rather than route it. Enterprise HR cannot run that from a chat window, though. It needs the agents inside the tenant, under the same permissions, approvals, and audit trail as everything else in the stack.</p>
+        <p style={body}>That gap is what Oneward was built to close.</p>
+      </div>
+      <div style="background: #101828; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
+        <div style="padding: 20px 24px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <span style="display: flex; align-items: center; gap: 10px;"><DotMark size={18} color="#ffffff" animation="none" /><span style={`${mono} color: rgba(255,255,255,0.6);`}>LEAVE REQUEST · OCT 6–10</span></span>
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #16DB4E; animation: owLive 2.2s ease-in-out infinite;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #16DB4E;">DONE</span></span>
+        </div>
+        <div style="padding: 18px 24px 8px; display: flex; flex-direction: column;">
+          {steps.map((s, i) => (
+            <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; padding-bottom: 18px; position: relative;">
+              {i < steps.length - 1 && <span style="position: absolute; left: 10.5px; top: 22px; bottom: 0; width: 1px; background: rgba(255,255,255,0.14);"></span>}
+              <span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(43,212,255,0.14); border: 1px solid rgba(43,212,255,0.5); display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #2BD4FF;"></span></span>
+              <span style="display: flex; flex-direction: column; gap: 3px;"><span style={`${mono} color: rgba(255,255,255,0.5);`}>{s.label}</span><span style="font-size: 13.5px; color: #ffffff; line-height: 1.4;">{s.text}</span></span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.45); padding-top: 2px;">{s.time}</span>
+            </div>
+          ))}
+        </div>
+        <div style="background: #0b1224; border-top: 1px solid rgba(255,255,255,0.08); padding: 14px 24px; display: flex; align-items: center; gap: 10px;">
+          <Icon src="/assets/ph-seal-check.svg" size={14} color="#2BD4FF" />
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: rgba(255,255,255,0.7);">#48213 · leave.create · approved by M. Klein · <span style="color: #2BD4FF;">reversible</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ What we believe ============ -->
+  <section style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 720px; margin: 0 auto;">
+        <h2 style={h2}>What we believe.</h2>
+        <p style={body}>Four rules that decide what we build and what we turn down.</p>
+      </div>
+      <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px;">
+        {beliefs.map((b, i) => (
+          <div style="border-top: 1px solid #d9d6ce; padding: 22px 0 30px; display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 14px; align-items: start;">
+            <span style="margin-top: 4px;"><DotMark size={16} /></span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #101828;">{b.title}</span>
+              <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{b.body}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ How we work ============ -->
+  <section style="background: #ffffff; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px;">
+        <h2 style={h2}>How we work with you.</h2>
+        <p style={body}>Oneward is not a self-serve tool. We map, build, and tune each agent with you, then keep it running. Three stages, and you decide at the end of each one.</p>
+      </div>
+      <div class="stages-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; position: relative;">
+        {stages.map((s, i) => (
+          <div style="display: flex; flex-direction: column; gap: 14px; position: relative;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 38px; height: 38px; border-radius: 10px; background: #f7f6f3; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src={s.icon} size={17} color="#030FFF" /></span>
+              <span style="flex: 1; height: 1px; background: #e3e1db;"></span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #030FFF;">0{i + 1}</span>
+            </div>
+            <span style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: #101828;">{s.title}</span>
+            <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{s.body}</span>
+            {s.href && <a href={s.href} style="font-size: 13.5px; color: #030FFF; text-decoration: none; border-bottom: 1px solid rgba(3,15,255,0.3); align-self: flex-start;">{s.link} →</a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ The company ============ -->
+  <section style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 88px 64px;">
+    <div class="two-col" style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <h2 style={h2}>The company.</h2>
+        <p style={`${body} max-width: 460px;`}>Oneward, Inc. is a United States company. Customer data we process is hosted in the European Union, in Frankfurt, under an NDA and a data processing agreement.</p>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        {[
+          ['Legal entity', 'Oneward, Inc.'],
+          ['Data hosting', 'EU · Frankfurt'],
+          ['Security review', 'Trust & Security', '/trust-and-security'],
+          ['Legal details', 'Impressum', '/impressum'],
+          ['Follow', 'LinkedIn', 'https://www.linkedin.com/company/oneward/'],
+          ['Write to us', 'partners@getoneward.com', 'mailto:partners@getoneward.com'],
+        ].map(([k, v, href]) => (
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 13px 0; border-top: 1px solid #d9d6ce;">
+            <span style="font-size: 13.5px; color: #6f6a5e;">{k}</span>
+            {href
+              ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener' : undefined} style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #101828; text-decoration: none; border-bottom: 1px solid rgba(16,24,40,0.3);">{v}</a>
+              : <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #101828;">{v}</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</PageShell>

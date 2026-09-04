@@ -1,0 +1,85 @@
+---
+import PageShell from '../layouts/PageShell.astro';
+import Icon from '../components/Icon.astro';
+import DotMark from '../components/DotMark.astro';
+
+const work = [
+  { icon: '/assets/ph-database.svg', title: 'Enterprise HR systems', body: 'Workday, SAP SuccessFactors, Oracle HCM, and the payroll, ATS, and learning tools around them. Their data models, their permission models, and the ways they fail.' },
+  { icon: '/assets/ph-chats-circle.svg', title: 'Agents that finish work', body: 'Reading a request in Slack or Teams, checking policy, waiting for a named approval, writing the record, and confirming back. Reliably, thousands of times a month.' },
+  { icon: '/assets/ph-seal-check.svg', title: 'Trust that survives a security review', body: 'Tenant isolation, least-privilege access, redaction before models, and an audit trail a customer can read line by line.' },
+];
+
+const traits = [
+  { title: 'You have shipped into enterprise systems.', body: 'You know what an integration looks like after the demo: the edge cases, the permissions, the change request that takes three weeks.' },
+  { title: 'You care that the work finishes.', body: 'A closed case matters more to you than a clever answer. You measure what you build by what it completed.' },
+  { title: 'You are comfortable in someone else’s tenant.', body: 'Our agents run inside the customer’s environment, and their security team reads what we do. That suits you.' },
+];
+
+const h2 = "margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;";
+const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text-wrap: pretty;';
+---
+<PageShell
+  title="No open roles right now."
+  intro="We hire carefully, and only when a role is clear. When one opens, it will be listed here. Until then, this page says what the work is, so you can tell whether it is for you."
+  description="Careers at Oneward. No open roles right now; here is what the work is and how to reach us when that changes."
+>
+  <div slot="hero" style="display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 13.5px; color: rgba(255,255,255,0.7);">
+    <span style="width: 7px; height: 7px; border-radius: 50%; background: #2BD4FF; animation: owLive 2.2s ease-in-out infinite;"></span>
+    Open roles: 0
+  </div>
+
+  <!-- ============ What the work is ============ -->
+  <section style="background: #ffffff; padding: 104px 64px;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px;">
+        <h2 style={h2}>What you would be working on.</h2>
+        <p style={body}>Oneward sits between enterprise HR systems and language models. The work is making that seam reliable enough that an HR team trusts it with a payroll change.</p>
+      </div>
+      <div class="stages-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px;">
+        {work.map((w) => (
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 38px; height: 38px; border-radius: 10px; background: #f7f6f3; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src={w.icon} size={17} color="#030FFF" /></span>
+              <span style="flex: 1; height: 1px; background: #e3e1db;"></span>
+            </div>
+            <span style="font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #101828;">{w.title}</span>
+            <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{w.body}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Who does well here ============ -->
+  <section style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 720px; margin: 0 auto;">
+        <h2 style={h2}>Who does well here.</h2>
+      </div>
+      <div style="max-width: 720px; margin: 0 auto; width: 100%; display: flex; flex-direction: column;">
+        {traits.map((t) => (
+          <div style="border-top: 1px solid #d9d6ce; padding: 22px 0 26px; display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 14px; align-items: start;">
+            <span style="margin-top: 4px;"><DotMark size={16} /></span>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #101828;">{t.title}</span>
+              <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{t.body}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Get in touch ============ -->
+  <section style="background: linear-gradient(160deg, #030FFF 0%, #020865 100%); color: #ffffff; position: relative; overflow: hidden; padding: 104px 64px;">
+    <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,0.15) 1.6px, transparent 1.6px); background-size: 48px 48px; background-position: 30px 20px; -webkit-mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%); mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%);"></div>
+    <div style="position: relative; max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px;">
+      <DotMark size={64} color="#ffffff" animation="pulse" />
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; max-width: 640px; text-wrap: pretty;">Think you should be working here?</h2>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 560px; text-wrap: pretty;">Write to us with a few lines on what you have built and the systems you have built it into. We read everything that arrives, and we keep a short list for when a role opens.</p>
+      </div>
+      <a href="mailto:partners@getoneward.com?subject=Careers" class="btn-primary" style="font-size: 15px; padding: 14px 30px;">Write to partners@getoneward.com</a>
+    </div>
+  </section>
+</PageShell>
