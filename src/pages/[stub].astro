@@ -9,11 +9,6 @@ export function getStaticPaths() {
   return [
     { params: { stub: 'about' }, props: { title: 'About' } },
     { params: { stub: 'careers' }, props: { title: 'Careers' } },
-    { params: { stub: 'trust-and-security' }, props: { title: 'Trust & Security' } },
-    { params: { stub: 'privacy-policy' }, props: { title: 'Privacy Policy' } },
-    { params: { stub: 'terms-of-service' }, props: { title: 'Terms of Service' } },
-    { params: { stub: 'cookie-notice' }, props: { title: 'Cookie Notice' } },
-    { params: { stub: 'impressum' }, props: { title: 'Impressum' } },
   ];
 }
 const { title } = Astro.props;

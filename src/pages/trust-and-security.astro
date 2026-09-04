@@ -1,0 +1,64 @@
+---
+import LegalPage from '../layouts/LegalPage.astro';
+import Icon from '../components/Icon.astro';
+
+const principles = [
+  { icon: '/assets/27fd96b9.svg', title: 'Your model, your endpoint', body: 'Agents call only the models and endpoints your security team allowlists.' },
+  { icon: '/assets/4be8fc10.svg', title: 'Data stays in your boundary', body: 'Personal data is redacted before any model sees it. Nothing trains on your data.' },
+  { icon: '/assets/2421fe88.svg', title: 'Humans approve what matters', body: 'Least-privilege access. Write actions wait for a named approval.' },
+  { icon: '/assets/2ded18e2.svg', title: 'Every action on the record', body: 'Who, what, when, and why, logged for every step. Reversible.' },
+];
+---
+<LegalPage
+  title="Trust & Security"
+  intro="How Oneward handles your data, where it runs, and what your security team can review before anything is connected."
+  updated="4 September 2026"
+>
+  <div class="trust-grid" style="margin-bottom: 36px;">
+    {principles.map((p) => (
+      <div class="trust-card">
+        <span style="display: flex; align-items: center; gap: 8px;"><Icon src={p.icon} size={16} color="#030FFF" />{p.title}</span>
+        <span>{p.body}</span>
+      </div>
+    ))}
+  </div>
+
+  <h2>Where Oneward runs</h2>
+  <p>Oneward agents run in your tenant context, on infrastructure and endpoints your security team approves. Your existing HCM or HRIS stays the system of record; Oneward reads from it and writes back to it through a governed connection scoped to the data you agree we may access. Nothing is copied into a second system of record.</p>
+  <p>Each customer is separated at the tenant level with scoped, least-privilege service accounts. Your data does not mix with any other customer's, and it never leaves your boundary of trust.</p>
+
+  <h2>Data handling</h2>
+  <ul>
+    <li><strong>Read-only by default.</strong> During a 30-day analysis we change nothing in your systems. In production, write actions are limited to the workflows you have approved.</li>
+    <li><strong>Redaction before models.</strong> Personal data is redacted before anything reaches a language model.</li>
+    <li><strong>No training on your data.</strong> Model providers we use are bound to zero-retention terms, and Oneward does not train models on customer data.</li>
+    <li><strong>EU hosting.</strong> Data processed by Oneward is stored in the EU, in Frankfurt.</li>
+    <li><strong>Retention.</strong> Analysis data is deleted after the 30 days unless you decide to continue. Production retention follows your data processing agreement.</li>
+  </ul>
+
+  <h2>Access and approvals</h2>
+  <p>Agents operate with the minimum permissions each workflow needs. Any action that changes a record, a payment, or an entitlement can be configured to require a named human approval, delivered in the tools your managers already use. Who approves what is defined by your own policy, not by Oneward.</p>
+  <p>When an agent reaches a decision it should not make, it hands over to a named person with the full context and tells the employee it did so. Escalation paths are configured with your HR team.</p>
+
+  <h2>Audit and logging</h2>
+  <p>Every action an agent takes is logged with what it read, what it did, and who approved it. Logs are attributable, reversible where the underlying system allows, and exportable to your own tooling. Audit retention is agreed per customer, with a default of 90 days.</p>
+
+  <h2>Models and AI providers</h2>
+  <p>You choose which models are allowed. Oneward evaluates, tunes, and monitors them per workflow and calls only the endpoints on your allowlist, including private or self-hosted endpoints where you require them. A current list of model providers is part of the subprocessor list available under NDA.</p>
+
+  <h2>Documents available for review</h2>
+  <p>The following are available under NDA to prospective and current customers. Request the packet at <a href="mailto:partners@getoneward.com">partners@getoneward.com</a>.</p>
+  <ul>
+    <li>SOC 2 report <span class="placeholder">[confirm report type and date]</span></li>
+    <li>Subprocessor list</li>
+    <li>Data processing agreement (DPA), including standard contractual clauses where applicable</li>
+    <li>Architecture and data-flow overview</li>
+    <li>Penetration test summary <span class="placeholder">[confirm availability]</span></li>
+  </ul>
+
+  <h2>Reporting a vulnerability</h2>
+  <p>If you believe you have found a security issue in Oneward, email <a href="mailto:security@getoneward.com">security@getoneward.com</a> <span class="placeholder">[confirm mailbox]</span>. We acknowledge reports within two business days and will keep you informed while we investigate. Please do not access, modify, or exfiltrate data that is not yours while testing.</p>
+
+  <h2>Questions</h2>
+  <p>Security reviews, questionnaires, and architecture calls: <a href="mailto:partners@getoneward.com">partners@getoneward.com</a>. For how we handle personal data on this website, see the <a href="/privacy-policy">Privacy Policy</a>.</p>
+</LegalPage>
