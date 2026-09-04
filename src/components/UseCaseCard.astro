@@ -37,7 +37,6 @@ const detail = clickable
   {...detail}
   style={`background: ${c.bg}; border: 1px solid ${c.border}; border-radius: 12px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 14px; min-height: 100%; box-sizing: border-box;`}
 >
-  <slot name="preview" />
   <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
     <span style={`width: 36px; height: 36px; border-radius: 10px; background: ${c.tile}; display: flex; align-items: center; justify-content: center;`}><Icon src={`/assets/ph-${u.icon}.svg`} size={18} color={c.icon} /></span>
     {u.f && <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: #030FFF; background: #ffffff; border: 1px solid rgba(3,15,255,0.2); border-radius: 999px; padding: 4px 9px 4px 7px; white-space: nowrap;"><DotMark size={11} />Always on</span>}
@@ -47,6 +46,9 @@ const detail = clickable
     <span style={`font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; color: ${c.title};`}>{u.title}</span>
     <span style={`font-size: 13px; line-height: 1.6; color: ${c.body}; text-wrap: pretty;`}>{u.body}</span>
   </div>
+  {Astro.slots.has('preview') && (
+    <div style={`border-top: 1px solid ${c.rule}; padding-top: 14px;`}><slot name="preview" /></div>
+  )}
   <div style={`margin-top: auto; padding-top: 12px; border-top: 1px solid ${c.rule}; display: flex; align-items: center; justify-content: space-between; gap: 10px;`}>
     <span style="display: flex; align-items: center; gap: 7px; min-width: 0;"><Icon src="/assets/00b81253.svg" size={13} color={c.rolesIcon} /><span style={`font-size: 12px; color: ${c.roles};`}>{rolesText(u.roles)}</span></span>
     {(clickable || href) && <span class="uc-card-more" style={`font-size: 12px; color: ${c.more}; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;`}>{moreLabel}<Icon src="/assets/ph-arrow-right.svg" size={12} color={c.more} /></span>}

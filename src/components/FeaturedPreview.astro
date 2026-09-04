@@ -1,6 +1,7 @@
 ---
 // Small illustrated preview for the three featured agents on the homepage,
-// drawn in the same micro-UI language as the hero and platform sections.
+// shown between the card text and its footer, in the same micro-UI language
+// as the hero and platform sections.
 import DotMark from './DotMark.astro';
 import Icon from './Icon.astro';
 
@@ -16,7 +17,7 @@ const live = 'width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-rad
 const next = 'width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #ffffff; border: 1.5px solid #c9c5ba; box-sizing: border-box;';
 const panel = 'background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; box-shadow: 0 6px 18px rgba(16,24,40,0.06);';
 ---
-<div style="margin: -20px -20px 0; padding: 18px; background: #ffffff; border-bottom: 1px solid #eceae4; border-radius: 12px 12px 0 0; height: 176px; box-sizing: border-box; display: flex; align-items: center;">
+<div style="height: 148px; box-sizing: border-box; display: flex; align-items: center;">
 
   {slug === 'pre-boarding-and-day-one-orchestration' && (
     <div style={`${panel} width: 100%; padding: 12px 14px 11px; display: flex; flex-direction: column; gap: 8px;`}>
