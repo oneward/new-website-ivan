@@ -109,8 +109,26 @@ function initForm(form) {
       window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
     submit.disabled = false;
-    form.hidden = true;
-    done.hidden = false;
+    await showDone(form, done);
+  });
+}
+
+// Swap the form for the thank-you state without the card changing size:
+// freeze the card at its current height, fade the form out, then ease the
+// message in, centered in the same space.
+function showDone(form, done) {
+  const card = form.closest('[data-analysis-card]');
+  card.style.height = `${card.getBoundingClientRect().height}px`;
+  form.classList.add('is-leaving');
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      form.hidden = true;
+      done.hidden = false;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        done.classList.add('is-shown');
+        resolve();
+      }));
+    }, 300);
   });
 }
 

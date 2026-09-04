@@ -9,7 +9,7 @@ interface Props {
 }
 const { id: p } = Astro.props;
 ---
-<div style="background: #ffffff; color: #101828; border-radius: 14px; padding: 28px 28px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.45);">
+<div class="analysis-card" data-analysis-card style="background: #ffffff; color: #101828; border-radius: 14px; padding: 28px 28px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.45);">
   <form data-analysis-form={p} novalidate style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; flex-direction: column; gap: 4px;">
       <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">Request your free analysis</span>
@@ -40,8 +40,8 @@ const { id: p } = Astro.props;
     <button type="submit" class="btn-blue" style="border: 0; cursor: pointer; font-size: 15px; padding: 14px 24px; width: 100%;">Request my free analysis</button>
     <p style="margin: 0; font-size: 12px; line-height: 1.6; color: #9a968c; text-align: center;">Free, no commitment. Nothing is shared before an NDA is signed.</p>
   </form>
-  <div data-analysis-done hidden style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 24px 0 16px;">
-    <DotMark size={44} />
+  <div class="analysis-done" data-analysis-done hidden style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 24px 0 16px;">
+    <div class="analysis-done-mark"><DotMark size={44} /></div>
     <span style="font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em;">Thank you.</span>
     <span style="font-size: 14px; line-height: 1.6; color: #4a463c; max-width: 320px;">We will reply within one business day to set up a first call and the NDA.</span>
   </div>

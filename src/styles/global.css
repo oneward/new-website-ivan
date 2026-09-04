@@ -18,6 +18,17 @@ a { color: #030FFF; } a:hover { color: #101828; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
+/* ---- analysis form: submitted-state transition ---- */
+.analysis-card { box-sizing: border-box; display: flex; flex-direction: column; transition: height 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.analysis-card > form { transition: opacity 0.28s ease, transform 0.28s ease; }
+.analysis-card > form.is-leaving { opacity: 0; transform: translateY(-6px); pointer-events: none; }
+.analysis-done { flex: 1; opacity: 0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+.analysis-done > * { opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.analysis-done > .analysis-done-mark { transform: scale(0.6); transition-duration: 0.55s; }
+.analysis-done.is-shown, .analysis-done.is-shown > * { opacity: 1; transform: none; }
+.analysis-done.is-shown > :nth-child(2) { transition-delay: 0.12s; }
+.analysis-done.is-shown > :nth-child(3) { transition-delay: 0.22s; }
+
 /* ---- hover styles (ported from style-hover attributes) ---- */
 .nav-link { font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; }
 .nav-link:hover { color: #ffffff; }
