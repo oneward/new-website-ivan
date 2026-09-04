@@ -1,20 +1,17 @@
 ---
 import DotMark from './DotMark.astro';
 ---
-<section id="contact" style="background: linear-gradient(160deg, #030FFF 0%, #020865 100%); padding: 112px 64px; display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center; color: #ffffff;">
-  <DotMark size={72} color="#ffffff" animation="pulse" />
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
-    <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; max-width: 760px; text-wrap: pretty;">Know where agents fit before you commit.</h2>
-    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 680px; text-wrap: pretty;">Start with a free 30-day analysis of your HR systems and workflows: up to three use cases, a written plan you keep, no commitment. Or see the agents live first.</p>
+<section id="contact" style="background: linear-gradient(160deg, #030FFF 0%, #020865 100%); padding: 112px 64px; position: relative; overflow: hidden; color: #ffffff;">
+  <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,0.15) 1.6px, transparent 1.6px); background-size: 48px 48px; background-position: 30px 20px; -webkit-mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%); mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%);"></div>
+  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; text-align: center;">
+    <DotMark size={72} color="#ffffff" animation="pulse" />
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+      <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; max-width: 760px; text-wrap: pretty;">Know where agents fit before you commit.</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 620px; text-wrap: pretty;">A free 30-day analysis of your HR systems and workflows, and a written plan you keep, whatever you decide next.</p>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
+      <a href="/30-day-analysis" class="btn-primary" style="font-size: 15px; padding: 14px 30px;">Start your free 30-day analysis</a>
+      <a href="https://calendly.com/oneward/demo" target="_blank" rel="noopener" class="btn-ghost" style="font-size: 15px; padding: 13px 28px;">Book a demo call</a>
+    </div>
   </div>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
-    <a href="/30-day-analysis" class="btn-primary" style="font-size: 15px; padding: 14px 30px;">Start your free 30-day analysis</a>
-    <a href="https://calendly.com/oneward/demo" target="_blank" rel="noopener" class="btn-ghost" style="font-size: 15px; padding: 13px 28px;">Book a demo call</a>
-  </div>
-  <div style="display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 8px;">
-    {['Reply within one business day', 'You pick up to three use cases', 'NDA signed, the 30 days begin'].map((t, i) => (
-      <span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.72);"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #2BD4FF;">{i + 1}</span>{t}</span>
-    ))}
-  </div>
-  <span style="font-size: 13px; color: rgba(255,255,255,0.6);">Prefer email? <a href="mailto:partners@getoneward.com" style="color: #ffffff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.4);">partners@getoneward.com</a></span>
 </section>
