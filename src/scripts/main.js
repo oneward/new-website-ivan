@@ -129,7 +129,6 @@ function initUseCaseModal() {
     field('users').textContent = d.ucUsers;
     field('legacy').textContent = d.ucLegacy;
     field('solution').textContent = d.ucSolution;
-    field('roles').textContent = d.ucRolesText;
     if (iconEl) {
       const url = `url('/assets/ph-${d.ucIcon}.svg')`;
       iconEl.style.webkitMaskImage = url;
