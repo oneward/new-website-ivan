@@ -1,0 +1,37 @@
+---
+// Site navigation. Rendered twice by Hero: once in-flow, once as the sticky bar
+// that slides in after the hero card scrolls past (driven by main.js).
+interface Props {
+  sticky?: boolean;
+}
+const { sticky = false } = Astro.props;
+const links = [
+  { href: '/#agents', label: 'Use cases' },
+  { href: '/#integrations', label: 'How it fits' },
+  { href: '/#security', label: 'Security' },
+  { href: '/about', label: 'About' },
+];
+---
+{sticky ? (
+  <div class="sticky-nav" data-sticky-nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: rgba(5,7,31,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <nav style="max-width: 1160px; margin: 0 auto; padding: 14px 64px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+      <a href="/#top" style="display: flex; align-items: center; text-decoration: none;"><img src="/assets/bcef62c6.svg" alt="oneward" style="height: 28px; display: block;" /></a>
+      <div style="display: flex; align-items: center; gap: 30px;">
+        {links.map((l) => <a href={l.href} class="nav-link">{l.label}</a>)}
+        <a href="/30-day-analysis" class="btn-primary" style="font-family: 'Inter', sans-serif; font-size: 14px; padding: 8px 18px;">Start free analysis</a>
+      </div>
+    </nav>
+  </div>
+) : (
+  <div style="position: relative;">
+    <nav style="position: relative; max-width: 1160px; margin: 0 auto; padding: 26px 64px; display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+      <a href="/#top" style="display: flex; align-items: center; text-decoration: none;">
+        <img src="/assets/bcef62c6.svg" alt="oneward" style="height: 34px; display: block;" />
+      </a>
+      <div style="display: flex; align-items: center; gap: 30px;">
+        {links.map((l) => <a href={l.href} class="nav-link">{l.label}</a>)}
+        <a href="/30-day-analysis" class="btn-primary" style="font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 22px;">Start free analysis</a>
+      </div>
+    </nav>
+  </div>
+)}

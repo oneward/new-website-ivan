@@ -1,0 +1,137 @@
+// Client-side behavior for the homepage, ported from the original design logic:
+// sticky nav, rotating hero headline, lifecycle stage animation, chat demo,
+// use-case role filter, and the integration-diagram responsive scaling.
+
+const TENANTS = ['your HR systems', 'any HCM', 'Workday', 'SuccessFactors', 'Oracle HCM'];
+
+function initStickyNav() {
+  const bar = document.querySelector('[data-sticky-nav]');
+  const heroCard = document.querySelector('[data-hero-card]');
+  if (!bar || !heroCard) return;
+  const onScroll = () => {
+    const past = heroCard.getBoundingClientRect().bottom < 0;
+    bar.classList.toggle('is-shown', past);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function initTenantWord() {
+  const host = document.querySelector('[data-tenant-word]');
+  if (!host) return;
+  let idx = 0;
+  setInterval(() => {
+    idx = (idx + 1) % TENANTS.length;
+    const span = document.createElement('span');
+    span.style.cssText = 'display: inline-block; white-space: nowrap; animation: owWordIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);';
+    span.innerHTML = `<span style="color: #2BD4FF;"></span>.`;
+    span.firstChild.textContent = TENANTS[idx];
+    host.replaceChildren(span);
+  }, 2600);
+}
+
+function initLifecycle() {
+  const root = document.querySelector('[data-lifecycle]');
+  if (!root) return;
+  const stageEls = root.querySelectorAll('[data-stage-i]');
+  let tick = 0;
+  const apply = () => {
+    const active = Math.floor(tick / 5);
+    const step = tick % 5;
+    stageEls.forEach((el) => {
+      const i = Number(el.dataset.stageI);
+      el.classList.toggle('is-active', i === active);
+      el.querySelectorAll('[data-task-j]').forEach((task) => {
+        const j = Number(task.dataset.taskJ);
+        const done = (i === active && j < step) || i < active;
+        const live = i === active && j === step && step < 4;
+        task.classList.toggle('is-done', done);
+        task.classList.toggle('is-live', live);
+      });
+    });
+  };
+  apply();
+  setInterval(() => {
+    tick = (tick + 1) % 25;
+    apply();
+  }, 1600);
+}
+
+function initChat() {
+  const root = document.querySelector('[data-chat]');
+  if (!root) return;
+  const panels = root.querySelectorAll('[data-chat-panel]');
+  const tabs = root.querySelectorAll('[data-channel-tab]');
+  if (!panels.length) return;
+  let channel = 0;
+  let step = 0;
+  const apply = () => {
+    panels.forEach((panel) => {
+      const c = Number(panel.dataset.chatPanel);
+      panel.classList.toggle('is-current', c === channel);
+      panel.querySelectorAll('[data-at]').forEach((msg) => {
+        msg.classList.toggle('is-on', step >= Number(msg.dataset.at));
+      });
+      panel.querySelectorAll('[data-approved-at]').forEach((card) => {
+        card.classList.toggle('is-approved', step >= Number(card.dataset.approvedAt));
+      });
+    });
+    tabs.forEach((tab) => {
+      tab.classList.toggle('is-current', Number(tab.dataset.channelTab) === channel);
+    });
+  };
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      channel = Number(tab.dataset.channelTab);
+      step = 0;
+      apply();
+    });
+  });
+  apply();
+  setInterval(() => {
+    if (step >= 10) {
+      step = 0;
+      channel = (channel + 1) % panels.length;
+    } else {
+      step += 1;
+    }
+    apply();
+  }, 1400);
+}
+
+function initUseCaseFilter() {
+  const root = document.querySelector('[data-usecases]');
+  if (!root) return;
+  const filters = root.querySelectorAll('[data-uc-filter]');
+  const cards = root.querySelectorAll('[data-uc-roles]');
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const role = btn.dataset.ucFilter;
+      filters.forEach((b) => b.classList.toggle('is-current', b === btn));
+      cards.forEach((card) => {
+        const roles = card.dataset.ucRoles.split('|');
+        card.classList.toggle('is-hidden', role !== 'All' && !roles.includes(role));
+      });
+    });
+  });
+}
+
+function initDiagramScale() {
+  const wrap = document.querySelector('[data-diagram-wrap]');
+  const inner = document.querySelector('[data-diagram]');
+  if (!wrap || !inner) return;
+  const measure = () => {
+    const sc = Math.min(1, wrap.clientWidth / 1032);
+    inner.style.transform = `scale(${sc.toFixed(4)})`;
+    wrap.style.height = `${Math.round(552 * sc)}px`;
+  };
+  new ResizeObserver(measure).observe(wrap);
+  measure();
+}
+
+initStickyNav();
+initTenantWord();
+initLifecycle();
+initChat();
+initUseCaseFilter();
+initDiagramScale();

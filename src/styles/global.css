@@ -1,0 +1,74 @@
+body { margin: 0; background: #f7f6f3; font-family: 'Inter', Helvetica, sans-serif; color: #101828; }
+a { color: #030FFF; } a:hover { color: #101828; }
+
+@keyframes owThink { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.9; } }
+@keyframes owCoverPulse { 0%, 58%, 100% { opacity: 1; } 12% { opacity: 0.18; } 26% { opacity: 0.9; } 40% { opacity: 0.22; } 52% { opacity: 1; } }
+@keyframes owShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes owWordIn { from { opacity: 0; transform: translateY(0.35em); } to { opacity: 1; transform: translateY(0); } }
+@keyframes owRingOnce { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(2.3); opacity: 0; } }
+@keyframes owFlow { 0%, 55%, 100% { opacity: 0.14; } 22% { opacity: 0.7; } }
+@keyframes owSpawnMark { 0%, 4% { opacity: 0; transform: scale(0.4); } 10%, 86% { opacity: 1; transform: scale(1); } 92%, 100% { opacity: 0; transform: scale(0.6); } }
+@keyframes owSpawnText { 0%, 12% { max-width: 0; opacity: 0; } 24%, 82% { max-width: 140px; opacity: 1; } 90%, 100% { max-width: 0; opacity: 0; } }
+@keyframes owFlowX { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes owFlowY { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+@keyframes owLive { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.72); opacity: 0.55; } }
+
+/* ---- hover styles (ported from style-hover attributes) ---- */
+.nav-link { font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; }
+.nav-link:hover { color: #ffffff; }
+.btn-primary { font-family: 'Sora', sans-serif; font-weight: 400; color: #030FFF; background: #ffffff; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.btn-primary:hover { background: #dfe3ff; color: #020865; }
+.btn-ghost { font-family: 'Sora', sans-serif; font-weight: 400; color: #ffffff; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.btn-ghost:hover { border-color: #ffffff; background: rgba(255,255,255,0.08); }
+.btn-blue { font-family: 'Sora', sans-serif; font-weight: 400; color: #ffffff; background: #030FFF; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.btn-blue:hover { background: #020865; color: #ffffff; }
+.footer-link { font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; }
+.footer-link:hover { color: #ffffff; }
+
+/* ---- sticky nav ---- */
+.sticky-nav { transform: translateY(-100%); opacity: 0; pointer-events: none; transition: transform 0.35s ease, opacity 0.35s ease; }
+.sticky-nav.is-shown { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+/* ---- hero lifecycle stages ---- */
+.stage-label { color: rgba(3,15,255,0.38); transition: color 0.6s; }
+.stage.is-active .stage-label { color: #030FFF; }
+.stage-dot-fill { background: #ffffff; transition: background 0.6s; }
+.stage.is-active .stage-dot-fill { background: #030FFF; }
+.stage-ring { display: none; }
+.stage.is-active .stage-ring { display: block; }
+.stage-flow { opacity: 1; transition: opacity 0.6s; }
+.stage.is-active .stage-flow { opacity: 0; }
+.stage-card { opacity: 0; box-shadow: none; transition: opacity 0.6s, box-shadow 0.6s; }
+.stage.is-active .stage-card { opacity: 1; box-shadow: 0 4px 12px rgba(2,7,31,0.1); }
+.stage-head { opacity: 0; transition: opacity 0.6s; }
+.stage.is-active .stage-head { opacity: 1; }
+.stage-phrase-live { display: none; }
+.stage.is-active .stage-phrase-live { display: inline; }
+.stage.is-active .stage-phrase-idle { display: none; }
+.task .task-done, .task .task-live { display: none; }
+.task .task-text { color: #9a968c; }
+.task.is-done .task-done { display: block; }
+.task.is-done .task-next, .task.is-live .task-next { display: none; }
+.task.is-live .task-live { display: block; }
+.task.is-done .task-text, .task.is-live .task-text { color: #4a463c; }
+.task .task-text-live { display: none; }
+.task.is-live .task-text-live { display: inline; }
+.task.is-live .task-text-idle { display: none; }
+
+/* ---- channels / chat demo ---- */
+.chat-msg { opacity: 0; transform: translateY(8px); }
+.chat-msg.is-on { opacity: 1; transform: translateY(0); }
+.chat-card .card-done { display: none; }
+.chat-card.is-approved .card-done { display: flex; }
+.chat-card.is-approved .card-pending { display: none; }
+.chat-panel { display: none; }
+.chat-panel.is-current { display: block; }
+.channel-tab { color: #ffffff; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.22); cursor: pointer; }
+.channel-tab.is-current { color: #101828; background: #ffffff; border-color: #ffffff; }
+
+/* ---- use-case filter ---- */
+.uc-filter { color: #4a463c; background: #ffffff; border: 1px solid #e3e1db; cursor: pointer; }
+.uc-filter.is-current { color: #ffffff; background: #030FFF; border-color: #030FFF; }
+.uc-filter .uc-count { color: #9a968c; }
+.uc-filter.is-current .uc-count { color: rgba(255,255,255,0.7); }
+.uc-card.is-hidden { display: none; }
