@@ -58,6 +58,7 @@
   .uc-library-band .btn-blue { text-align: center; }
   .timeline { grid-template-columns: 1fr !important; gap: 24px; }
   .timeline-marker { display: none !important; }
+  .day30-text { order: -1; }
   .timeline .uc-grid { gap: 22px !important; }
   .timeline .uc-grid > div { border-left: 0 !important; padding: 0 !important; }
   .plan-row { grid-template-columns: 28px 1fr !important; }
