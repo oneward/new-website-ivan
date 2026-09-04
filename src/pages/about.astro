@@ -14,7 +14,7 @@ const beliefs = [
 const stages = [
   { icon: '/assets/ph-detective.svg', title: 'Analyze', body: 'Thirty days, free, read-only. We find where agents save the most time in your systems and write the plan. You keep it.', href: '/30-day-analysis', link: 'How the analysis works' },
   { icon: '/assets/ph-git-merge.svg', title: 'Build', body: 'Our engineers build each agent with your HR and IT teams, inside your tenant, on the models and endpoints your security team approves.' },
-  { icon: '/assets/ph-chart-line-up.svg', title: 'Run', body: 'We tune and maintain the agents as your policies and systems change. You keep the approvals. Nothing ships that you have not signed off.' },
+  { icon: '/assets/ph-chart-line-up.svg', title: 'Run', body: 'We tune and maintain the agents as your policies and systems change. Approvals stay with your people, and nothing changes in production without your sign-off.' },
 ];
 
 const steps = [
@@ -30,7 +30,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
 ---
 <PageShell
   title="HR work should finish, not sit in a queue."
-  intro="Oneward builds AI agents that run inside the HR systems enterprises already own. They take the requests that today become tickets, spreadsheets, and follow-ups, and finish them."
+  intro="Oneward builds AI agents that run inside the HR systems enterprises already own, and finish the requests that today become tickets, spreadsheets, and follow-ups."
   description="Oneward builds AI agents that run inside the HR systems enterprises already own, with the permissions and audit trail those systems require."
 >
   <!-- ============ Why Oneward exists ============ -->
@@ -42,22 +42,22 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
         <p style={body}>Language models made it possible to finish this work rather than route it. Enterprise HR cannot run that from a chat window, though. It needs the agents inside the tenant, under the same permissions, approvals, and audit trail as everything else in the stack.</p>
         <p style={body}>That gap is what Oneward was built to close.</p>
       </div>
-      <div style="background: #101828; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
+      <div class="flow" data-flow style="background: #101828; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
         <div style="padding: 20px 24px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
           <span style="display: flex; align-items: center; gap: 10px;"><DotMark size={18} color="#ffffff" animation="none" /><span style={`${mono} color: rgba(255,255,255,0.6);`}>LEAVE REQUEST · OCT 6–10</span></span>
-          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #16DB4E; animation: owLive 2.2s ease-in-out infinite;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #16DB4E;">DONE</span></span>
+          <span class="flow-status" style="display: flex; align-items: center; gap: 8px;"><span class="flow-status-dot" style="width: 7px; height: 7px; border-radius: 50%;"></span><span class="flow-status-text" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px;"></span></span>
         </div>
         <div style="padding: 18px 24px 8px; display: flex; flex-direction: column;">
           {steps.map((s, i) => (
-            <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; padding-bottom: 18px; position: relative;">
-              {i < steps.length - 1 && <span style="position: absolute; left: 10.5px; top: 22px; bottom: 0; width: 1px; background: rgba(255,255,255,0.14);"></span>}
-              <span style="width: 22px; height: 22px; border-radius: 50%; background: rgba(43,212,255,0.14); border: 1px solid rgba(43,212,255,0.5); display: flex; align-items: center; justify-content: center;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #2BD4FF;"></span></span>
+            <div class="flow-step" data-flow-step={i} style="display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; padding-bottom: 18px; position: relative;">
+              {i < steps.length - 1 && <span class="flow-rail" style="position: absolute; left: 10.5px; top: 22px; bottom: 0; width: 1px; background: rgba(255,255,255,0.14);"></span>}
+              <span class="flow-ring" style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><span class="flow-dot" style="width: 6px; height: 6px; border-radius: 50%;"></span></span>
               <span style="display: flex; flex-direction: column; gap: 3px;"><span style={`${mono} color: rgba(255,255,255,0.5);`}>{s.label}</span><span style="font-size: 13.5px; color: #ffffff; line-height: 1.4;">{s.text}</span></span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.45); padding-top: 2px;">{s.time}</span>
+              <span class="flow-time" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.45); padding-top: 2px;">{s.time}</span>
             </div>
           ))}
         </div>
-        <div style="background: #0b1224; border-top: 1px solid rgba(255,255,255,0.08); padding: 14px 24px; display: flex; align-items: center; gap: 10px;">
+        <div class="flow-audit" style="background: #0b1224; border-top: 1px solid rgba(255,255,255,0.08); padding: 14px 24px; display: flex; align-items: center; gap: 10px;">
           <Icon src="/assets/ph-seal-check.svg" size={14} color="#2BD4FF" />
           <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: rgba(255,255,255,0.7);">#48213 · leave.create · approved by M. Klein · <span style="color: #2BD4FF;">reversible</span></span>
         </div>
@@ -70,7 +70,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
     <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
       <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 720px; margin: 0 auto;">
         <h2 style={h2}>What we believe.</h2>
-        <p style={body}>Four rules that decide what we build and what we turn down.</p>
+        <p style={body}>Four rules that decide what we build, and what we say no to.</p>
       </div>
       <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px;">
         {beliefs.map((b, i) => (
@@ -91,7 +91,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
     <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px;">
         <h2 style={h2}>How we work with you.</h2>
-        <p style={body}>Oneward is not a self-serve tool. We map, build, and tune each agent with you, then keep it running. Three stages, and you decide at the end of each one.</p>
+        <p style={body}>Oneward is not a self-serve tool. We map, build, and tune each agent with you, then keep it running. Three stages, and a decision that is yours at the end of each.</p>
       </div>
       <div class="stages-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; position: relative;">
         {stages.map((s, i) => (

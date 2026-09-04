@@ -12,7 +12,7 @@ const work = [
 const traits = [
   { title: 'You have shipped into enterprise systems.', body: 'You know what an integration looks like after the demo: the edge cases, the permissions, the change request that takes three weeks.' },
   { title: 'You care that the work finishes.', body: 'A closed case matters more to you than a clever answer. You measure what you build by what it completed.' },
-  { title: 'You are comfortable in someone else’s tenant.', body: 'Our agents run inside the customer’s environment, and their security team reads what we do. That suits you.' },
+  { title: 'You are comfortable in someone else’s tenant.', body: 'Our agents run inside the customer’s environment, and their security team reads what we do. You would rather have it that way.' },
 ];
 
 const h2 = "margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;";
@@ -20,7 +20,7 @@ const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text
 ---
 <PageShell
   title="No open roles right now."
-  intro="We hire carefully, and only when a role is clear. When one opens, it will be listed here. Until then, this page says what the work is, so you can tell whether it is for you."
+  intro="We hire carefully, and only when a role is clear. When one opens, it will be listed here first. Until then, this page says what the work is, so you can tell whether it is for you."
   description="Careers at Oneward. No open roles right now; here is what the work is and how to reach us when that changes."
 >
   <div slot="hero" style="display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: 13.5px; color: rgba(255,255,255,0.7);">
@@ -33,7 +33,7 @@ const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text
     <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 640px;">
         <h2 style={h2}>What you would be working on.</h2>
-        <p style={body}>Oneward sits between enterprise HR systems and language models. The work is making that seam reliable enough that an HR team trusts it with a payroll change.</p>
+        <p style={body}>Oneward sits between enterprise HR systems and language models. The work is making that seam reliable enough that an HR team will trust it with a payroll change.</p>
       </div>
       <div class="stages-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px;">
         {work.map((w) => (

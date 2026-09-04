@@ -1,6 +1,7 @@
 ---
 import PageShell from '../layouts/PageShell.astro';
 import Icon from '../components/Icon.astro';
+import DotMark from '../components/DotMark.astro';
 
 const demoUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1bEd8u8szmWjajGOsMk7zNeJJtUbpUer3K8dbyixL7u-72JTup49yQgVSRj_5RfjmI6AbF53Fi?gv=true';
 
@@ -17,6 +18,13 @@ const details = [
   ['LinkedIn', 'linkedin.com/company/oneward', 'https://www.linkedin.com/company/oneward/'],
 ];
 
+const next = [
+  { title: 'We reply within one business day.', body: 'A person, not an autoresponder. If it is a security questionnaire or a privacy request, the reply comes from the people who own it.' },
+  { title: 'A first call, thirty minutes.', body: 'What you run, what slows your team down, and whether agents are a fit. If they are not, we say so.' },
+  { title: 'NDA before anything is shared.', body: 'Nothing about your systems or data changes hands until the agreements are signed. Then the analysis can start.' },
+];
+
+const h2 = "margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;";
 const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text-wrap: pretty;';
 ---
 <PageShell
@@ -28,7 +36,7 @@ const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text
     <div class="two-col" style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 80px; align-items: start;">
       <div style="display: flex; flex-direction: column; gap: 28px;">
         <div style="display: flex; flex-direction: column; gap: 14px;">
-          <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;">Three ways in.</h2>
+          <h2 style={h2}>Three ways in.</h2>
           <p style={body}>If you are deciding whether agents fit your HR stack, start with the analysis. If you want to see one running first, book the call. For anything else, email.</p>
         </div>
         <div style="display: flex; flex-direction: column;">
@@ -57,6 +65,29 @@ const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text
               <span class="contact-way-link" style="margin-top: 4px; font-size: 13.5px; color: #030FFF;">{w.link} →</span>
             </span>
           </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ What happens next ============ -->
+  <section style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; max-width: 720px; margin: 0 auto;">
+        <h2 style={h2}>What happens after you write.</h2>
+        <p style={body}>The same three steps, whichever route you take.</p>
+      </div>
+      <div class="stages-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px;">
+        {next.map((n, i) => (
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 16px; display: flex; justify-content: center;">{i === 2 ? <DotMark size={16} /> : <span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF;"></span>}</span>
+              <span style="flex: 1; height: 1px; background: #d9d6ce;"></span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #030FFF;">0{i + 1}</span>
+            </div>
+            <span style="font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; color: #101828;">{n.title}</span>
+            <span style="font-size: 14.5px; line-height: 1.65; color: #4a463c; text-wrap: pretty;">{n.body}</span>
+          </div>
         ))}
       </div>
     </div>

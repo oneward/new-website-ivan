@@ -194,6 +194,32 @@ function initDemoModal() {
   });
 }
 
+// About page: the request-flow panel steps through its stages, then shows
+// the finished state with the audit line, and loops.
+function initFlowDemo() {
+  const root = document.querySelector('[data-flow]');
+  if (!root) return;
+  const steps = root.querySelectorAll('[data-flow-step]');
+  const status = root.querySelector('.flow-status-text');
+  const n = steps.length;
+  let tick = 0;
+  const apply = () => {
+    const done = tick >= n;
+    steps.forEach((el) => {
+      const i = Number(el.dataset.flowStep);
+      el.classList.toggle('is-on', i < tick);
+      el.classList.toggle('is-live', i === tick);
+    });
+    root.classList.toggle('is-done', done);
+    status.textContent = done ? 'DONE' : 'RUNNING';
+  };
+  apply();
+  setInterval(() => {
+    tick = (tick + 1) % (n + 3);
+    apply();
+  }, 1300);
+}
+
 function initDiagramScale() {
   const wrap = document.querySelector('[data-diagram-wrap]');
   const inner = document.querySelector('[data-diagram]');
@@ -214,4 +240,5 @@ initChat();
 initUseCaseFilter();
 initUseCaseModal();
 initDemoModal();
+initFlowDemo();
 initDiagramScale();
