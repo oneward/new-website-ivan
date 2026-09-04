@@ -40,8 +40,6 @@
   .contrast-row { grid-template-columns: 1fr !important; gap: 8px !important; }
   .contrast-arrow { display: none !important; }
   .contrast-row > span { justify-self: stretch !important; }
-  .whynow-grid { grid-template-columns: 1fr !important; padding: 24px 22px !important; }
-  .whynow-img { display: none !important; }
 
   /* channels */
   .persona-grid { grid-template-columns: 1fr !important; }
