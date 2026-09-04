@@ -1,12 +1,9 @@
 // 30-day analysis request form (rendered twice on the page).
 //
-// The site is static, so submissions are delivered through PostHog (loaded in
-// Base.astro): the visitor is identified by email and an `analysis_requested`
-// event carries the form fields. If PostHog is blocked (ad blocker, strict
-// privacy settings), the form falls back to opening a pre-filled email to
-// partners@getoneward.com so requests still arrive.
-const EVENT_NAME = 'analysis_requested';
-const FALLBACK_EMAIL = 'partners@getoneward.com';
+// The site is static and has no form backend yet: submitting opens a
+// pre-filled email to partners@getoneward.com with the entered fields.
+// SUBMIT_EMAIL is the only delivery path until a backend is chosen.
+const SUBMIT_EMAIL = 'partners@getoneward.com';
 
 const labels = {
   name: 'Name',
@@ -59,23 +56,7 @@ function initMultiSelect(root) {
   render();
 }
 
-// Resolves with the PostHog client once its script has loaded, or with null
-// if it has not loaded within `timeout` ms (blocked or offline).
-function waitForPostHog(timeout = 2500) {
-  return new Promise((resolve) => {
-    const started = Date.now();
-    const check = () => {
-      const ph = window.posthog;
-      if (ph && ph.__loaded) return resolve(ph);
-      if (Date.now() - started > timeout) return resolve(null);
-      setTimeout(check, 100);
-    };
-    check();
-  });
-}
-
 function initForm(form) {
-  const submit = form.querySelector('[type="submit"]');
   const done = form.parentElement.querySelector('[data-analysis-done]');
 
   form.addEventListener('submit', async (e) => {
@@ -83,32 +64,12 @@ function initForm(form) {
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form).entries());
 
-    submit.disabled = true;
-    const ph = await waitForPostHog();
-    if (ph) {
-      const props = {
-        name: data.name,
-        email: data.email,
-        company: data.company || null,
-        location: data.location || null,
-        website: data.website || null,
-        hris: data.hris || null,
-        hr_tools: data.tools ? data.tools.split(', ') : [],
-      };
-      // A second submission with a different email on the same page must not
-      // be merged into the first person; start a fresh identity for it.
-      if (ph.get_property('$user_state') === 'identified' && ph.get_distinct_id() !== data.email) ph.reset();
-      ph.identify(data.email, props);
-      ph.capture(EVENT_NAME, { ...props, form_position: form.dataset.analysisForm || 'hero' }, { send_instantly: true });
-    } else {
-      const body = Object.entries(labels)
-        .filter(([k]) => data[k])
-        .map(([k, label]) => `${label}: ${data[k]}`)
-        .join('\n');
-      const subject = `30-day analysis request: ${data.company || data.name}`;
-      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-    submit.disabled = false;
+    const body = Object.entries(labels)
+      .filter(([k]) => data[k])
+      .map(([k, label]) => `${label}: ${data[k]}`)
+      .join('\n');
+    const subject = `30-day analysis request: ${data.company || data.name}`;
+    window.location.href = `mailto:${SUBMIT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     await showDone(form, done);
   });
 }
