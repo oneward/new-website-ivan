@@ -8,6 +8,9 @@
   .faq-grid { grid-template-columns: 1fr !important; row-gap: 32px !important; }
   .two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
   .stages-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .beliefs-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .contact-grid > * { grid-column: auto !important; grid-row: auto !important; }
+  .contact-grid .contact-details { order: 3; }
   p[style*="nowrap"], h2[style*="nowrap"] { white-space: normal !important; }
 }
 
@@ -22,6 +25,8 @@
   }
   #library { padding-top: 40px !important; }
   .library-hero { padding: 48px 20px 64px !important; }
+  .page-hero h1 { font-size: clamp(30px, 8.5vw, 40px) !important; }
+  .flow-date { display: none; }
 
   /* filter chips become one horizontally scrollable row */
   .uc-filters { flex-wrap: nowrap !important; justify-content: flex-start !important; overflow-x: auto; margin: 0 -20px; padding: 0 20px 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }

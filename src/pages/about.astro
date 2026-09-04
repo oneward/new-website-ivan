@@ -44,7 +44,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
       </div>
       <div class="flow" data-flow style="background: #101828; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
         <div style="padding: 20px 24px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-          <span style="display: flex; align-items: center; gap: 10px;"><DotMark size={18} color="#ffffff" animation="none" /><span style={`${mono} color: rgba(255,255,255,0.6);`}>LEAVE REQUEST · OCT 6–10</span></span>
+          <span style="display: flex; align-items: center; gap: 10px;"><DotMark size={18} color="#ffffff" animation="none" /><span style={`${mono} color: rgba(255,255,255,0.6);`}>LEAVE REQUEST<span class="flow-date"> · OCT 6–10</span></span></span>
           <span class="flow-status" style="display: flex; align-items: center; gap: 8px;"><span class="flow-status-dot" style="width: 7px; height: 7px; border-radius: 50%;"></span><span class="flow-status-text" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px;"></span></span>
         </div>
         <div style="padding: 18px 24px 8px; display: flex; flex-direction: column;">
@@ -72,7 +72,7 @@ const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter
         <h2 style={h2}>What we believe.</h2>
         <p style={body}>Four rules that decide what we build, and what we say no to.</p>
       </div>
-      <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px;">
+      <div class="beliefs-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px;">
         {beliefs.map((b, i) => (
           <div style="border-top: 1px solid #d9d6ce; padding: 22px 0 30px; display: grid; grid-template-columns: 16px minmax(0, 1fr); column-gap: 14px; align-items: start;">
             <span style="margin-top: 4px;"><DotMark size={16} /></span>
