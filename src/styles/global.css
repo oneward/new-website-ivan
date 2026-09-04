@@ -116,6 +116,8 @@ a { color: #030FFF; } a:hover { color: #101828; }
 a.uc-card { text-decoration: none; color: inherit; }
 .uc-card.is-clickable { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
 .uc-card.is-clickable:hover, .uc-card.is-clickable:focus-visible { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,24,40,0.08); border-color: rgba(3,15,255,0.4) !important; outline: none; }
+.uc-card-dark { box-shadow: 0 16px 36px rgba(2,7,31,0.18); }
+.uc-card-dark.is-clickable:hover, .uc-card-dark.is-clickable:focus-visible { box-shadow: 0 22px 44px rgba(2,7,31,0.3); border-color: rgba(43,212,255,0.55) !important; }
 
 /* ---- analysis request form ---- */
 .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
