@@ -16,9 +16,16 @@
 
   /* section rhythm: 64px sides → 20px, vertical padding trimmed */
   section[style*="padding: 104px"], section[style*="padding: 88px"],
-  section[style*="padding: 96px"], section[style*="padding: 112px"], footer {
+  section[style*="padding: 96px"], section[style*="padding: 112px"], footer, #library {
     padding: 64px 20px !important;
   }
+  #library { padding-top: 40px !important; }
+  .library-hero { padding: 48px 20px 64px !important; }
+
+  /* filter chips become one horizontally scrollable row */
+  .uc-filters { flex-wrap: nowrap !important; justify-content: flex-start !important; overflow-x: auto; margin: 0 -20px; padding: 0 20px 6px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .uc-filters::-webkit-scrollbar { display: none; }
+  .uc-filters .uc-filter { flex-shrink: 0; }
   .nav-row { padding: 18px 20px !important; gap: 16px !important; }
   .nav-links { gap: 16px !important; }
   .nav-links .nav-link { display: none; }

@@ -8,7 +8,7 @@ import { useCases, roleOrder } from '../data/useCases';
 ---
 <section id="library" style="background: #f7f6f3; padding: 64px 64px 104px;">
   <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;" data-usecases>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+    <div class="uc-filters" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
       {roleOrder.map((r) => (
         <button type="button" class:list={['uc-filter', { 'is-current': r === 'All' }]} data-uc-filter={r} style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; border-radius: 999px; padding: 9px 16px; white-space: nowrap; transition: all 0.25s;">{r === 'All' ? 'All roles' : r}<span class="uc-count" style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;">{r === 'All' ? useCases.length : useCases.filter((u) => u.roles.includes(r)).length}</span></button>
       ))}
