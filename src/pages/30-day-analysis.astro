@@ -159,7 +159,7 @@ const talk = 'Prefer to talk first?';
           <div class="decision-row" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));">
             {decisions.map((d, i) => (
               <div class="decision-col" style={`display: flex; flex-direction: column; gap: 6px; ${i > 0 ? 'padding-left: 20px; border-left: 1px solid #eceae4;' : ''} ${i < decisions.length - 1 ? 'padding-right: 20px;' : ''}`}>
-                <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #101828;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF; flex-shrink: 0;"></span>{d.title}</span>
+                <span style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; font-weight: 600; color: #101828; line-height: 1.4;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF; flex-shrink: 0; margin-top: 6px;"></span>{d.title}</span>
                 <span style="font-size: 13.5px; line-height: 1.55; color: #6f6a5e; padding-left: 15px;">{d.body}</span>
               </div>
             ))}
