@@ -123,14 +123,18 @@ const talk = 'Prefer to talk first?';
 
       <div class="tl-card" style="width: 100%; max-width: 720px; box-sizing: border-box; background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 30px 32px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.06); display: flex; flex-direction: column;">
         {phases.map((ph, i) => (
-          <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 22px;">
-            <div style={`display: flex; flex-direction: column; gap: 3px; ${i > 0 ? 'padding-top: 3px;' : ''}`}>
+          <div style={`display: grid; grid-template-columns: 26px 12px minmax(0, 1fr); column-gap: 14px; ${i < phases.length - 1 ? 'padding-bottom: 14px;' : ''}`}>
+            <div style="position: relative;">
+              <span style="position: absolute; top: -1px; right: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9a968c; line-height: 1;">{ph.days[0]}</span>
+              {i === phases.length - 1 && <span style="position: absolute; bottom: -1px; right: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #030FFF; line-height: 1;">30</span>}
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 3px;">
               {ph.days.map((d) => (
-                <span title={`Day ${d}`} style={`flex: 1; min-height: 8px; border-radius: 2px; box-sizing: border-box; ${d === 30 ? 'background: #2BD4FF;' : d === 1 ? 'border: 1.5px solid #030FFF; background: #ffffff;' : checkIns.includes(d) ? 'background: #030FFF;' : 'background: rgba(3,15,255,0.14);'}`}></span>
+                <span title={`Day ${d}`} style={`height: 9px; border-radius: 2px; box-sizing: border-box; ${d === 30 ? 'background: #2BD4FF;' : d === 1 ? 'border: 1.5px solid #030FFF; background: #ffffff;' : checkIns.includes(d) ? 'background: #030FFF;' : 'background: rgba(3,15,255,0.14);'}`}></span>
               ))}
             </div>
-            <div style={`display: flex; flex-direction: column; gap: 8px; padding-bottom: 28px; ${i > 0 ? 'padding-top: 4px;' : ''}`}>
-              <div style="display: flex; align-items: baseline; gap: 10px;">
+            <div style={`display: flex; flex-direction: column; gap: 8px; min-height: ${ph.days.length * 12 - 3}px; padding-left: 8px;`}>
+              <div style="display: flex; align-items: baseline; gap: 10px; margin-top: -3px;">
                 <span style="font-size: 12.5px; font-weight: 600; color: #030FFF;">{ph.label}</span>
                 <span style="font-size: 12px; color: #9a968c;">{ph.span}</span>
               </div>
@@ -139,13 +143,15 @@ const talk = 'Prefer to talk first?';
             </div>
           </div>
         ))}
-        <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 22px;">
+        <div style="display: grid; grid-template-columns: 26px 12px minmax(0, 1fr); column-gap: 14px;">
+          <div></div>
           <div style="display: flex; justify-content: center;"><span style="height: 100%; min-height: 26px; border-left: 2px dotted rgba(3,15,255,0.35);"></span></div>
           <div></div>
         </div>
-        <div style="display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 22px; align-items: start;">
+        <div style="display: grid; grid-template-columns: 26px 12px minmax(0, 1fr); column-gap: 14px; align-items: start;">
+          <div></div>
           <div style="display: flex; justify-content: center; padding-top: 18px;"><span style="width: 10px; height: 10px; transform: rotate(45deg); border-radius: 2px; border: 1.5px dashed #9a968c; box-sizing: border-box;"></span></div>
-          <div style="background: #f7f6f3; border: 1px dashed #c9c5ba; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="margin-left: 8px; background: #f7f6f3; border: 1px dashed #c9c5ba; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px;">
             <div style="display: flex; align-items: baseline; gap: 10px;">
               <span style="font-size: 12.5px; font-weight: 600; color: #6f6a5e;">After day 30</span>
             </div>
