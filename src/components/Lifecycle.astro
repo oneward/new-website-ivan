@@ -2,6 +2,7 @@
 // Standalone lifecycle section: the hero card again, with its own headline,
 // on the same gradient and dot texture as the hero.
 import LifecycleCard from './LifecycleCard.astro';
+import Icon from './Icon.astro';
 ---
 <section id="lifecycle" style="background: linear-gradient(160deg, #05071F 0%, #030FFF 100%); color: #ffffff; position: relative; overflow: hidden; padding: 104px 64px;">
   <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,0.15) 1.6px, transparent 1.6px); background-size: 48px 48px; background-position: 30px 20px; -webkit-mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%); mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%);"></div>
@@ -11,5 +12,9 @@ import LifecycleCard from './LifecycleCard.astro';
       <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 620px; text-wrap: pretty;">From the first job post to the exit survey, each stage has agents that carry the work through to done, on one always-on foundation for data, pay, compliance, and service.</p>
     </div>
     <LifecycleCard />
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; padding-top: 12px;">
+      <span style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.015em; color: #ffffff; text-wrap: pretty;">Every stage above has agents ready to run.</span>
+      <a href="/use-cases" class="btn-primary" style="font-size: 15px; padding: 14px 26px 14px 28px; display: inline-flex; align-items: center; gap: 8px;">Explore all agents<Icon src="/assets/ph-arrow-right.svg" size={16} color="currentColor" /></a>
+    </div>
   </div>
 </section>
