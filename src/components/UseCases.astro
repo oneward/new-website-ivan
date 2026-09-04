@@ -1,5 +1,5 @@
 ---
-// Homepage teaser: three featured agents on dark cards with illustrated
+// Homepage teaser: three featured agents with illustrated
 // previews, plus one call to action to the full library.
 import UseCaseCard from './UseCaseCard.astro';
 import FeaturedPreview from './FeaturedPreview.astro';
@@ -15,8 +15,8 @@ const featured = featuredSlugs.map((slug) => useCases.find((u) => u.slug === slu
     </div>
     <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
       {featured.map((u) => (
-        <UseCaseCard u={u} href={`/use-cases#${u.slug}`} moreLabel="See how it works →" dark>
-          <FeaturedPreview slot="preview" slug={u.slug} dark />
+        <UseCaseCard u={u} href={`/use-cases#${u.slug}`} moreLabel="See how it works →">
+          <FeaturedPreview slot="preview" slug={u.slug} />
         </UseCaseCard>
       ))}
     </div>
