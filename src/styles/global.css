@@ -56,8 +56,9 @@ a { color: #030FFF; } a:hover { color: #101828; }
 .task.is-live .task-text-idle { display: none; }
 
 /* ---- channels / chat demo ---- */
-.chat-msg { opacity: 0; transform: translateY(8px); }
+.chat-msg { opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .chat-msg.is-on { opacity: 1; transform: translateY(0); }
+.chat-card .card-pending { display: flex; }
 .chat-card .card-done { display: none; }
 .chat-card.is-approved .card-done { display: flex; }
 .chat-card.is-approved .card-pending { display: none; }

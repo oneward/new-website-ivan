@@ -1,0 +1,70 @@
+---
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+
+const points = [
+  { icon: '/assets/27fd96b9.svg', title: 'Your model, your endpoint', body: 'Agents call only the models your security team allowlists.' },
+  { icon: '/assets/4be8fc10.svg', title: 'Data stays in your boundary', body: 'PII is redacted before any model sees it. Nothing trains on your data.' },
+  { icon: '/assets/2421fe88.svg', title: 'Humans approve what matters', body: 'Least-privilege access. Write actions wait for a named approval.' },
+  { icon: '/assets/2ded18e2.svg', title: 'Every action on the record', body: 'Who, what, when, and why, logged for every step. Reversible.' },
+];
+
+const policy = [
+  { k: 'Approved model', v: 'your-endpoint / v4', c: '#ffffff' },
+  { k: 'Data region', v: 'EU · in-boundary', c: '#ffffff' },
+  { k: 'PII redaction', v: 'ON', c: '#2BD4FF' },
+  { k: 'Training on your data', v: 'NEVER', c: '#2BD4FF' },
+  { k: 'Write actions', v: 'REQUIRE APPROVAL', c: '#2BD4FF' },
+  { k: 'Audit retention', v: '90d · exportable', c: '#ffffff' },
+];
+
+const audit: { time: string; text: string; avatar?: { bg: string; initials: string } }[] = [
+  { time: '11:04', text: 'leave.check · balance 12d' },
+  { time: '11:05', text: 'approval · M. Klein', avatar: { bg: '#f2c744', initials: 'MK' } },
+  { time: '11:05', text: 'hris.write · #48213' },
+  { time: '11:06', text: 'notify · slack thread' },
+  { time: '11:06', text: 'audit.viewed · J. Kaur', avatar: { bg: '#c9b3d6', initials: 'JK' } },
+];
+---
+<section id="security" style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 64px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #030FFF;"><span style="display: block;">On the model you approve.</span><span style="display: block;">Inside the boundary you set.</span></h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">Built for the security review before it starts. Employee data never leaves your boundary of trust, and every agent action is logged, attributable, and reversible.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px;">
+        {points.map((p) => (
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;"><Icon src={p.icon} size={17} color="#030FFF" /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">{p.title}</span></div>
+            <span style="font-size: 13.5px; line-height: 1.6; color: #6f6a5e; text-wrap: pretty;">{p.body}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div style="background: #101828; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
+      <div style="padding: 20px 24px 18px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 10px;"><DotMark size={20} color="#ffffff" animation="none" /><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.6); white-space: nowrap;">MODEL POLICY · YOUR TENANT</span></div>
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #16DB4E; animation: owLive 2.2s ease-in-out infinite;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #16DB4E;">ENFORCED</span></span>
+        </div>
+        <div style="height: 1px; background: rgba(255,255,255,0.12);"></div>
+        {policy.map((row) => (
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;"><span style="font-size: 13px; color: rgba(255,255,255,0.7);">{row.k}</span><span style={`font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: ${row.c}; white-space: nowrap;`}>{row.v}</span></div>
+        ))}
+      </div>
+      <div style="background: #0b1224; border-top: 1px solid rgba(255,255,255,0.08); padding: 16px 24px 18px; display: flex; flex-direction: column; gap: 9px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: rgba(255,255,255,0.45);">AUDIT LOG · LIVE</span>
+        {audit.map((row) => (
+          <div style="display: grid; grid-template-columns: 44px 16px minmax(0, 1fr); column-gap: 10px; align-items: center;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,0.45);">{row.time}</span>
+            {row.avatar
+              ? <span style={`width: 14px; height: 14px; border-radius: 50%; background: ${row.avatar.bg}; color: #101828; font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;`}>{row.avatar.initials}</span>
+              : <DotMark size={14} color="#ffffff" animation="none" />}
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{row.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

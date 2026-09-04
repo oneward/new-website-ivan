@@ -1,0 +1,273 @@
+---
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+import { convos } from '../data/chat';
+
+// Brand lattice: fragments of the dot mark, densest bottom-right,
+// thinning and fading up-left (ported from the design logic).
+const hash = (u: number, v: number, seed: number) => {
+  const x = Math.sin(u * 127.1 + v * 311.7 + seed) * 43758.5453;
+  return x - Math.floor(x);
+};
+const lattice: { right: number; bottom: number; op: number }[] = [];
+for (let u = 0; u < 15; u++) {
+  for (let v = 0; v < 9; v++) {
+    const dc = Math.hypot(u / 13.5, v / 7.5);
+    if (dc > 1) continue;
+    const k = hash(u, v, 21);
+    if (k < 0.18 + dc * 0.55) continue;
+    const o = hash(v, u, 7);
+    const tier = o < 0.12 ? 1 : o < 0.3 ? 0.8 : o < 0.55 ? 0.6 : o < 0.8 ? 0.4 : 0.2;
+    lattice.push({ right: 24 + u * 72, bottom: 24 + v * 72, op: Number((tier * (1 - dc * 0.6) * 0.32).toFixed(3)) });
+  }
+}
+
+const tabs = [
+  { icon: '/assets/7c8b1612.svg', color: '#B98BD1', label: 'Slack' },
+  { icon: '/assets/423a9853.svg', color: '#8F9CE8', label: 'Microsoft Teams' },
+  { icon: '/assets/8de6010d.svg', color: '#6FCDB3', label: 'WhatsApp' },
+  { icon: '/assets/63f4974e.svg', color: '#F0A868', label: 'Your portal' },
+];
+
+const [slack, teams, whatsapp, widget] = convos;
+const citePill = (bg: string) =>
+  `align-self: flex-start; display: flex; align-items: center; gap: 6px; font-size: 11px; color: #030FFF; background: ${bg}; border-radius: 999px; padding: 3px 9px;`;
+---
+<section id="channels" style="background: linear-gradient(160deg, #010207 0%, #05071F 50%, #020865 100%); padding: 104px 64px; position: relative; overflow: hidden;">
+  <div style="position: absolute; right: 0; bottom: 0; width: 1100px; height: 680px; pointer-events: none;">
+    {lattice.map((l) => (
+      <span style={`position: absolute; right: ${l.right}px; bottom: ${l.bottom}px; width: 17px; height: 17px; border-radius: 50%; background: #ffffff; opacity: ${l.op};`}></span>
+    ))}
+  </div>
+  <div style="position: relative; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;" data-chat>
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; text-wrap: pretty; color: #ffffff;">People meet Oneward where they already work.</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.72); text-wrap: pretty;">No new app to learn. Employees ask and request, managers and HR approve and decide, all inside the tools they already have open.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+        {[
+          { img: '/assets/773979db.png', pos: 'center 40%', icon: '/assets/70316f42.svg', title: 'Employees', body: 'Ask a policy question, check a leave balance, submit a request, update their details.' },
+          { img: '/assets/6593ebe8.png', pos: 'center 45%', icon: '/assets/9f881469.svg', title: 'Managers and HR', body: 'Approve requests, review changes, and make decisions with the context already attached.' },
+        ].map((c) => (
+          <div style={`position: relative; min-height: 380px; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); background: url('${c.img}') ${c.pos} / cover no-repeat; display: flex; flex-direction: column; justify-content: flex-end;`}>
+            <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 60%; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%); mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);"></div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,7,31,0) 35%, rgba(5,7,31,0.55) 65%, rgba(5,7,31,0.88) 100%);"></div>
+            <div style="position: absolute; inset: 0; border-radius: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); pointer-events: none;"></div>
+            <div style="position: relative; padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;"><Icon src={c.icon} size={16} color="#ffffff" /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; color: #ffffff;">{c.title}</span></div>
+              <span style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.8);">{c.body}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; align-items: stretch; flex-wrap: wrap; gap: 8px;">
+        {tabs.map((t, i) => (
+          <button type="button" class:list={['channel-tab', { 'is-current': i === 0 }]} data-channel-tab={i} style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; border-radius: 999px; padding: 10px 18px; white-space: nowrap; transition: all 0.3s;"><Icon src={t.icon} size={14} color={t.color} />{t.label}</button>
+        ))}
+      </div>
+      <div style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 50px rgba(0,0,0,0.45);">
+
+        {/* ---- Slack ---- */}
+        <div class:list={['chat-panel', { 'is-current': true }]} data-chat-panel="0">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 56px; box-sizing: border-box; background: #ffffff; border-bottom: 1px solid #dddddd;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="display: flex; align-items: center; gap: 5px; font-size: 15px; font-weight: 900; color: #1d1c1d;"><Icon src="/assets/57d44655.svg" size={14} color="#1d1c1d" />hr-help<Icon src="/assets/262fd832.svg" size={13} color="#616061" /></span>
+              <span style="font-size: 12px; color: #616061;">Ask HR anything. Answers come from your handbook.</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; border: 1px solid #dddddd; border-radius: 6px; padding: 3px 8px 3px 4px;">
+              <span style="display: flex;"><span style="width: 18px; height: 18px; border-radius: 4px; background: #c9b3d6;"></span><span style="width: 18px; height: 18px; border-radius: 4px; background: #f2c744; margin-left: -5px;"></span><span style="width: 18px; height: 18px; border-radius: 4px; background: #030FFF; margin-left: -5px; display: flex; align-items: center; justify-content: center;"><DotMark size={10} color="#ffffff" animation="none" /></span></span>
+              <span style="font-size: 12px; color: #616061;">42</span>
+            </div>
+          </div>
+          <div style="padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 14px; height: 500px; box-sizing: border-box; overflow: hidden; background: #ffffff;">
+            <div style="display: flex; align-items: center; gap: 10px;"><span style="flex: 1; height: 1px; background: #dddddd;"></span><span style="font-size: 12px; font-weight: 700; color: #1d1c1d; border: 1px solid #dddddd; border-radius: 999px; padding: 4px 12px;">Today</span><span style="flex: 1; height: 1px; background: #dddddd;"></span></div>
+            {slack.map((m) => (
+              <div class:list={['chat-msg', { 'chat-card': m.kind === 'card' }]} data-at={m.at} data-approved-at={m.approvedAt} style={`display: flex; justify-content: ${m.kind === 'user' ? 'flex-end' : 'flex-start'};`}>
+                {m.kind === 'user' && (
+                  <div style="display: flex; align-items: flex-start; gap: 8px; width: 100%;">
+                    <span style="width: 36px; height: 36px; border-radius: 6px; background: #c9b3d6; color: #3d2447; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">JK</span>
+                    <div style="display: flex; flex-direction: column; gap: 1px;"><span style="display: flex; align-items: baseline; gap: 6px;"><span style="font-size: 14px; font-weight: 900; color: #1d1c1d;">Jonas K.</span><span style="font-size: 11.5px; color: #616061;">{m.time} AM</span></span><span style="font-size: 14px; line-height: 1.45; color: #1d1c1d;">{m.text}</span></div>
+                  </div>
+                )}
+                {m.kind === 'agent' && (
+                  <div style="display: flex; align-items: flex-start; gap: 8px; width: 100%;">
+                    <span style="width: 36px; height: 36px; border-radius: 6px; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={18} color="#ffffff" animation="none" /></span>
+                    <div style="display: flex; flex-direction: column; gap: 4px;"><span style="display: flex; align-items: baseline; gap: 6px;"><span style="font-size: 14px; font-weight: 900; color: #1d1c1d;">Oneward</span><span style="font-size: 10px; font-weight: 700; color: #616061; background: #e8e8e8; border-radius: 3px; padding: 1px 4px;">APP</span><span style="font-size: 11.5px; color: #616061;">{m.time} AM</span></span><span style="font-size: 14px; line-height: 1.45; color: #1d1c1d;">{m.text}</span>{m.cite && <span style={citePill('#f4f4ff')}><Icon src="/assets/ph-file-text.svg" size={11} color="#030FFF" />{m.cite}</span>}</div>
+                  </div>
+                )}
+                {m.kind === 'card' && (
+                  <div style="display: flex; align-items: flex-start; gap: 8px; width: 100%;">
+                    <span style="width: 36px; height: 36px; border-radius: 6px; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={18} color="#ffffff" animation="none" /></span>
+                    <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+                      <span style="display: flex; align-items: baseline; gap: 6px;"><span style="font-size: 14px; font-weight: 900; color: #1d1c1d;">Oneward</span><span style="font-size: 10px; font-weight: 700; color: #616061; background: #e8e8e8; border-radius: 3px; padding: 1px 4px;">APP</span></span>
+                      <div style="border-left: 4px solid #030FFF; padding: 4px 0 4px 12px; display: flex; flex-direction: column; gap: 8px;">
+                        <span style="font-size: 12px; color: #616061;">{m.cardLabel}</span>
+                        <span style="font-size: 14px; font-weight: 700; color: #1d1c1d;">{m.cardTitle}</span>
+                        <span style="font-size: 13px; color: #1d1c1d;">{m.cardSub}</span>
+                        <div class="card-pending" style=" gap: 8px;"><span style="font-size: 13px; font-weight: 700; color: #ffffff; background: #007a5a; border-radius: 4px; padding: 6px 12px;">{m.primary}</span><span style="font-size: 13px; font-weight: 700; color: #1d1c1d; background: #ffffff; border: 1px solid #bbbaba; border-radius: 4px; padding: 5px 12px;">{m.secondary}</span></div>
+                        <span class="card-done" style=" align-items: center; gap: 6px; font-size: 12px; color: #007a5a;"><Icon src="/assets/e12355da.svg" size={14} color="#007a5a" />{m.doneLabel}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style="height: 84px; box-sizing: border-box; padding: 0 16px 16px; display: flex; align-items: flex-end; background: #ffffff;">
+            <div style="flex: 1; border: 1px solid #8d8d8d; border-radius: 8px; overflow: hidden; background: #ffffff;">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 5px 10px; background: #f8f8f8; border-bottom: 1px solid #ebebeb;"><Icon src="/assets/c7ecca82.svg" size={13} color="#616061" /><Icon src="/assets/11a4d015.svg" size={13} color="#616061" /><Icon src="/assets/2a10a635.svg" size={13} color="#616061" /><span style="width: 1px; height: 12px; background: #dddddd;"></span><Icon src="/assets/660e0064.svg" size={13} color="#616061" /><Icon src="/assets/996c85ed.svg" size={13} color="#616061" /><Icon src="/assets/c6cf7017.svg" size={13} color="#616061" /><span style="width: 1px; height: 12px; background: #dddddd;"></span><Icon src="/assets/2472539b.svg" size={13} color="#616061" /></div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 7px 8px 7px 12px;"><span style="font-size: 13.5px; color: #616061;">Message #hr-help</span><div style="display: flex; align-items: center; gap: 12px;"><Icon src="/assets/0a132fae.svg" size={14} color="#616061" /><Icon src="/assets/1019d758.svg" size={15} color="#616061" /><Icon src="/assets/bd2e4d00.svg" size={15} color="#616061" /><Icon src="/assets/1a13c318.svg" size={15} color="#616061" /><span style="width: 1px; height: 14px; background: #dddddd;"></span><span style="width: 30px; height: 24px; border-radius: 4px; background: #007a5a; display: flex; align-items: center; justify-content: center;"><Icon src="/assets/46bee779.svg" size={13} color="#ffffff" /></span></div></div>
+            </div>
+          </div>
+        </div>
+
+        {/* ---- Microsoft Teams ---- */}
+        <div class="chat-panel" data-chat-panel="1">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 56px; box-sizing: border-box; background: #ffffff; border-bottom: 1px solid #e1dfdd;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="position: relative; display: flex;"><span style="width: 32px; height: 32px; border-radius: 50%; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={16} color="#ffffff" animation="none" /></span><span style="position: absolute; right: -1px; bottom: -1px; width: 10px; height: 10px; border-radius: 50%; background: #6bb700; border: 2px solid #ffffff;"></span></span>
+              <span style="font-size: 15px; font-weight: 700; color: #242424;">Oneward</span>
+              <span style="width: 1px; height: 22px; background: #e1dfdd; margin: 0 6px;"></span>
+              <span style="display: flex; align-items: center; gap: 16px; font-size: 13px; color: #616161; height: 56px;"><span style="display: flex; align-items: center; height: 56px; box-sizing: border-box; color: #5b5fc7; font-weight: 600; border-bottom: 2px solid #5b5fc7; padding-top: 2px;">Chat</span><span>Shared</span><Icon src="/assets/0a132fae.svg" size={13} color="#616161" /></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;"><Icon src="/assets/d42558f1.svg" size={16} color="#424242" /><Icon src="/assets/4df9271b.svg" size={16} color="#424242" /><Icon src="/assets/9967613b.svg" size={16} color="#424242" /></div>
+          </div>
+          <div style="padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 10px; height: 500px; box-sizing: border-box; overflow: hidden; background: #f5f5f5;">
+            {teams.map((m) => (
+              <div class:list={['chat-msg', { 'chat-card': m.kind === 'card' }]} data-at={m.at} data-approved-at={m.approvedAt} style={`display: flex; justify-content: ${m.kind === 'user' ? 'flex-end' : 'flex-start'};`}>
+                {m.kind === 'user' && (
+                  <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px; max-width: 78%;"><span style="font-size: 11px; color: #616161;">{m.time}</span><div style="background: #e8ebfa; color: #242424; border-radius: 6px; padding: 8px 12px; font-size: 13.5px; line-height: 1.45;">{m.text}</div></div>
+                )}
+                {m.kind === 'agent' && (
+                  <div style="display: flex; align-items: flex-start; gap: 8px; max-width: 84%;">
+                    <span style="width: 28px; height: 28px; border-radius: 50%; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={14} color="#ffffff" animation="none" /></span>
+                    <div style="display: flex; flex-direction: column; gap: 3px;"><span style="display: flex; align-items: baseline; gap: 6px; font-size: 11px; color: #616161;"><span style="font-weight: 600; color: #242424;">Oneward</span>{m.time}</span><div style="background: #ffffff; color: #242424; border-radius: 6px; padding: 8px 12px; font-size: 13.5px; line-height: 1.45; display: flex; flex-direction: column; gap: 6px;">{m.text}{m.cite && <span style={citePill('#eef0fb')}><Icon src="/assets/ph-file-text.svg" size={11} color="#030FFF" />{m.cite}</span>}</div></div>
+                  </div>
+                )}
+                {m.kind === 'card' && (
+                  <div style="display: flex; align-items: flex-start; gap: 8px; width: 100%;">
+                    <span style="width: 28px; height: 28px; border-radius: 50%; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={14} color="#ffffff" animation="none" /></span>
+                    <div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0;"><span style="font-size: 11px; color: #616161;"><span style="font-weight: 600; color: #242424;">Oneward</span></span>
+                      <div style="background: #ffffff; border: 1px solid #e1dfdd; border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;">
+                        <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: #616161; text-transform: uppercase;">{m.cardLabel}</span>
+                        <span style="font-size: 14px; font-weight: 700; color: #242424;">{m.cardTitle}</span>
+                        <span style="font-size: 12.5px; color: #616161;">{m.cardSub}</span>
+                        <div class="card-pending" style=" gap: 8px; margin-top: 2px;"><span style="font-size: 13px; font-weight: 600; color: #ffffff; background: #5b5fc7; border-radius: 4px; padding: 6px 14px;">{m.primary}</span><span style="font-size: 13px; font-weight: 600; color: #242424; border: 1px solid #d1d1d1; border-radius: 4px; padding: 5px 14px;">{m.secondary}</span></div>
+                        <span class="card-done" style=" align-items: center; gap: 6px; font-size: 12px; color: #5b5fc7;"><Icon src="/assets/e12355da.svg" size={14} color="#5b5fc7" />{m.doneLabel}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style="height: 84px; box-sizing: border-box; padding: 0 16px 16px; display: flex; align-items: flex-end; background: #f5f5f5;">
+            <div style="flex: 1; background: #ffffff; border: 1px solid #d1d1d1; border-radius: 6px; padding: 7px 10px; display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 13px; color: #707070;">Type a message</span>
+              <div style="display: flex; align-items: center; justify-content: space-between;"><div style="display: flex; align-items: center; gap: 12px;"><Icon src="/assets/1019d758.svg" size={14} color="#616161" /><Icon src="/assets/bd2e4d00.svg" size={14} color="#616161" /><Icon src="/assets/961cd744.svg" size={14} color="#616161" /><Icon src="/assets/9967613b.svg" size={14} color="#616161" /></div><Icon src="/assets/46bee779.svg" size={17} color="#5b5fc7" /></div>
+            </div>
+          </div>
+        </div>
+
+        {/* ---- WhatsApp ---- */}
+        <div class="chat-panel" data-chat-panel="2">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 10px; height: 56px; box-sizing: border-box; background: #008069;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <Icon src="/assets/d2bf56fa.svg" size={18} color="#ffffff" />
+              <span style="width: 36px; height: 36px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={18} animation="none" /></span>
+              <div style="display: flex; flex-direction: column; line-height: 1.2;"><span style="font-size: 15px; font-weight: 500; color: #ffffff;">Oneward HR</span><span style="font-size: 12px; color: rgba(255,255,255,0.8);">online</span></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 18px;"><Icon src="/assets/d42558f1.svg" size={18} color="#ffffff" /><Icon src="/assets/4df9271b.svg" size={17} color="#ffffff" /><Icon src="/assets/6c8b5e6d.svg" size={18} color="#ffffff" /></div>
+          </div>
+          <div style="padding: 10px 14px 10px; display: flex; flex-direction: column; gap: 6px; height: 500px; box-sizing: border-box; overflow: hidden; background-color: #efe7dd; background-image: radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px); background-size: 14px 14px;">
+            <span style="align-self: center; font-size: 11px; font-weight: 500; color: #54656f; background: #ffffff; border-radius: 8px; padding: 4px 10px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);">TODAY</span>
+            <span style="align-self: center; display: flex; align-items: center; gap: 5px; font-size: 11px; line-height: 1.4; color: #54656f; background: #ffeecd; border-radius: 8px; padding: 5px 10px; text-align: center; margin-bottom: 4px;"><Icon src="/assets/2cd60a3a.svg" size={10} color="#54656f" />Messages are end-to-end encrypted.</span>
+            {whatsapp.map((m) => (
+              <div class:list={['chat-msg', { 'chat-card': m.kind === 'card' }]} data-at={m.at} data-approved-at={m.approvedAt} style={`display: flex; justify-content: ${m.kind === 'user' ? 'flex-end' : 'flex-start'};`}>
+                {m.kind === 'user' && (
+                  <div style="max-width: 80%; background: #d9fdd3; color: #111b21; border-radius: 8px 0 8px 8px; padding: 6px 8px 6px 10px; font-size: 13.5px; line-height: 1.4; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); display: flex; flex-direction: column; gap: 1px;">{m.text}<span style="align-self: flex-end; display: flex; align-items: center; gap: 3px; font-size: 10.5px; color: #667781; margin-top: -2px;">{m.time}<Icon src="/assets/6443ae4d.svg" size={14} color="#53bdeb" /></span></div>
+                )}
+                {m.kind === 'agent' && (
+                  <div style="max-width: 82%; background: #ffffff; color: #111b21; border-radius: 0 8px 8px 8px; padding: 6px 8px 6px 10px; font-size: 13.5px; line-height: 1.4; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); display: flex; flex-direction: column; gap: 4px;">{m.text}{m.cite && <span style={citePill('#f0f2f5')}><Icon src="/assets/ph-file-text.svg" size={11} color="#030FFF" />{m.cite}</span>}<span style="align-self: flex-end; font-size: 10.5px; color: #667781; margin-top: -2px;">{m.time}</span></div>
+                )}
+                {m.kind === 'card' && (
+                  <div style="width: 82%; background: #ffffff; color: #111b21; border-radius: 0 8px 8px 8px; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); overflow: hidden; display: flex; flex-direction: column;">
+                    <div style="padding: 8px 10px 6px; display: flex; flex-direction: column; gap: 3px;">
+                      <span style="font-size: 11px; color: #667781;">{m.cardLabel}</span>
+                      <span style="font-size: 13.5px; font-weight: 600;">{m.cardTitle}</span>
+                      <span style="font-size: 12.5px; color: #54656f; line-height: 1.4;">{m.cardSub}</span>
+                      <span style="align-self: flex-end; font-size: 10.5px; color: #667781;">{m.time}</span>
+                    </div>
+                    <div class="card-pending" style=""><span style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; border-top: 1px solid #e9edef; padding: 8px; font-size: 13.5px; font-weight: 500; color: #027eb5;"><Icon src="/assets/b5db7b02.svg" size={14} color="#027eb5" />{m.primary}</span><span style="flex: 1; display: flex; align-items: center; justify-content: center; border-top: 1px solid #e9edef; padding: 8px; font-size: 13.5px; font-weight: 500; color: #027eb5;">{m.secondary}</span></div>
+                    <span class="card-done" style=" align-items: center; justify-content: center; gap: 6px; border-top: 1px solid #e9edef; padding: 8px; font-size: 13px; color: #008069;"><Icon src="/assets/e12355da.svg" size={14} color="#008069" />{m.doneLabel}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style="height: 84px; box-sizing: border-box; padding: 0 10px; display: flex; align-items: center; gap: 8px; background: #f0f2f5;">
+            <div style="flex: 1; background: #ffffff; border-radius: 22px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; min-width: 0;"><Icon src="/assets/bd2e4d00.svg" size={20} color="#54656f" /><span style="flex: 1; font-size: 14px; color: #8696a0;">Message</span><Icon src="/assets/961cd744.svg" size={18} color="#54656f" /><Icon src="/assets/3c58fa94.svg" size={18} color="#54656f" /></div>
+            <span style="width: 42px; height: 42px; border-radius: 50%; background: #008069; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/46bee779.svg" size={19} color="#ffffff" /></span>
+          </div>
+        </div>
+
+        {/* ---- Portal widget ---- */}
+        <div class="chat-panel" data-chat-panel="3">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 56px; box-sizing: border-box; background: linear-gradient(160deg, #030FFF 0%, #020865 100%);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="width: 32px; height: 32px; border-radius: 8px; background: rgba(255,255,255,0.14); display: flex; align-items: center; justify-content: center;"><DotMark size={16} color="#ffffff" /></span>
+              <div style="display: flex; flex-direction: column; line-height: 1.25;"><span style="font-size: 14px; font-weight: 600; color: #ffffff;">HR Assistant</span><span style="display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: rgba(255,255,255,0.75);"><span style="width: 6px; height: 6px; border-radius: 50%; background: #16DB4E;"></span>Replies in seconds</span></div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center;"><Icon src="/assets/2f101390.svg" size={14} color="rgba(255,255,255,0.85)" /></span><span style="width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center;"><Icon src="/assets/cada9ab6.svg" size={14} color="rgba(255,255,255,0.85)" /></span></div>
+          </div>
+          <div style="padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 10px; height: 500px; box-sizing: border-box; overflow: hidden; background: #f7f6f3;">
+            <span style="align-self: center; font-size: 11px; color: #9a968c; margin-bottom: 2px;">Today, 14:12</span>
+            {widget.map((m) => (
+              <div class:list={['chat-msg', { 'chat-card': m.kind === 'card' }]} data-at={m.at} data-approved-at={m.approvedAt} style={`display: flex; justify-content: ${m.kind === 'user' ? 'flex-end' : 'flex-start'};`}>
+                {m.kind === 'user' && (
+                  <div style="max-width: 78%; background: #030FFF; color: #ffffff; border-radius: 14px 14px 4px 14px; padding: 9px 13px; font-size: 13.5px; line-height: 1.45;">{m.text}</div>
+                )}
+                {m.kind === 'agent' && (
+                  <div style="display: flex; align-items: flex-end; gap: 8px; max-width: 84%;">
+                    <span style="width: 26px; height: 26px; border-radius: 50%; background: #ffffff; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={14} animation="none" /></span>
+                    <div style="background: #ffffff; border: 1px solid #e3e1db; color: #101828; border-radius: 14px 14px 14px 4px; padding: 9px 13px; font-size: 13.5px; line-height: 1.45; display: flex; flex-direction: column; gap: 6px;">{m.text}{m.cite && <span style={citePill('rgba(3,15,255,0.06)')}><Icon src="/assets/ph-file-text.svg" size={11} color="#030FFF" />{m.cite}</span>}</div>
+                  </div>
+                )}
+                {m.kind === 'card' && (
+                  <div style="display: flex; align-items: flex-end; gap: 8px; width: 100%;">
+                    <span style="width: 26px; height: 26px; border-radius: 50%; background: #ffffff; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={14} animation="none" /></span>
+                    <div style="flex: 1; min-width: 0; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); border-radius: 14px 14px 14px 4px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #9a968c;">{m.cardLabel}</span><span class="card-pending" style=" align-items: center; gap: 6px; font-size: 11px; color: #6f6a5e;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #2BD4FF; animation: owLive 2.2s ease-in-out infinite;"></span>{m.pendingLabel}</span><span class="card-done" style=" align-items: center; gap: 6px; font-size: 12px; color: #030FFF;"><Icon src="/assets/e12355da.svg" size={14} color="#030FFF" />{m.doneLabel}</span></div>
+                      <span style="font-size: 13.5px; font-weight: 600; color: #101828;">{m.cardTitle}</span>
+                      <span style="font-size: 12.5px; color: #6f6a5e;">{m.cardSub}</span>
+                      <div class="card-pending" style=" gap: 8px; margin-top: 2px;"><span style="font-size: 12.5px; font-weight: 500; color: #ffffff; background: #030FFF; border-radius: 999px; padding: 6px 14px;">{m.primary}</span><span style="font-size: 12.5px; color: #4a463c; border: 1px solid #e3e1db; border-radius: 999px; padding: 5px 14px;">{m.secondary}</span></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div style="height: 84px; box-sizing: border-box; padding: 0 12px; display: flex; flex-direction: column; justify-content: center; gap: 8px; background: #ffffff; border-top: 1px solid #e3e1db;">
+            <div style="display: flex; align-items: center; gap: 8px;"><span style="flex: 1; font-size: 13px; color: #9a968c; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 10px 14px;">Ask HR anything…</span><span style="width: 36px; height: 36px; border-radius: 50%; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/46bee779.svg" size={16} color="#ffffff" /></span></div>
+            <span style="align-self: center; display: flex; align-items: center; gap: 4px; font-size: 10px; color: #9a968c;">Powered by <DotMark size={9} color="#9a968c" animation="none" /><span style="font-family: 'Sora', sans-serif; font-weight: 500;">oneward</span></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background: linear-gradient(160deg, #030FFF 0%, #020865 100%); padding: 96px 64px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; color: #ffffff;">
+  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #2BD4FF;">FREE 30-DAY ANALYSIS</span>
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+    <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; max-width: 760px; text-wrap: pretty;">See where agents can remove friction from your HR operations.</h2>
+    <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 640px; text-wrap: pretty;">You pick up to three use cases. We analyze your systems and workflows for 30 days. You keep the written plan, whatever you decide next.</p>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
+    <a href="/30-day-analysis" class="btn-primary" style="font-size: 15px; padding: 14px 30px;">Start your free 30-day analysis</a>
+    <a href="https://calendly.com/oneward/demo" target="_blank" rel="noopener" class="btn-ghost" style="font-size: 15px; padding: 13px 28px;">Book a demo call</a>
+  </div>
+</section>

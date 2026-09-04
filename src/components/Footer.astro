@@ -1,0 +1,54 @@
+---
+const columns = [
+  {
+    label: 'PRODUCT',
+    links: [
+      { href: '/#agents', label: 'Use cases' },
+      { href: '/#platform', label: 'Platform' },
+      { href: '/#security', label: 'Security' },
+      { href: '/30-day-analysis', label: '30-day analysis' },
+    ],
+  },
+  {
+    label: 'COMPANY',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/careers', label: 'Careers' },
+      { href: 'mailto:partners@getoneward.com', label: 'Contact' },
+      { href: 'https://www.linkedin.com/company/oneward/', label: 'LinkedIn', external: true },
+    ],
+  },
+  {
+    label: 'LEGAL',
+    links: [
+      { href: '/trust-and-security', label: 'Trust & Security' },
+      { href: '/privacy-policy', label: 'Privacy Policy' },
+      { href: '/terms-of-service', label: 'Terms of Service' },
+      { href: '/cookie-notice', label: 'Cookie Notice' },
+      { href: '/impressum', label: 'Impressum' },
+    ],
+  },
+];
+---
+<footer style="background: #101828; padding: 64px 64px 40px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
+    <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;">
+      <div style="display: flex; flex-direction: column; gap: 18px; align-items: flex-start;">
+        <a href="/" style="display: flex;"><img src="/assets/bcef62c6.svg" alt="oneward" style="height: 26px; display: block;" /></a>
+        <p style="margin: 0; font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,0.6); max-width: 250px; text-wrap: pretty;">AI agents for enterprise HR — inside the tenant you already run.</p>
+      </div>
+      {columns.map((col) => (
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.45);">{col.label}</span>
+          {col.links.map((l) => (
+            <a href={l.href} class="footer-link" style="font-size: 13.5px;" target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}>{l.label}</a>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: rgba(255,255,255,0.45);">© 2026 Oneward, Inc.</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: rgba(255,255,255,0.45);">getoneward.com</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,72 @@
+---
+import Icon from './Icon.astro';
+
+const groups: { label: string; items: { q: string; a: string }[] }[] = [
+  {
+    label: 'SYSTEMS AND FIT',
+    items: [
+      { q: 'What systems does Oneward work with?', a: 'Any HCM or HRIS, including Workday, SAP SuccessFactors, and Oracle HCM, plus the systems around them: payroll, time tracking, benefits, learning, and PEO platforms. Connections are governed and scoped to the data you agree we may read and write.' },
+      { q: 'Does it replace our HCM or HRIS?', a: 'No. Your existing platform stays the system of record. Oneward sits on top of it as the layer that does the work, reads what it needs, and writes results back where they belong.' },
+      { q: 'Do we need to migrate any data?', a: 'No migration. Agents work against your live tenant through a governed connection. Nothing is copied into a second system of record.' },
+      { q: 'What about systems without an API?', a: 'During the 30-day analysis we map every system in scope and how it can be reached. Where a clean interface does not exist, the plan says so and proposes a practical alternative rather than a workaround you have to maintain.' },
+    ],
+  },
+  {
+    label: 'PEOPLE AND CHANNELS',
+    items: [
+      { q: 'Where do employees interact with Oneward?', a: 'In the tools they already use: Slack, Microsoft Teams, WhatsApp, or an embedded widget inside your internal portal. There is no separate app to roll out.' },
+      { q: 'Can managers approve things from Slack or Teams?', a: 'Yes. Approvals arrive as cards with the context attached, and a decision writes straight back to the system of record. Who approves what is defined by your own policy.' },
+      { q: 'What kinds of requests can employees make?', a: 'Policy and benefits questions, leave and absence requests, personal data updates, document requests, and status checks on anything in flight. The list grows with each workflow you bring into scope.' },
+      { q: 'What happens when an agent cannot handle something?', a: 'It hands over to a named person with the full context, and tells the employee it did so. Escalation paths are configured with your HR team, not guessed.' },
+    ],
+  },
+  {
+    label: 'AGENTS AND CUSTOMIZATION',
+    items: [
+      { q: 'What HR workflows can agents handle?', a: 'Everything across the employee lifecycle: onboarding, leave, role changes, reorganizations, performance cycles, offboarding, and keeping data aligned across systems in between. See the use cases above for examples.' },
+      { q: 'How are agents customized to us?', a: 'Each agent is built for your policies, approval chains, and systems during deployment, with your team. Nothing is shipped as a generic template you have to adapt yourself.' },
+      { q: 'Do we have to choose and manage AI models?', a: 'You choose which models are allowed. We evaluate, tune, and monitor them for each workflow so your team does not have to become a model operations team.' },
+      { q: 'Who maintains the agents after launch?', a: 'We do, together with your team. Policy changes, new systems, and new use cases are handled as part of the engagement rather than left to you.' },
+    ],
+  },
+  {
+    label: 'SECURITY AND GOVERNANCE',
+    items: [
+      { q: 'How does tenant separation work?', a: "Agents run in your tenant context with scoped, least-privilege service accounts. Your data does not mix with anyone else's, and it never leaves your boundary of trust." },
+      { q: 'Is our employee data used to train models?', a: 'Never. Personal data is redacted before anything reaches a model, and model providers are bound to zero-retention terms.' },
+      { q: 'How are permissions and audit trails handled?', a: 'Every action an agent takes is logged with what it read, what it did, and who approved it. Write actions require named human approval wherever you configure it. Logs export to your own tooling.' },
+      { q: 'Which certifications and documents can we review?', a: 'SOC 2 report, subprocessor list, DPA, and an architecture overview are available under NDA. See the Trust and Security page or request the packet directly.' },
+    ],
+  },
+  {
+    label: 'THE 30-DAY ANALYSIS',
+    items: [
+      { q: 'What happens during the 30 days?', a: 'Week one we sign the NDA and you choose up to three use cases. Weeks two and three we analyze your data and process for each. Week four you receive the written plan.' },
+      { q: 'What does it cost?', a: 'Nothing. The analysis is free. If you decide to build, we send a written offer for exactly the scope in the plan.' },
+      { q: 'What do we get at the end?', a: 'A documented plan per use case: where agents fit, the interaction model for employees and managers, what it costs to build, what it returns, and a practical path to deployment.' },
+      { q: 'What if we decide not to continue?', a: 'You keep the plan. Use it internally, or build it with another partner. There is no obligation.' },
+    ],
+  },
+];
+---
+<section id="faq" style="background: #ffffff; border-top: 1px solid #e3e1db; padding: 104px 64px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; max-width: 880px; margin: 0 auto;">
+      <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15;">Questions enterprise HR asks first.</h2>
+      <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">Something else on your mind? Write to <a href="mailto:partners@getoneward.com">partners@getoneward.com</a>.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; row-gap: 40px; align-items: start;">
+      {groups.map((g) => (
+        <div style="display: flex; flex-direction: column; gap: 0;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #030FFF; padding-bottom: 14px;">{g.label}</span>
+          {g.items.map((item) => (
+            <details style="border-top: 1px solid #e3e1db; margin: 0;">
+              <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; list-style: none; cursor: pointer; padding: 18px 0; font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">{item.q}<Icon src="/assets/fa702268.svg" size={14} color="#9a968c" /></summary>
+              <p style="margin: 0; padding: 0 32px 20px 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

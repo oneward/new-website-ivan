@@ -1,0 +1,110 @@
+---
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+
+interface Chip {
+  text: string;
+  icon?: string;
+  iconColor?: string;
+  variant: 'blue' | 'neutral' | 'approve' | 'decline' | 'approved' | 'mono';
+}
+
+const steps: {
+  icon?: { src: string; color: string };
+  dotMark?: boolean;
+  label: string;
+  labelColor?: string;
+  time: string;
+  title: string;
+  flowDelay?: number;
+  bubble?: string;
+  chips?: Chip[];
+  mono?: string;
+  last?: boolean;
+}[] = [
+  { icon: { src: '/assets/7c8b1612.svg', color: '#7A4E8C' }, label: 'TRIGGER', time: '9:41', title: 'Employee asks in Slack', flowDelay: 0, bubble: 'Can I take Oct 6 to 10 off?' },
+  { dotMark: true, label: 'AGENT', labelColor: '#030FFF', time: '9:41', title: 'Checks policy, balance, blackout dates', flowDelay: 0.5, chips: [
+    { text: 'Leave policy 3.2', variant: 'blue' }, { text: '12 days left', variant: 'blue' }, { text: 'No blackout conflict', variant: 'blue' },
+  ] },
+  { icon: { src: '/assets/2421fe88.svg', color: '#7A4E8C' }, label: 'APPROVAL', time: '11:05', title: 'Manager approves in Slack', flowDelay: 1.0, chips: [
+    { text: 'Approve', variant: 'approve' }, { text: 'Decline', variant: 'decline' }, { text: 'Approved', variant: 'approved' },
+  ] },
+  { icon: { src: '/assets/ph-database.svg', color: '#101828' }, label: 'ACTION', time: '11:05', title: 'Writes the record to your HRIS', flowDelay: 1.5, chips: [
+    { text: 'Absence · Oct 6–10', variant: 'neutral' }, { text: 'Calendar · updated', variant: 'neutral' }, { text: 'Balance · 7 left', variant: 'neutral' },
+  ] },
+  { icon: { src: '/assets/f5b77fe6.svg', color: '#3F8F7A' }, label: 'NOTIFY', time: '11:06', title: 'Confirms back to the employee', flowDelay: 2.0, chips: [
+    { text: 'Employee', icon: '/assets/7c8b1612.svg', iconColor: '#7A4E8C', variant: 'neutral' },
+    { text: 'Payroll', icon: '/assets/ph-currency-circle-dollar.svg', iconColor: '#3F8F7A', variant: 'neutral' },
+    { text: 'Team calendar', icon: '/assets/b1fa8e9c.svg', iconColor: '#C0762F', variant: 'neutral' },
+  ] },
+  { icon: { src: '/assets/2ded18e2.svg', color: '#101828' }, label: 'LOG', time: '11:06', title: 'Audit entry: who, what, when', last: true },
+];
+
+const promises = [
+  { icon: '/assets/fd40deba.svg', title: 'Deployed with your team', body: 'Our engineers set up each agent alongside your HR and IT teams, inside your tenant, until it runs reliably and you approve it.' },
+  { icon: '/assets/f6651747.svg', title: 'Customized to your systems', body: "Built for your workflows, policies, and approval chains. Your organization's shape, not a template's." },
+  { icon: '/assets/27fd96b9.svg', title: 'Models optimized for you', body: 'You choose the models. We evaluate and tune them per workflow so your team never manages model choices.' },
+  { icon: '/assets/4df326ea.svg', title: 'Runs in your environment', body: 'Runs in your infrastructure and tenant context, on the endpoints your security team approves.' },
+];
+
+const chipStyle = (v: Chip['variant']) =>
+  v === 'blue' ? 'font-size: 11px; line-height: 1; color: #030FFF; background: rgba(3,15,255,0.06); border: 1px solid rgba(3,15,255,0.2); border-radius: 999px; padding: 4px 8px; white-space: nowrap;'
+  : v === 'approve' ? 'font-size: 11px; line-height: 1; color: #ffffff; background: #007a5a; border-radius: 4px; padding: 5px 10px;'
+  : v === 'decline' ? 'font-size: 11px; line-height: 1; color: #4a463c; border: 1px solid #e3e1db; border-radius: 4px; padding: 4px 10px;'
+  : 'font-size: 11px; line-height: 1; color: #4a463c; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 4px 8px; white-space: nowrap;';
+---
+<section id="platform" style="background: #ffffff; padding: 104px 64px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 64px; align-items: center;">
+    <div style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border: 1px solid #e3e1db; border-radius: 12px; padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 22px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: #9a968c; white-space: nowrap;">WORKFLOW · LEAVE REQUEST</span>
+        <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #16DB4E; animation: owLive 2.2s ease-in-out infinite;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; color: #16DB4E; white-space: nowrap;">LIVE IN YOUR TENANT</span></span>
+      </div>
+      <div style="background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; padding: 20px 20px 18px; display: flex; flex-direction: column;">
+        {steps.map((s) => (
+          <div style="display: grid; grid-template-columns: 36px minmax(0, 1fr); column-gap: 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              {s.dotMark
+                ? <span style="width: 36px; height: 36px; border-radius: 50%; background: #030FFF; border: 1px solid #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={18} color="#ffffff" /></span>
+                : <span style="width: 36px; height: 36px; border-radius: 50%; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src={s.icon!.src} size={16} color={s.icon!.color} /></span>}
+              {!s.last && (
+                <span style="position: relative; flex: 1; width: 2px; min-height: 22px; border-left: 2px dotted rgba(3,15,255,0.35); margin: 4px 0;"><span style={`position: absolute; left: -2.5px; top: 0; width: 3px; height: 3px; border-radius: 50%; background: #030FFF; animation: owFlowY 2.4s linear ${s.flowDelay}s infinite;`}></span></span>
+              )}
+            </div>
+            <div style={`display: flex; flex-direction: column; gap: 4px; padding: 6px 0 ${s.last ? '0' : '18px'};`}>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style={`font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: ${s.labelColor ?? '#9a968c'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;`}>{s.label}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9a968c;">{s.time}</span></div>
+              <span style="font-size: 14px; font-weight: 500; line-height: 1.4; color: #101828;">{s.title}</span>
+              {s.bubble && <div style="margin-top: 4px; align-self: flex-start; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 10px 10px 10px 3px; padding: 7px 10px; font-size: 12.5px; line-height: 1.4; color: #101828;">{s.bubble}</div>}
+              {s.chips && (
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 4px;">
+                  {s.chips.map((c) =>
+                    c.variant === 'approved'
+                      ? <span style="display: flex; align-items: center; gap: 4px; margin-left: 4px; font-size: 11px; color: #16DB4E;"><Icon src="/assets/e12355da.svg" size={12} color="#16DB4E" />{c.text}</span>
+                      : c.icon
+                        ? <span style="display: flex; align-items: center; gap: 5px; font-size: 11px; color: #4a463c; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 4px 8px 4px 6px; white-space: nowrap;"><Icon src={c.icon} size={11} color={c.iconColor} />{c.text}</span>
+                        : <span style={chipStyle(c.variant)}>{c.text}</span>
+                  )}
+                </div>
+              )}
+              {s.last && <div style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.6; color: #6f6a5e; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 6px; padding: 6px 10px;">#48213 · leave.create · agent · approved by M. Klein · <span style="color: #030FFF;">reversible</span></div>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; text-wrap: pretty;">Built for your workflows,<br />deployed with your team.</h2>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">Oneward is not a self-serve tool. We map, build, and tune each agent with you, then keep it running.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 18px;">
+        {promises.map((p) => (
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;"><Icon src={p.icon} size={17} color="#030FFF" /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">{p.title}</span></div>
+            <span style="font-size: 13.5px; line-height: 1.6; color: #6f6a5e; text-wrap: pretty;">{p.body}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

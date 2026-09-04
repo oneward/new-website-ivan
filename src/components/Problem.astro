@@ -1,0 +1,148 @@
+---
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+
+// Field of softly blinking dots behind the "With Oneward" card,
+// slightly brighter toward the top-right (ported from the design logic).
+const fh = (a: number, b: number) => {
+  const x = Math.sin(a * 91.7 + b * 47.3) * 43758.5453;
+  return x - Math.floor(x);
+};
+const agentField: { left: string; top: number; op: number; anim: string }[] = [];
+for (let c = 0; c < 15; c++) {
+  for (let r = 0; r < 9; r++) {
+    const fade = 1 - Math.hypot(((14 - c) / 14) * 0.7, 0) * 0.35 - (r / 8) * 0.25;
+    const dur = 2.6 + fh(c, r) * 3.2;
+    const delay = -fh(r, c) * dur;
+    agentField.push({
+      left: ((c / 14) * 100).toFixed(2) + '%',
+      top: 22 + r * 42,
+      op: Number((0.75 * fade).toFixed(2)),
+      anim: `owThink ${dur.toFixed(2)}s ease-in-out ${delay.toFixed(2)}s infinite`,
+    });
+  }
+}
+
+const inbox = [
+  { initials: 'MK', subject: 'Re: Re: Re: How many vacation days do I have left?', sub: 'Employee → Manager → HR → Payroll → HR', time: 'Thu 6:42 PM' },
+  { initials: 'IT', subject: 'Leave request still waiting on approval', sub: 'Manager is out this week, who else can sign off?', time: 'Fri 9:15 AM' },
+  { initials: 'PR', subject: 'Payroll form missing bank details', sub: 'Please re-send, the PDF was blank', time: 'Mon 8:03 AM' },
+];
+
+const agentTasks = [
+  'Offer letter · signed',
+  'Day-one plan · sent in Teams',
+  'Payroll enrolled · your tenant',
+];
+
+const contrasts = [
+  { icon: '/assets/e3ceca1e.svg', before: 'Requests fan out across HR, managers, and payroll', after: 'One agent runs the whole workflow inside your tenant' },
+  { icon: '/assets/adb861ac.svg', before: 'Data re-keyed between systems by hand', after: 'Written once, in the system of record, with a full audit trail' },
+  { icon: '/assets/ba4ac065.svg', before: 'The same policy answers typed over and over in inboxes', after: 'Answered instantly, with citations from your own handbook' },
+  { icon: '/assets/8678ce6b.svg', before: 'Day one arrives with payroll pending and no plan', after: 'Everything is ready before the hire logs in' },
+];
+
+const whyNow = [
+  { icon: '/assets/ab8b22ba.svg', title: 'Permissions assume humans', body: 'Security groups and approval chains were designed for people, not agents.' },
+  { icon: '/assets/425de0ad.svg', title: 'Workflows have no escalation path', body: 'When an agent hits a decision it should not make, there is no one to hand off to.' },
+  { icon: '/assets/f709338e.svg', title: 'Audit is not agent-ready', body: "Compliance needs to know which decisions an agent made and on what data. Today's logs were not built for that question." },
+];
+---
+<section id="problem" style="background: #ffffff; padding: 104px 64px;">
+  <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
+    <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; max-width: 880px; margin: 0 auto;">
+      <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; white-space: nowrap;">Your HRIS records the work. It doesn't do it.</h2>
+      <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; white-space: nowrap;">Every hire, move, and exit becomes tickets that people carry by hand. Agents change who carries them.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch;">
+      <div style="position: relative; overflow: hidden; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: url('/assets/5aafafb5.png') center 30% / cover no-repeat; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%);"></div>
+        <div style="position: absolute; left: 0; right: 0; top: 220px; height: 180px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%);"></div>
+        <div style="position: relative; display: flex; align-items: center; gap: 12px;">
+          <span style="width: 40px; height: 40px; border-radius: 10px; background: #ffffff; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/70316f42.svg" size={20} /></span>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: #101828;">Today</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: #9a968c;">PEOPLE CARRY THE WORK</span>
+          </div>
+        </div>
+        <p style="position: relative; margin: 0; font-size: 14px; line-height: 1.65; color: #101828; text-wrap: pretty;">Your HRIS holds the record, but the work happens around it: in inboxes, ticket queues, and spreadsheets. Every step waits on a person to notice, follow up, and re-enter what another system already knows.</p>
+        <div style="position: relative; margin-top: 10px; background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(16,24,40,0.05);">
+          {inbox.map((m, i) => (
+            <div style={`display: flex; align-items: center; gap: 12px; padding: 12px 16px;${i < inbox.length - 1 ? ' border-bottom: 1px solid #eceae4;' : ''}`}>
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #e3e1db; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: #6f6a5e;">{m.initials}</span>
+              <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1;">
+                <span style="font-size: 12.5px; font-weight: 600; color: #101828; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{m.subject}</span>
+                <span style="font-size: 11.5px; color: #9a968c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{m.sub}</span>
+              </div>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9a968c; flex-shrink: 0;">{m.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style="position: relative; overflow: hidden; background: #05071F; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: linear-gradient(to bottom, #030FFF 0%, #020865 55%, #05071F 100%);"></div>
+        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%);">
+          {agentField.map((a) => (
+            <span style={`position: absolute; left: ${a.left}; top: ${a.top}px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #ffffff; opacity: ${a.op}; animation: ${a.anim};`}></span>
+          ))}
+        </div>
+        <div style="position: relative; display: flex; align-items: center; gap: 12px;">
+          <span style="width: 40px; height: 40px; border-radius: 10px; background: #030FFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={22} color="#ffffff" animation="none" /></span>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: #ffffff;">With Oneward</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: #2BD4FF;">AGENTS CARRY THE WORK</span>
+          </div>
+        </div>
+        <p style="position: relative; margin: 0; font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.85); text-wrap: pretty;">Agents live inside your tenant and carry each step themselves: answering, routing, enrolling, and closing the loop. You keep the permissions and approvals. Every action is written to the record and can be reviewed later.</p>
+        <div style="position: relative; margin-top: 10px; background: #ffffff; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 11px; box-shadow: 0 12px 30px rgba(0,0,0,0.35);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <DotMark size={22} />
+            <span style="font-size: 13px; background: linear-gradient(90deg, #9a968c 35%, #101828 50%, #9a968c 65%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: owShimmer 2.4s linear infinite;">Preparing onboarding plan…</span>
+          </div>
+          <div style="height: 1px; background: #eceae4;"></div>
+          {agentTasks.map((t) => (
+            <div style="display: flex; align-items: center; gap: 10px;"><Icon src="/assets/e12355da.svg" size={16} color="#030FFF" /><span style="font-size: 12.5px; color: #4a463c;">{t}</span></div>
+          ))}
+          <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 16px; display: flex; justify-content: center; flex-shrink: 0;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #2BD4FF; animation: owLive 2.2s ease-in-out infinite;"></span></span><span style="font-size: 12.5px; color: #4a463c;">Manager check-in · awaiting your approval</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: -8px;">
+      {contrasts.map((c) => (
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr); gap: 16px; align-items: center;">
+          <span style="justify-self: end; display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.4; color: #101828; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 10px 18px 10px 14px; text-wrap: pretty;"><Icon src={c.icon} size={16} />{c.before}</span>
+          <Icon src="/assets/866691de.svg" size={18} color="#030FFF" />
+          <span style="justify-self: start; display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 1.4; color: #101828; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); border-radius: 999px; padding: 10px 18px 10px 14px; text-wrap: pretty;"><DotMark size={16} />{c.after}</span>
+        </div>
+      ))}
+    </div>
+    <div style="margin-top: 56px;">
+      <div style="position: relative; overflow: hidden; background: #ffffff; border: 1px solid #e3e1db; border-radius: 12px; padding: 28px 36px 30px; box-sizing: border-box; display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: 24px; align-items: center;">
+        <div style="position: absolute; top: 0; bottom: 0; right: 0; left: max(42%, 540px); background: url('/assets/f516a949.png') center / cover no-repeat; -webkit-mask-image: linear-gradient(to left, #000 0%, #000 35%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.1) 82%, transparent 100%); mask-image: linear-gradient(to left, #000 0%, #000 35%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.1) 82%, transparent 100%);"></div>
+        <div style="position: absolute; top: 0; bottom: 0; right: 0; left: max(42%, 540px); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to left, transparent 0%, transparent 35%, #000 70%, #000 100%); mask-image: linear-gradient(to left, transparent 0%, transparent 35%, #000 70%, #000 100%);"></div>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 28px;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+              <span style="width: 40px; height: 40px; border-radius: 10px; background: #f7f6f3; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/38bd04ac.svg" size={20} /></span>
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: #101828;">Why now</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em; color: #9a968c;">AI IS IN. THE SYSTEMS ARE NOT READY.</span>
+              </div>
+            </div>
+            <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; color: #101828; text-wrap: pretty;">Most HR teams are still copy-pasting between ChatGPT and the HRIS.</h2>
+            <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">Enterprises have committed to AI in HR. The systems underneath were not built for agents.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            {whyNow.map((w) => (
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px;"><Icon src={w.icon} size={17} color="#030FFF" /><span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">{w.title}</span></div>
+                <span style="font-size: 13.5px; line-height: 1.6; color: #6f6a5e; text-wrap: pretty;">{w.body}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</section>
