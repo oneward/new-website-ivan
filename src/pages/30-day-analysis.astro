@@ -123,10 +123,10 @@ const talk = 'Prefer to talk first?';
 
       <div class="tl-card" style="width: 100%; max-width: 720px; box-sizing: border-box; background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 30px 32px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.06); display: flex; flex-direction: column;">
         {phases.map((ph, i) => (
-          <div style={`display: grid; grid-template-columns: 26px 12px minmax(0, 1fr); column-gap: 14px; ${i < phases.length - 1 ? 'padding-bottom: 16px;' : ''}`}>
+          <div style={`display: grid; grid-template-columns: 18px 12px minmax(0, 1fr); column-gap: 10px; ${i < phases.length - 1 ? 'padding-bottom: 16px;' : ''}`}>
             <div style="position: relative;">
-              <span style="position: absolute; top: 0; right: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9a968c; line-height: 12px;">{ph.days[0]}</span>
-              {i === phases.length - 1 && <span style="position: absolute; bottom: 0; right: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #030FFF; line-height: 12px;">30</span>}
+              <span style="position: absolute; top: 0; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #9a968c; line-height: 12px;">{ph.days[0]}</span>
+              {i === phases.length - 1 && <span style="position: absolute; bottom: 0; left: 0; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #030FFF; line-height: 12px;">30</span>}
             </div>
             <div style="display: flex; flex-direction: column; gap: 3px;">
               {ph.days.map((d) => (
@@ -145,7 +145,7 @@ const talk = 'Prefer to talk first?';
             </div>
           </div>
         ))}
-        <div style="display: grid; grid-template-columns: 26px 12px minmax(0, 1fr); column-gap: 14px; margin-top: 18px;">
+        <div style="display: grid; grid-template-columns: 18px 12px minmax(0, 1fr); column-gap: 10px; margin-top: 18px;">
           <div></div>
           <div style="grid-column: 2 / 4; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
             <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #6f6a5e;"><span style="width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid #030FFF; box-sizing: border-box;"></span>Day 1: agreements signed</span>
@@ -154,13 +154,13 @@ const talk = 'Prefer to talk first?';
           </div>
         </div>
 
-        <div style="margin-top: 26px; padding-top: 24px; border-top: 1px solid #eceae4; display: flex; flex-direction: column; gap: 14px;">
+        <div style="margin-top: 26px; padding-top: 24px; border-top: 1px solid #eceae4; display: flex; flex-direction: column; gap: 16px;">
           <span style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">After day 30, you decide.</span>
-          <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
-            {decisions.map((d) => (
-              <div style="background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 5px;">
-                <span style="font-size: 14px; font-weight: 600; color: #101828;">{d.title}</span>
-                <span style="font-size: 13px; line-height: 1.55; color: #6f6a5e;">{d.body}</span>
+          <div class="decision-row" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));">
+            {decisions.map((d, i) => (
+              <div class="decision-col" style={`display: flex; flex-direction: column; gap: 6px; ${i > 0 ? 'padding-left: 20px; border-left: 1px solid #eceae4;' : ''} ${i < decisions.length - 1 ? 'padding-right: 20px;' : ''}`}>
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #101828;"><span style="width: 7px; height: 7px; border-radius: 50%; background: #030FFF; flex-shrink: 0;"></span>{d.title}</span>
+                <span style="font-size: 13.5px; line-height: 1.55; color: #6f6a5e; padding-left: 15px;">{d.body}</span>
               </div>
             ))}
           </div>
