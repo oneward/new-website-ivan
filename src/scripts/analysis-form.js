@@ -25,6 +25,10 @@ function initMultiSelect(root) {
   const boxes = [...panel.querySelectorAll('input[type="checkbox"]')];
 
   const setOpen = (open) => {
+    if (open) {
+      const below = window.innerHeight - trigger.getBoundingClientRect().bottom;
+      panel.classList.toggle('is-up', below < 320);
+    }
     panel.hidden = !open;
     trigger.setAttribute('aria-expanded', String(open));
   };
