@@ -1,7 +1,7 @@
 ---
 import Nav from './Nav.astro';
-import DotMark from './DotMark.astro';
-import { stages, tenants } from '../data/stages';
+import LifecycleCard from './LifecycleCard.astro';
+import { tenants } from '../data/stages';
 ---
 <section id="top" style="background: linear-gradient(160deg, #05071F 0%, #030FFF 100%); color: #ffffff; position: relative; overflow: hidden;">
   <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255,255,255,0.15) 1.6px, transparent 1.6px); background-size: 48px 48px; background-position: 30px 20px; -webkit-mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%); mask-image: linear-gradient(215deg, #000 0%, rgba(0,0,0,0.45) 38%, transparent 70%);"></div>
@@ -22,66 +22,7 @@ import { stages, tenants } from '../data/stages';
     </div>
     <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; margin-top: 22px;" data-hero-card>
       <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #ffffff; max-width: 560px; text-align: center; text-wrap: pretty;">Agents that do real HR work at every stage of the employee lifecycle</p>
-      <div class="lifecycle-scroll" style="width: 100%;">
-      <div style="width: 100%; background: #ffffff; border-radius: 12px; padding: 34px 16px 16px; box-sizing: border-box; box-shadow: 0 24px 50px rgba(2,7,31,0.45); display: flex; flex-direction: column;" data-lifecycle>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px;">
-          {stages.map((s, i) => (
-            <span class:list={['stage', 'stage-label-wrap', { 'is-active': i === 0 }]} data-stage-i={i} style="display: contents;">
-              <span class="stage-label" style="font-family: 'Inter', sans-serif; font-size: clamp(8px, 2vw, 10.5px); font-weight: 500; letter-spacing: 0.14em; text-align: center; white-space: nowrap;">{s.label}</span>
-            </span>
-          ))}
-        </div>
-        <div style="position: relative; margin-top: 14px; height: 16px;">
-          <div style="position: absolute; left: 0; right: 0; top: 7px; border-top: 3px dotted rgba(3,15,255,0.22); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);"></div>
-          <div style="position: relative; display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px;">
-            {stages.map((_, i) => (
-              <div class:list={['stage', { 'is-active': i === 0 }]} data-stage-i={i} style="display: flex; justify-content: center;">
-                <span style="position: relative; width: 16px; height: 16px;">
-                  <span class="stage-dot-fill" style="position: absolute; inset: 0; border-radius: 50%; border: 3px solid #030FFF; box-sizing: border-box;"></span>
-                  <span class="stage-ring" style="position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid #030FFF; animation: owRingOnce 0.9s ease-out both;"></span>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px; margin: 12px 0 28px;">
-          {stages.map((s, i) => (
-            <div class:list={['stage', { 'is-active': i === 0 }]} data-stage-i={i} style="position: relative;">
-              <div class="stage-flow" style="position: absolute; inset: 5px 0 -10px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-                {[0, 0.22, 0.44, 0.66, 0.88, 1.1, 1.32, 1.54, 1.76].map((delay) => (
-                  <span style={`width: 6px; height: 6px; border-radius: 50%; background: #030FFF; opacity: 0.14; animation: owFlow 2.1s linear ${delay}s infinite;`}></span>
-                ))}
-              </div>
-              <div class="stage-card" style="position: relative; background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 9px;">
-                <div class="stage-head" style="display: flex; flex-direction: column; gap: 9px;">
-                  <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
-                    <DotMark size={18} />
-                    <span class="stage-phrase-live" style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: linear-gradient(90deg, #9a968c 35%, #101828 50%, #9a968c 65%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: owShimmer 2.4s linear infinite;">{s.phrase}…</span>
-                    <span class="stage-phrase-idle" style="font-size: 11px; color: #9a968c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{s.phrase}</span>
-                  </div>
-                  <div style="height: 1px; background: #e3e1db; opacity: 0.6;"></div>
-                </div>
-                {s.tasks.map((t, j) => (
-                  <div class:list={['task', { 'is-done': i === 0 && j < 0 }]} data-task-j={j} style="display: flex; align-items: center; gap: 7px; padding: 2px 0; min-width: 0;">
-                    <span class="task-done" style="width: 12px; height: 12px; flex-shrink: 0; background: #030FFF; -webkit-mask-image: url('/assets/e12355da.svg'); -webkit-mask-position: center; -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('/assets/e12355da.svg'); mask-position: center; mask-size: contain; mask-repeat: no-repeat;"></span>
-                    <span class="task-live" style="width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #2BD4FF; animation: owLive 2.2s ease-in-out infinite;"></span>
-                    <span class="task-next" style="width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #ffffff; border: 1.5px solid #c9c5ba; box-sizing: border-box;"></span>
-                    <span class="task-text" style="font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><span class="task-text-live">{t}…</span><span class="task-text-idle">{t}</span></span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div style="background: linear-gradient(160deg, #030FFF 0%, #020865 100%); border-radius: 8px; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
-          <div style="display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;">
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 2.2vw, 11.5px); font-weight: 500; letter-spacing: 0.14em; color: #2BD4FF; white-space: nowrap;">ALWAYS-ON FOUNDATION</span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 2.2vw, 11.5px); letter-spacing: 0.12em; color: rgba(255,255,255,0.85); white-space: nowrap;">DATA · PAY · COMPLIANCE · SERVICE</span>
-          </div>
-          <DotMark size={30} color="#ffffff" />
-        </div>
-      </div>
-      </div>
+      <LifecycleCard />
     </div>
   </div>
 </section>

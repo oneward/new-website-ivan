@@ -31,9 +31,9 @@ function initTenantWord() {
 }
 
 function initLifecycle() {
-  const root = document.querySelector('[data-lifecycle]');
-  if (!root) return;
-  const stageEls = root.querySelectorAll('[data-stage-i]');
+  const roots = document.querySelectorAll('[data-lifecycle]');
+  if (!roots.length) return;
+  const stageEls = [...roots].flatMap((root) => [...root.querySelectorAll('[data-stage-i]')]);
   let tick = 0;
   const apply = () => {
     const active = Math.floor(tick / 5);
