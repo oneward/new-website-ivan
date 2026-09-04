@@ -6,7 +6,6 @@ import Icon from '../components/Icon.astro';
 import DotMark from '../components/DotMark.astro';
 import AnalysisForm from '../components/AnalysisForm.astro';
 
-const days = Array.from({ length: 30 }, (_, i) => i + 1);
 const checkIns = [7, 14, 21, 28];
 
 const planRows = [
@@ -20,14 +19,15 @@ const planRows = [
   ['Recommendation', 'What to build first, and why.'],
 ];
 
-const weeks = [
-  { label: 'WEEK 1', title: 'Sign and choose.', lines: ['We sign the NDA and, if you need one, a data agreement.', 'You choose up to three use cases. We agree which data we may read.'] },
-  { label: 'WEEKS 2–3', title: 'Analyze.', lines: ['We study your data and your process for each use case.', 'We check what is possible, what it costs to build, and what it returns.'] },
-  { label: 'WEEK 4', title: 'Documented plan.', lines: ['Day 30: the written plan for each use case, ready to use.'] },
+const range = (a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
+const phases = [
+  { label: 'Week 1', span: 'Days 1–7', days: range(1, 7), title: 'Sign and choose.', lines: ['We sign the NDA and, if you need one, a data agreement.', 'You choose up to three use cases. We agree which data we may read.'] },
+  { label: 'Weeks 2–3', span: 'Days 8–21', days: range(8, 21), title: 'Analyze.', lines: ['We study your data and your process for each use case.', 'We check what is possible, what it costs to build, and what it returns.'] },
+  { label: 'Week 4', span: 'Days 22–30', days: range(22, 30), title: 'Documented plan.', lines: ['The written plan for each use case, ready to use on day 30.'] },
 ];
 const decisions = [
-  { title: 'Keep the plan and stop here.', body: 'No cost, no obligation.' },
-  { title: 'Ask us to build it.', body: 'We send a written offer for the scope in the plan. Our engineers build it with your team until it runs reliably and you approve it.' },
+  { title: 'Keep the plan and stop.', body: 'No cost, no obligation.' },
+  { title: 'Ask us to build it.', body: 'We send a written offer for the scope in the plan and build it with your team.' },
   { title: 'Build it with another partner.', body: 'The plan is yours to hand over.' },
 ];
 
@@ -50,7 +50,6 @@ const legend = [
   { shape: 'background: #2BD4FF; border-radius: 2px;', text: 'Day 30: your plan, ready to use' },
 ];
 
-const eyebrow = "font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #030FFF;";
 const h2 = "margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; color: #101828; text-wrap: pretty;";
 const body = 'margin: 0; font-size: 15px; line-height: 1.7; color: #4a463c; text-wrap: pretty;';
 const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.16em;";
@@ -84,17 +83,17 @@ const talk = 'Prefer to talk first?';
     <div class="two-col" style="max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 64px; align-items: center;">
       <div style="background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(2,7,31,0.10);">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 22px; background: linear-gradient(160deg, #030FFF 0%, #020865 100%); color: #ffffff;">
-          <span style="display: flex; align-items: center; gap: 10px;"><DotMark size={16} color="#ffffff" animation="none" /><span style={`${mono} color: rgba(255,255,255,0.75);`}>PLAN · USE CASE 1 OF 3</span></span>
-          <span style={`${mono} color: #2BD4FF;`}>READY ON DAY 30</span>
+          <span style="display: flex; align-items: center; gap: 10px; min-width: 0;"><DotMark size={16} color="#ffffff" animation="none" /><span style="font-size: 13px; color: rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Example plan: <span style="color: #ffffff; font-weight: 600;">Leave and absence coordination</span></span></span>
+          <span style="font-size: 12px; color: #2BD4FF; white-space: nowrap;">Delivered on day 30</span>
         </div>
         <div style="padding: 20px 22px 8px;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1px solid #eceae4;">
-            <span style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #101828;">Inside each plan</span>
-            <span style="font-size: 12.5px; color: #9a968c;">Every section filled from your data</span>
+            <span style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: #101828;">What each plan contains</span>
+            <span style="font-size: 12.5px; color: #9a968c;">Filled from your data during the 30 days</span>
           </div>
           {planRows.map(([k, v], i) => (
-            <div class="plan-row" style={`display: grid; grid-template-columns: 28px minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 12px; align-items: baseline; padding: 12px 0; ${i < planRows.length - 1 ? 'border-bottom: 1px solid #eceae4;' : ''}`}>
-              <span style={`${mono} font-size: 10px; color: #030FFF;`}>{String(i + 1).padStart(2, '0')}</span>
+            <div class="plan-row" style={`display: grid; grid-template-columns: 32px minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 12px; align-items: baseline; padding: 12px 0; ${i < planRows.length - 1 ? 'border-bottom: 1px solid #eceae4;' : ''}`}>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: #030FFF;">{String(i + 1).padStart(2, '0')}</span>
               <span style="font-size: 14px; font-weight: 600; color: #101828;">{k}</span>
               <span style="font-size: 14px; line-height: 1.5; color: #4a463c;">{v}</span>
             </div>
@@ -102,7 +101,6 @@ const talk = 'Prefer to talk first?';
         </div>
       </div>
       <div class="day30-text" style="display: flex; flex-direction: column; gap: 18px;">
-        <span style={eyebrow}>DAY 30</span>
         <h2 style={h2}>What you receive on Day 30.</h2>
         <p style={body}>A written plan for each use case you chose. It is built from your data and your process, not from a template.</p>
         <p style={body}>Your team can use it to decide, to budget, and to build, with us or with any other partner.</p>
@@ -117,65 +115,49 @@ const talk = 'Prefer to talk first?';
 
   <!-- ============ How the 30 days work ============ -->
   <section style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div class="two-col" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); gap: 48px; align-items: center;">
-        <div style="display: flex; flex-direction: column; gap: 18px;">
-          <span style={eyebrow}>THE PROCESS</span>
-          <h2 style={h2}>How the 30 days work.</h2>
-          <p style={body}>Any HR task that follows rules and touches your systems can be a use case. Pick up to three, or start from <a href="/use-cases" style="color: #030FFF;">the agent library</a>.</p>
-        </div>
-        <div style="background: #05071F; border-radius: 12px; padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 50px rgba(2,7,31,0.25);">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style={`${mono} color: rgba(255,255,255,0.55);`}>30 DAYS</span>
-            <span style={`${mono} color: #2BD4FF;`}>FREE</span>
-          </div>
-          <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            {days.map((d) => (
-              <span style={`position: relative; aspect-ratio: 1; border-radius: 5px; display: flex; align-items: flex-start; padding: 4px 0 0 5px; box-sizing: border-box; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; ${d === 30 ? 'background: #2BD4FF; color: #05071F; font-weight: 600;' : d === 1 ? 'border: 1px solid #2BD4FF; color: #ffffff;' : 'border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5);'}`}>
-                {String(d).padStart(2, '0')}
-                {checkIns.includes(d) && <span style="position: absolute; right: 4px; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: #2BD4FF;"></span>}
-              </span>
-            ))}
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 5px; font-size: 11.5px; color: rgba(255,255,255,0.75);">
-            {legend.map((l) => <span style="display: flex; align-items: center; gap: 8px;"><span style={`width: 8px; height: 8px; box-sizing: border-box; flex-shrink: 0; ${l.shape}`}></span>{l.text}</span>)}
-          </div>
-        </div>
+    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px;">
+        <h2 style={h2}>How the 30 days work.</h2>
+        <p style={body}>Any HR task that follows rules and touches your systems can be a use case. Pick up to three, or start from <a href="/use-cases" style="color: #030FFF;">the agent library</a>. The 30 days are free; what happens after is your decision.</p>
       </div>
 
-      <div class="timeline" style="display: grid; grid-template-columns: minmax(0, 3fr) 56px minmax(0, 1.1fr); align-items: start;">
-        <div style="position: relative; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); border-radius: 14px; padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 20px;">
-          <span style="position: absolute; top: -11px; left: 22px; display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #030FFF; background: #ffffff; border: 1px solid rgba(3,15,255,0.25); border-radius: 999px; padding: 3px 10px 3px 8px;"><DotMark size={10} />FREE</span>
-          <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0;">
-            {weeks.map((w, i) => (
-              <div style={`display: flex; flex-direction: column; gap: 10px; padding: 4px ${i < weeks.length - 1 ? '22px' : '0'} 0 ${i > 0 ? '22px' : '0'}; ${i > 0 ? 'border-left: 1px solid #eceae4;' : ''}`}>
-                <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 24px; height: 24px; border-radius: 50%; background: #030FFF; color: #ffffff; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">{i + 1}</span><span style={`${mono} color: #9a968c;`}>{w.label}</span></span>
-                <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">{w.title}</span>
-                {w.lines.map((l) => <span style="font-size: 13.5px; line-height: 1.6; color: #4a463c; text-wrap: pretty;">{l}</span>)}
+      <div style="background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 28px 28px 26px; box-shadow: 0 24px 50px rgba(2,7,31,0.06);">
+        <div class="tl-grid" style="display: grid; grid-template-columns: 7fr 14fr 9fr 44px 11fr; align-items: start;">
+          {phases.map((ph, i) => (
+            <div style={`display: flex; flex-direction: column; gap: 14px; ${i > 0 ? 'padding-left: 20px; border-left: 1px solid #eceae4;' : ''} ${i < phases.length - 1 ? 'padding-right: 20px;' : ''}`}>
+              <div style="display: flex; gap: 3px; height: 10px;">
+                {ph.days.map((d) => (
+                  <span title={`Day ${d}`} style={`flex: 1; border-radius: 2px; box-sizing: border-box; ${d === 30 ? 'background: #2BD4FF;' : d === 1 ? 'border: 1.5px solid #030FFF; background: #ffffff;' : checkIns.includes(d) ? 'background: #030FFF;' : 'background: rgba(3,15,255,0.14);'}`}></span>
+                ))}
               </div>
-            ))}
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+                <span style="font-size: 12.5px; font-weight: 600; color: #030FFF;">{ph.label}</span>
+                <span style="font-size: 11.5px; color: #9a968c; white-space: nowrap;">{ph.span}</span>
+              </div>
+              <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">{ph.title}</span>
+              {ph.lines.map((l) => <span style="font-size: 13.5px; line-height: 1.6; color: #4a463c; text-wrap: pretty;">{l}</span>)}
+            </div>
+          ))}
+          <div class="tl-arrow" style="display: flex; align-items: center; justify-content: center; height: 10px;">
+            <span style="width: 100%; border-top: 2px dotted rgba(3,15,255,0.35);"></span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px; padding: 16px 18px 18px; margin-top: -16px; background: #f7f6f3; border: 1px dashed #c9c5ba; border-radius: 12px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;">
+              <span style="font-size: 12.5px; font-weight: 600; color: #6f6a5e;">After day 30</span>
+            </div>
+            <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #101828;">Your decision.</span>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              {decisions.map((d) => (
+                <span style="font-size: 13px; line-height: 1.5; color: #4a463c;"><span style="font-weight: 600; color: #101828;">{d.title}</span> {d.body}</span>
+              ))}
+            </div>
           </div>
         </div>
-        <div class="timeline-marker" style="position: relative; display: flex; flex-direction: column; align-items: center;">
-          <span style="position: absolute; top: 0; bottom: 0; border-left: 2px dotted rgba(3,15,255,0.35);"></span>
-          <span style="position: relative; margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 6px;">
-            <span style="width: 12px; height: 12px; background: #2BD4FF; transform: rotate(45deg); border-radius: 2px; box-shadow: 0 0 0 4px #f7f6f3;"></span>
-            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; color: #030FFF; background: #f7f6f3; padding: 2px 4px; white-space: nowrap;">DAY 30</span>
-          </span>
-        </div>
-        <div style="background: #ffffff; border: 1px dashed #c9c5ba; border-radius: 14px; padding: 26px 24px 24px; display: flex; flex-direction: column; gap: 14px;">
-          <span style={`${mono} color: #9a968c;`}>AFTER DAY 30 · YOUR DECISION</span>
-          <div style="display: flex; flex-direction: column; gap: 12px;">
-            {decisions.map((d, i) => (
-              <div style="display: flex; gap: 10px; align-items: flex-start;">
-                <span style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid #c9c5ba; color: #6f6a5e; font-family: 'IBM Plex Mono', monospace; font-size: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">{i + 1}</span>
-                <div style="display: flex; flex-direction: column; gap: 2px;">
-                  <span style="font-size: 13.5px; font-weight: 600; color: #101828;">{d.title}</span>
-                  <span style="font-size: 12.5px; line-height: 1.55; color: #6f6a5e;">{d.body}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div style="display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 22px; padding-top: 16px; border-top: 1px solid #eceae4;">
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #4a463c;"><span style="width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid #030FFF; box-sizing: border-box;"></span>Day 1: agreements signed</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #4a463c;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #030FFF;"></span>Weekly 30-minute check-in</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: #4a463c;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #2BD4FF;"></span>Day 30: your plan, ready to use</span>
+          <span style="margin-left: auto; font-size: 12.5px; color: #030FFF; font-weight: 600;">Free for the full 30 days</span>
         </div>
       </div>
     </div>
@@ -185,7 +167,6 @@ const talk = 'Prefer to talk first?';
   <section style="background: #ffffff; border-top: 1px solid #e3e1db; padding: 104px 64px;">
     <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
       <div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px;">
-        <span style={eyebrow}>WHAT IT TAKES</span>
         <h2 style={h2}>What we need from you, and how we treat your data.</h2>
       </div>
       <div class="two-col" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: stretch;">
@@ -231,7 +212,6 @@ const talk = 'Prefer to talk first?';
     <div style={texture}></div>
     <div class="two-col" style="position: relative; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 64px; align-items: center;">
       <div style="display: flex; flex-direction: column; gap: 18px;">
-        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #2BD4FF;">START THE 30 DAYS</span>
         <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.1; text-wrap: pretty;">Know where agents fit before you commit.</h2>
         <p style="margin: 0; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 460px; text-wrap: pretty;">Tell us who you are and which systems you run. We reply within one business day to set up a first call and the NDA.</p>
         <span style="font-size: 13px; color: rgba(255,255,255,0.6);">{talk} <a href="https://calendly.com/oneward/demo" target="_blank" rel="noopener" style="color: #ffffff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.4);">Book a demo call</a></span>
