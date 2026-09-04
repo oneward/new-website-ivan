@@ -1,0 +1,40 @@
+// Dropdown options for the 30-day analysis request form.
+
+export const hrisOptions = [
+  'Workday',
+  'SAP SuccessFactors',
+  'Oracle HCM Cloud',
+  'Oracle PeopleSoft',
+  'ADP Workforce Now',
+  'ADP Vantage HCM',
+  'UKG Pro',
+  'UKG Ready',
+  'Dayforce (Ceridian)',
+  'Personio',
+  'HiBob',
+  'BambooHR',
+  'Rippling',
+  'Paylocity',
+  'Paycor',
+  'Paycom',
+  'Sage People',
+  'Cornerstone HR',
+  'Infor HCM',
+  'Deel',
+  'Factorial',
+  'Zoho People',
+  'Custom or in-house system',
+  'Other',
+  'Not sure',
+];
+
+export const hrToolGroups: { label: string; options: string[] }[] = [
+  { label: 'Applicant tracking', options: ['Greenhouse', 'Lever', 'Ashby', 'SmartRecruiters', 'iCIMS', 'Workable', 'Teamtailor'] },
+  { label: 'Payroll', options: ['ADP', 'DATEV', 'Paychex', 'Gusto', 'Papaya Global', 'Remote', 'Deel'] },
+  { label: 'Time and absence', options: ['UKG (Kronos)', 'Deputy', 'Replicon', 'absence.io', 'Clockify'] },
+  { label: 'Learning', options: ['Cornerstone Learning', 'Docebo', 'SAP Litmos', 'LinkedIn Learning', '360Learning'] },
+  { label: 'Performance and engagement', options: ['Lattice', 'Culture Amp', 'Leapsome', '15Five', 'Workday Peakon'] },
+  { label: 'Benefits and compensation', options: ['Benefitfocus', 'Benify', 'bswift', 'Pave', 'Payscale'] },
+  { label: 'HR service and ticketing', options: ['ServiceNow HRSD', 'Jira Service Management', 'Zendesk', 'Freshservice'] },
+  { label: 'Collaboration', options: ['Slack', 'Microsoft Teams', 'Google Workspace'] },
+];

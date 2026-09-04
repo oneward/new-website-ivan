@@ -1,4 +1,5 @@
 body { margin: 0; background: #f7f6f3; font-family: 'Inter', Helvetica, sans-serif; color: #101828; }
+[hidden] { display: none !important; }
 a { color: #030FFF; } a:hover { color: #101828; }
 
 @keyframes owThink { 0%, 100% { opacity: 0.16; } 50% { opacity: 0.9; } }
@@ -81,6 +82,20 @@ a { color: #030FFF; } a:hover { color: #101828; }
 a.uc-card { text-decoration: none; color: inherit; }
 .uc-card.is-clickable { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
 .uc-card.is-clickable:hover, .uc-card.is-clickable:focus-visible { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,24,40,0.08); border-color: rgba(3,15,255,0.4) !important; outline: none; }
+
+/* ---- analysis request form ---- */
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f6a5e; }
+.field label .req { color: #030FFF; }
+.field input, .field select { font-family: 'Inter', sans-serif; font-size: 14px; color: #101828; background: #ffffff; border: 1px solid #e3e1db; border-radius: 8px; padding: 11px 12px; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; }
+.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5l3.5 3.5 3.5-3.5' fill='none' stroke='%236f6a5e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+.field select:invalid, .field select option[value=""] { color: #9a968c; }
+.field input::placeholder { color: #9a968c; }
+.field input:focus, .field select:focus { border-color: #030FFF; box-shadow: 0 0 0 3px rgba(3,15,255,0.12); }
+.field input:user-invalid { border-color: #d9463e; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid .field.wide { grid-column: 1 / -1; }
+@media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
 
 /* ---- use-case detail modal ---- */
 .uc-modal { border: 0; padding: 0; background: transparent; width: min(780px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; }
