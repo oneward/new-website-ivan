@@ -1,10 +1,13 @@
 ---
-// Homepage teaser: three featured agents plus a pointer to the full library.
+// Homepage teaser: three featured agents with illustrated previews, plus a
+// pointer to the full library.
 import DotMark from './DotMark.astro';
 import UseCaseCard from './UseCaseCard.astro';
-import { useCases, featuredSlugs, categories } from '../data/useCases';
+import FeaturedPreview from './FeaturedPreview.astro';
+import { useCases, featuredSlugs } from '../data/useCases';
 
 const featured = featuredSlugs.map((slug) => useCases.find((u) => u.slug === slug)!);
+const stages = ['Attract', 'Onboard', 'Grow', 'Move', 'Offboard'];
 ---
 <section id="agents" style="background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 24px 24px; background-position: 12px 12px; border-top: 1px solid #e3e1db; padding: 104px 64px;">
   <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
@@ -14,17 +17,26 @@ const featured = featuredSlugs.map((slug) => useCases.find((u) => u.slug === slu
       <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; white-space: nowrap;">Each replacing a specific manual process in your HR stack. All run on one integrity foundation, one permission model, and one audit trail.</p>
     </div>
     <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
-      {featured.map((u) => <UseCaseCard u={u} href={`/use-cases#${u.slug}`} />)}
+      {featured.map((u) => (
+        <UseCaseCard u={u} href={`/use-cases#${u.slug}`} moreLabel="See how it works →">
+          <FeaturedPreview slot="preview" slug={u.slug} />
+        </UseCaseCard>
+      ))}
     </div>
     <div class="uc-library-band" style="display: flex; align-items: center; justify-content: space-between; gap: 28px; background: #ffffff; border: 1px solid #e3e1db; border-radius: 14px; padding: 22px 26px; box-shadow: 0 6px 18px rgba(16,24,40,0.05);">
       <div style="display: flex; align-items: center; gap: 18px; min-width: 0;">
         <span style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(160deg, #030FFF 0%, #020865 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={26} color="#ffffff" /></span>
-        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0;">
-          <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">{useCases.length} agents across the employee lifecycle, on one always-on foundation.</span>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            {categories.map((c) => (
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #6f6a5e; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 4px 9px; white-space: nowrap;">{c}</span>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+          <span style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.01em; color: #101828;">The full library covers the whole employee lifecycle, on one always-on foundation.</span>
+          <div class="uc-lifecycle-strip" style="display: flex; align-items: center; flex-wrap: wrap; gap: 6px;">
+            {stages.map((s, i) => (
+              <>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #4a463c; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 999px; padding: 4px 10px; white-space: nowrap;">{s}</span>
+                {i < stages.length - 1 && <span style="width: 14px; border-top: 2px dotted rgba(3,15,255,0.35);"></span>}
+              </>
             ))}
+            <span style="width: 1px; height: 16px; background: #e3e1db; margin: 0 6px;"></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #030FFF; background: #f5f6ff; border: 1px solid rgba(3,15,255,0.2); border-radius: 999px; padding: 4px 10px 4px 8px; white-space: nowrap;"><DotMark size={10} />Integrity foundation · always on</span>
           </div>
         </div>
       </div>

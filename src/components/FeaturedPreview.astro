@@ -1,0 +1,63 @@
+---
+// Small illustrated preview for the three featured agents on the homepage,
+// drawn in the same micro-UI language as the hero and platform sections.
+import DotMark from './DotMark.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+
+const mono = "font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; color: #9a968c;";
+const shimmer = "font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: linear-gradient(90deg, #9a968c 35%, #101828 50%, #9a968c 65%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: owShimmer 2.4s linear infinite;";
+const row = 'display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #4a463c; min-width: 0;';
+const live = 'width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #2BD4FF; animation: owLive 2.2s ease-in-out infinite;';
+const next = 'width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #ffffff; border: 1.5px solid #c9c5ba; box-sizing: border-box;';
+const panel = 'background: #ffffff; border: 1px solid #e3e1db; border-radius: 10px; box-shadow: 0 6px 18px rgba(16,24,40,0.06);';
+---
+<div style="margin: -20px -20px 0; padding: 18px 18px 16px; background: #f7f6f3; background-image: radial-gradient(rgba(3,15,255,0.14) 1px, transparent 1px); background-size: 20px 20px; background-position: 10px 10px; border-bottom: 1px solid #eceae4; border-radius: 12px 12px 0 0; min-height: 168px; box-sizing: border-box; display: flex; align-items: center;">
+
+  {slug === 'pre-boarding-and-day-one-orchestration' && (
+    <div style={`${panel} width: 100%; padding: 12px 14px 11px; display: flex; flex-direction: column; gap: 8px;`}>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+        <span style="display: flex; align-items: center; gap: 8px; min-width: 0;"><DotMark size={16} /><span style={shimmer}>Preparing day one…</span></span>
+        <span style={mono}>TOM B. · MON</span>
+      </div>
+      <div style="height: 1px; background: #eceae4;"></div>
+      <div style={row}><Icon src="/assets/e12355da.svg" size={12} color="#030FFF" /><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Laptop ordered · IT</span></div>
+      <div style={row}><Icon src="/assets/e12355da.svg" size={12} color="#030FFF" /><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Access provisioned · Workday, Slack</span></div>
+      <div style={row}><span style={live}></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #101828;">Buddy assigned · Maria K.…</span></div>
+      <div style={`${row} color: #9a968c;`}><span style={next}></span><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">First-week schedule</span></div>
+    </div>
+  )}
+
+  {slug === 'leave-and-absence-coordination' && (
+    <div style="width: 100%; display: flex; flex-direction: column; gap: 8px;">
+      <div style="align-self: flex-end; max-width: 78%; background: #030FFF; color: #ffffff; border-radius: 12px 12px 4px 12px; padding: 7px 11px; font-size: 11.5px; line-height: 1.4; box-shadow: 0 6px 18px rgba(3,15,255,0.18);">Can I take Oct 6 to 10 off?</div>
+      <div style="display: flex; align-items: flex-end; gap: 7px; max-width: 92%;">
+        <span style="width: 22px; height: 22px; border-radius: 50%; background: #ffffff; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><DotMark size={12} animation="none" /></span>
+        <div style={`${panel} border-color: rgba(3,15,255,0.25); border-radius: 12px 12px 12px 4px; padding: 9px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0;`}>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;"><span style={mono}>LEAVE REQUEST</span><span style="display: flex; align-items: center; gap: 4px; font-size: 10.5px; color: #007a5a; white-space: nowrap;"><Icon src="/assets/e12355da.svg" size={11} color="#007a5a" />Approved</span></div>
+          <span style="font-size: 12px; font-weight: 600; color: #101828; white-space: nowrap;">Oct 6 – Oct 10 · 5 days</span>
+          <span style="font-size: 11px; color: #6f6a5e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">12 left · no blackout conflict · HRIS updated</span>
+          <span style="align-self: flex-start; display: flex; align-items: center; gap: 5px; font-size: 10px; color: #030FFF; background: rgba(3,15,255,0.06); border-radius: 999px; padding: 2px 8px; white-space: nowrap;"><Icon src="/assets/ph-file-text.svg" size={10} color="#030FFF" />Leave policy · section 3.2</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {slug === 'payroll-integrity' && (
+    <div style={`${panel} width: 100%; padding: 12px 14px 11px; display: flex; flex-direction: column; gap: 8px;`}>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+        <span style={mono}>PAY RUN · NOVEMBER</span>
+        <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #16DB4E; animation: owLive 2.2s ease-in-out infinite;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; color: #16DB4E;">CHECKING</span></span>
+      </div>
+      <div style="height: 1px; background: #eceae4;"></div>
+      <div style={`${row} justify-content: space-between;`}><span style="display: flex; align-items: center; gap: 8px; min-width: 0;"><Icon src="/assets/e12355da.svg" size={12} color="#030FFF" /><span style="white-space: nowrap;">Net pay reconciled</span></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9a968c;">1,284 / 1,284</span></div>
+      <div style={`${row} justify-content: space-between;`}><span style="display: flex; align-items: center; gap: 8px; min-width: 0;"><Icon src="/assets/e12355da.svg" size={12} color="#030FFF" /><span style="white-space: nowrap;">Contributions complete</span></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9a968c;">EU · US</span></div>
+      <div style={`${row} justify-content: space-between; color: #101828;`}><span style="display: flex; align-items: center; gap: 8px; min-width: 0;"><span style="width: 8px; height: 8px; flex-shrink: 0; margin: 0 2px; border-radius: 50%; background: #F0A868;"></span><span style="white-space: nowrap;">2 outliers flagged for review</span></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #F0A868;">HOLD</span></div>
+      <div style={`${row} color: #9a968c;`}><span style={next}></span><span style="white-space: nowrap;">Release to payroll</span></div>
+    </div>
+  )}
+</div>
