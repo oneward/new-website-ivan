@@ -170,6 +170,30 @@ function initUseCaseModal() {
   openFromHash();
 }
 
+function initDemoModal() {
+  const dialog = document.querySelector('[data-demo-modal]');
+  if (!dialog || location.pathname.replace(/\/$/, '') === '/book-a-demo') return;
+  const frame = dialog.querySelector('iframe');
+  const open = () => {
+    if (!frame.src) frame.src = frame.dataset.src;
+    if (!dialog.open) dialog.showModal();
+  };
+  document.querySelectorAll('a[href="/book-a-demo"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      open();
+    });
+  });
+  dialog.querySelector('[data-demo-close]').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dialog.open) dialog.close();
+  });
+}
+
 function initDiagramScale() {
   const wrap = document.querySelector('[data-diagram-wrap]');
   const inner = document.querySelector('[data-diagram]');
@@ -189,4 +213,5 @@ initLifecycle();
 initChat();
 initUseCaseFilter();
 initUseCaseModal();
+initDemoModal();
 initDiagramScale();
