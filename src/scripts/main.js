@@ -172,13 +172,13 @@ function initUseCaseModal() {
 
 function initDemoModal() {
   const dialog = document.querySelector('[data-demo-modal]');
-  if (!dialog || location.pathname.replace(/\/$/, '') === '/book-a-demo') return;
+  if (!dialog) return;
   const frame = dialog.querySelector('iframe');
   const open = () => {
     if (!frame.src) frame.src = frame.dataset.src;
     if (!dialog.open) dialog.showModal();
   };
-  document.querySelectorAll('a[href="/book-a-demo"]').forEach((a) => {
+  document.querySelectorAll('a[data-demo]').forEach((a) => {
     a.addEventListener('click', (e) => {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
       e.preventDefault();
