@@ -13,6 +13,10 @@ a { color: #030FFF; } a:hover { color: #101828; }
 @keyframes owFlowY { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
 @keyframes owLive { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.72); opacity: 0.55; } }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
 /* ---- hover styles (ported from style-hover attributes) ---- */
 .nav-link { font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; }
 .nav-link:hover { color: #ffffff; }
@@ -69,6 +73,7 @@ a { color: #030FFF; } a:hover { color: #101828; }
 
 /* ---- use-case filter ---- */
 .uc-filter { color: #4a463c; background: #ffffff; border: 1px solid #e3e1db; cursor: pointer; }
+.uc-filter:hover, .uc-filter:focus-visible { border-color: rgba(3,15,255,0.4); outline: none; }
 .uc-filter.is-current { color: #ffffff; background: #030FFF; border-color: #030FFF; }
 .uc-filter .uc-count { color: #9a968c; }
 .uc-filter.is-current .uc-count { color: rgba(255,255,255,0.7); }
@@ -79,6 +84,7 @@ a.uc-card { text-decoration: none; color: inherit; }
 
 /* ---- use-case detail modal ---- */
 .uc-modal { border: 0; padding: 0; background: transparent; width: min(780px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; }
+body:has(.uc-modal[open]) { overflow: hidden; }
 .uc-modal::backdrop { background: rgba(5,7,31,0.62); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .uc-modal-panel { background: #ffffff; border-radius: 16px; padding: 28px 32px 28px; display: flex; flex-direction: column; gap: 22px; box-shadow: 0 30px 80px rgba(2,7,31,0.4); }
 .uc-modal-close { width: 36px; height: 36px; flex-shrink: 0; border: 1px solid #e3e1db; border-radius: 50%; background: #ffffff; color: #6f6a5e; font-size: 22px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }

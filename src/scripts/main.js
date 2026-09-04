@@ -6,7 +6,7 @@ const TENANTS = ['your HR systems', 'any HCM', 'Workday', 'SuccessFactors', 'Ora
 
 function initStickyNav() {
   const bar = document.querySelector('[data-sticky-nav]');
-  const heroCard = document.querySelector('[data-hero-card]');
+  const heroCard = document.querySelector('[data-hero-card], [data-sticky-trigger]');
   if (!bar || !heroCard) return;
   const onScroll = () => {
     const past = heroCard.getBoundingClientRect().bottom < 0;
@@ -151,6 +151,9 @@ function initUseCaseModal() {
   dialog.querySelector('[data-uc-close]').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', (e) => {
     if (e.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dialog.open) dialog.close();
   });
   dialog.addEventListener('close', () => {
     if (location.hash) history.replaceState(null, '', location.pathname);
