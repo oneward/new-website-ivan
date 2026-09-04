@@ -10,13 +10,10 @@ interface Props {
   href?: string;
   clickable?: boolean;
   moreLabel?: string;
-  dark?: boolean;
 }
-const { u, href, clickable = false, moreLabel = 'Details →', dark = false } = Astro.props;
-// Colour roles for the light (library) and dark (homepage) variants.
-const c = dark
-  ? { bg: '#101828', border: 'rgba(255,255,255,0.1)', tile: 'rgba(255,255,255,0.08)', icon: '#2BD4FF', cat: '#2BD4FF', title: '#ffffff', body: 'rgba(255,255,255,0.68)', rule: 'rgba(255,255,255,0.12)', roles: 'rgba(255,255,255,0.55)', rolesIcon: 'rgba(255,255,255,0.45)', more: '#2BD4FF' }
-  : { bg: u.f ? '#f5f6ff' : '#ffffff', border: u.f ? 'rgba(3,15,255,0.2)' : '#e3e1db', tile: u.f ? '#ffffff' : 'rgba(3,15,255,0.06)', icon: '#030FFF', cat: u.f ? '#030FFF' : '#9a968c', title: '#101828', body: '#6f6a5e', rule: u.f ? 'rgba(3,15,255,0.12)' : '#eceae4', roles: '#6f6a5e', rolesIcon: '#9a968c', more: '#030FFF' };
+const { u, href, clickable = false, moreLabel = 'Details →' } = Astro.props;
+// Foundation agents (u.f) get the blue-tinted treatment.
+const c = { bg: u.f ? '#f5f6ff' : '#ffffff', border: u.f ? 'rgba(3,15,255,0.2)' : '#e3e1db', tile: u.f ? '#ffffff' : 'rgba(3,15,255,0.06)', icon: '#030FFF', cat: u.f ? '#030FFF' : '#9a968c', title: '#101828', body: '#6f6a5e', rule: u.f ? 'rgba(3,15,255,0.12)' : '#eceae4', roles: '#6f6a5e', rolesIcon: '#9a968c', more: '#030FFF' };
 const Tag = href ? 'a' : 'div';
 const detail = clickable
   ? {
@@ -34,7 +31,7 @@ const detail = clickable
   : {};
 ---
 <Tag
-  class:list={['uc-card', { 'is-clickable': clickable || !!href, 'uc-card-dark': dark }]}
+  class:list={['uc-card', { 'is-clickable': clickable || !!href }]}
   href={href}
   data-uc-roles={u.roles.join('|')}
   {...detail}
