@@ -129,7 +129,7 @@ function initUseCaseModal() {
     field('users').textContent = d.ucUsers;
     field('legacy').textContent = d.ucLegacy;
     field('solution').textContent = d.ucSolution;
-    field('roles').textContent = d.ucRoles;
+    field('roles').textContent = d.ucRolesText;
     if (iconEl) {
       const url = `url('/assets/ph-${d.ucIcon}.svg')`;
       iconEl.style.webkitMaskImage = url;
@@ -156,12 +156,16 @@ function initUseCaseModal() {
   dialog.addEventListener('close', () => {
     if (location.hash) history.replaceState(null, '', location.pathname);
   });
-  const slug = decodeURIComponent(location.hash.slice(1));
-  const match = slug && cards.find((c) => c.dataset.ucSlug === slug);
-  if (match) {
-    match.scrollIntoView({ block: 'center' });
-    open(match);
-  }
+  const openFromHash = () => {
+    const slug = decodeURIComponent(location.hash.slice(1));
+    const match = slug && cards.find((c) => c.dataset.ucSlug === slug);
+    if (match) {
+      match.scrollIntoView({ block: 'center' });
+      open(match);
+    }
+  };
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
 }
 
 function initDiagramScale() {

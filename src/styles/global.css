@@ -72,7 +72,7 @@ a { color: #030FFF; } a:hover { color: #101828; }
 .uc-filter.is-current { color: #ffffff; background: #030FFF; border-color: #030FFF; }
 .uc-filter .uc-count { color: #9a968c; }
 .uc-filter.is-current .uc-count { color: rgba(255,255,255,0.7); }
-.uc-card.is-hidden { display: none; }
+.uc-card.is-hidden { display: none !important; }
 a.uc-card { text-decoration: none; color: inherit; }
 .uc-card.is-clickable { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
 .uc-card.is-clickable:hover, .uc-card.is-clickable:focus-visible { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16,24,40,0.08); border-color: rgba(3,15,255,0.4) !important; outline: none; }
