@@ -1,10 +1,11 @@
 // 30-day analysis request form (rendered twice on the page).
 //
-// The site is static, so submissions go to FORM_ENDPOINT (any service that
-// accepts a JSON POST, e.g. Formspree or Basin). While it is empty, the form
-// falls back to opening a pre-filled email to partners@getoneward.com so
-// requests still arrive.
-const FORM_ENDPOINT = '';
+// The site is static, so submissions are delivered through PostHog (loaded in
+// Base.astro): the visitor is identified by email and an `analysis_requested`
+// event carries the form fields. If PostHog is blocked (ad blocker, strict
+// privacy settings), the form falls back to opening a pre-filled email to
+// partners@getoneward.com so requests still arrive.
+const EVENT_NAME = 'analysis_requested';
 const FALLBACK_EMAIL = 'partners@getoneward.com';
 
 const labels = {
@@ -58,45 +59,55 @@ function initMultiSelect(root) {
   render();
 }
 
+// Resolves with the PostHog client once its script has loaded, or with null
+// if it has not loaded within `timeout` ms (blocked or offline).
+function waitForPostHog(timeout = 2500) {
+  return new Promise((resolve) => {
+    const started = Date.now();
+    const check = () => {
+      const ph = window.posthog;
+      if (ph && ph.__loaded) return resolve(ph);
+      if (Date.now() - started > timeout) return resolve(null);
+      setTimeout(check, 100);
+    };
+    check();
+  });
+}
+
 function initForm(form) {
   const submit = form.querySelector('[type="submit"]');
   const done = form.parentElement.querySelector('[data-analysis-done]');
-  const error = form.querySelector('[data-analysis-error]');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(new FormData(form).entries());
-    error.hidden = true;
 
-    if (!FORM_ENDPOINT) {
+    submit.disabled = true;
+    const ph = await waitForPostHog();
+    if (ph) {
+      const props = {
+        name: data.name,
+        email: data.email,
+        company: data.company || null,
+        location: data.location || null,
+        website: data.website || null,
+        hris: data.hris || null,
+        hr_tools: data.tools ? data.tools.split(', ') : [],
+      };
+      ph.identify(data.email, props);
+      ph.capture(EVENT_NAME, { ...props, form_position: form.dataset.analysisForm || 'hero' }, { send_instantly: true });
+    } else {
       const body = Object.entries(labels)
         .filter(([k]) => data[k])
         .map(([k, label]) => `${label}: ${data[k]}`)
         .join('\n');
       const subject = `30-day analysis request: ${data.company || data.name}`;
       window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      form.hidden = true;
-      done.hidden = false;
-      return;
     }
-
-    submit.disabled = true;
-    submit.textContent = 'Sending…';
-    try {
-      const res = await fetch(FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      form.hidden = true;
-      done.hidden = false;
-    } catch (err) {
-      error.hidden = false;
-      submit.disabled = false;
-      submit.textContent = 'Request my free analysis';
-    }
+    submit.disabled = false;
+    form.hidden = true;
+    done.hidden = false;
   });
 }
 

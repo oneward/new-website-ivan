@@ -3,31 +3,31 @@ import LegalPage from '../layouts/LegalPage.astro';
 ---
 <LegalPage
   title="Cookie Notice"
-  intro="This website does not use cookies for tracking, analytics, or advertising. Here is exactly what it stores in your browser."
+  intro="This website sets no cookies and stores nothing in your browser. Here is exactly what runs when you visit."
   updated="4 September 2026"
 >
   <h2>What cookies are</h2>
   <p>Cookies are small text files a website stores in your browser. Similar technologies, such as local storage, can store data in the same way. European law requires consent for any cookie or storage that is not strictly necessary to provide the service you asked for.</p>
 
   <h2>What this website uses</h2>
-  <p>getoneward.com is a static website. It does not set cookies and does not use analytics, advertising, or social-media tracking technologies. Because nothing non-essential is stored, no consent banner is shown.</p>
+  <p>getoneward.com is a static website. It does not set cookies and does not write to local storage. We use PostHog for page analytics and to receive the 30-day analysis form, configured in memory-only mode: it keeps nothing in your browser between page loads, so visits cannot be linked across sessions and no consent banner is needed. There are no advertising or social-media tracking technologies.</p>
   <table>
     <thead>
       <tr><th>Category</th><th>Used on this site</th><th>Details</th></tr>
     </thead>
     <tbody>
       <tr><td>Strictly necessary</td><td>None</td><td>The site does not need cookies or local storage to function. Your form input is not saved in your browser.</td></tr>
-      <tr><td>Analytics</td><td>None</td><td>We do not measure visits or behaviour on this site.</td></tr>
+      <tr><td>Analytics</td><td>PostHog, memory-only</td><td>PostHog (PostHog, Inc., United States) counts page views and delivers the 30-day analysis form to us. It is configured to store nothing in your browser: a random identifier lives in page memory only and is discarded when you leave the page. Your browser sends its IP address to PostHog with each request; PostHog uses it to estimate your country and city. <span class="placeholder">[Enable "Discard client IP data" in PostHog project settings to avoid storing the IP itself.]</span> If you submit the analysis form, the details you enter are sent to PostHog and linked to your email address so we can reply.</td></tr>
       <tr><td>Marketing</td><td>None</td><td>No advertising or retargeting technologies.</td></tr>
       <tr><td>Third-party embeds</td><td>Google Calendar, only when you open the demo-call scheduler</td><td>The booking widget is loaded from Google only after you click "Book a demo call". Inside that widget, Google may set its own cookies under Google's privacy and cookie policies. Nothing is loaded from Google on ordinary page views.</td></tr>
     </tbody>
   </table>
 
   <h2>Fonts and assets</h2>
-  <p>All fonts, icons, and images are served from this website's own domain. No requests are made to third-party font or asset services when you load a page; the only third-party request is the Google Calendar widget described above, and only when you open it.</p>
+  <p>All fonts, icons, and images are served from this website's own domain. No requests are made to third-party font or asset services when you load a page. The only third-party requests are the PostHog analytics script described above and the Google Calendar widget, and the latter only when you open it.</p>
 
   <h2>If this changes</h2>
-  <p>If we introduce analytics or other technologies that store data in your browser, we will update this notice first and, where the law requires it, ask for your consent before anything is set.</p>
+  <p>If we introduce technologies that store data in your browser, we will update this notice first and, where the law requires it, ask for your consent before anything is set.</p>
 
   <h2>Questions</h2>
   <p>Email <a href="mailto:privacy@getoneward.com">privacy@getoneward.com</a> <span class="placeholder">[confirm mailbox]</span>. See also our <a href="/privacy-policy">Privacy Policy</a>.</p>
