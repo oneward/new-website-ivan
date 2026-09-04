@@ -14,7 +14,7 @@ import { useCases, roleOrder, catShort, rolesText } from '../data/useCases';
         <button type="button" class:list={['uc-filter', { 'is-current': r === 'All' }]} data-uc-filter={r} style="display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; border-radius: 999px; padding: 9px 16px; white-space: nowrap; transition: all 0.25s;">{r === 'All' ? 'All roles' : r}<span class="uc-count" style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;">{r === 'All' ? useCases.length : useCases.filter((u) => u.roles.includes(r)).length}</span></button>
       ))}
     </div>
-    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+    <div class="uc-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
       {useCases.map((u) => (
         <div class="uc-card" data-uc-roles={u.roles.join('|')} style={`background: ${u.f ? '#f5f6ff' : '#ffffff'}; border: 1px solid ${u.f ? 'rgba(3,15,255,0.2)' : '#e3e1db'}; border-radius: 12px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 14px; min-height: 100%; box-sizing: border-box;`}>
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">

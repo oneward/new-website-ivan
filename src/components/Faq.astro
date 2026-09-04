@@ -55,7 +55,7 @@ const groups: { label: string; items: { q: string; a: string }[] }[] = [
       <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15;">Questions enterprise HR asks first.</h2>
       <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; text-wrap: pretty;">Something else on your mind? Write to <a href="mailto:partners@getoneward.com">partners@getoneward.com</a>.</p>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; row-gap: 40px; align-items: start;">
+    <div class="faq-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; row-gap: 40px; align-items: start;">
       {groups.map((g) => (
         <div style="display: flex; flex-direction: column; gap: 0;">
           <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #030FFF; padding-bottom: 14px;">{g.label}</span>

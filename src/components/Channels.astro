@@ -39,13 +39,13 @@ const citePill = (bg: string) =>
       <span style={`position: absolute; right: ${l.right}px; bottom: ${l.bottom}px; width: 17px; height: 17px; border-radius: 50%; background: #ffffff; opacity: ${l.op};`}></span>
     ))}
   </div>
-  <div style="position: relative; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;" data-chat>
+  <div class="two-col" style="position: relative; max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;" data-chat>
     <div style="display: flex; flex-direction: column; gap: 24px;">
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <h2 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; text-wrap: pretty; color: #ffffff;">People meet Oneward where they already work.</h2>
         <p style="margin: 0; font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.72); text-wrap: pretty;">No new app to learn. Employees ask and request, managers and HR approve and decide, all inside the tools they already have open.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+      <div class="persona-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
         {[
           { img: '/assets/773979db.png', pos: 'center 40%', icon: '/assets/70316f42.svg', title: 'Employees', body: 'Ask a policy question, check a leave balance, submit a request, update their details.' },
           { img: '/assets/6593ebe8.png', pos: 'center 45%', icon: '/assets/9f881469.svg', title: 'Managers and HR', body: 'Approve requests, review changes, and make decisions with the context already attached.' },

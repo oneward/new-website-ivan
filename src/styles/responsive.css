@@ -1,0 +1,54 @@
+/* The design is authored desktop-first with inline styles, so breakpoint
+   overrides need !important to win. Hooks are the layout classes on the
+   section grids (.two-col, .uc-grid, …). */
+
+/* ---- tablet ---- */
+@media (max-width: 1000px) {
+  .uc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .faq-grid { grid-template-columns: 1fr !important; row-gap: 32px !important; }
+  .two-col { grid-template-columns: 1fr !important; gap: 40px !important; }
+  p[style*="nowrap"], h2[style*="nowrap"] { white-space: normal !important; }
+}
+
+/* ---- phone ---- */
+@media (max-width: 760px) {
+  body { overflow-x: hidden; }
+
+  /* section rhythm: 64px sides → 20px, vertical padding trimmed */
+  section[style*="padding: 104px"], section[style*="padding: 88px"],
+  section[style*="padding: 96px"], section[style*="padding: 112px"], footer {
+    padding: 64px 20px !important;
+  }
+  .nav-row { padding: 18px 20px !important; gap: 16px !important; }
+  .nav-links { gap: 16px !important; }
+  .nav-links .nav-link { display: none; }
+  .hero-inner { padding: 56px 20px 88px !important; }
+  .stub-hero { padding: 80px 20px 120px !important; }
+
+  /* type: let headlines wrap and scale with the viewport */
+  #top h1 { font-size: clamp(28px, 8.5vw, 52px) !important; }
+  #top h1 span { white-space: normal !important; }
+  h2 { font-size: clamp(24px, 7.5vw, 32px) !important; }
+  .stub-hero h1 { font-size: clamp(30px, 9vw, 44px) !important; }
+
+  /* hero lifecycle card keeps its 5-column layout and scrolls sideways */
+  .lifecycle-scroll { overflow-x: auto; margin: 0 -20px; padding: 0 20px; width: auto !important; align-self: stretch; min-width: 0; -webkit-overflow-scrolling: touch; }
+  [data-lifecycle] { min-width: 660px; }
+
+  /* problem section */
+  .problem-grid { grid-template-columns: 1fr !important; }
+  .contrast-row { grid-template-columns: 1fr !important; gap: 8px !important; }
+  .contrast-arrow { display: none !important; }
+  .contrast-row > span { justify-self: stretch !important; }
+  .whynow-grid { grid-template-columns: 1fr !important; padding: 24px 22px !important; }
+  .whynow-img { display: none !important; }
+
+  /* channels */
+  .persona-grid { grid-template-columns: 1fr !important; }
+  .persona-grid > div { min-height: 260px !important; }
+
+  /* use cases, footer */
+  .uc-grid { grid-template-columns: 1fr !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+  .footer-grid > div:first-child { grid-column: 1 / -1; }
+}
