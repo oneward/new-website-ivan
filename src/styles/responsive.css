@@ -51,6 +51,7 @@
 
   /* the integrations diagram: the fixed canvas is replaced by a one-column
      version of the same nodes (IntegrationDiagram.astro) */
+  .hero-card { padding: 28px 12px 18px !important; }
   .diagram-canvas { display: none !important; }
   .diagram-stack { display: flex !important; }
 
