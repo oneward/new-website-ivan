@@ -52,6 +52,9 @@ a { color: #030FFF; } a:hover { color: #101828; }
 .flow-audit { opacity: 0.35; transition: opacity 0.5s ease; }
 .flow.is-done .flow-audit { opacity: 1; }
 
+/* line breaks that only apply on phones (see responsive.css) */
+.phone-break { display: none; }
+
 /* ---- hover styles (ported from style-hover attributes) ---- */
 .nav-link { font-size: 14px; color: rgba(255,255,255,0.78); text-decoration: none; }
 .nav-link:hover { color: #ffffff; }
