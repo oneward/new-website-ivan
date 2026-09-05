@@ -40,7 +40,8 @@
 
   /* type: let headlines wrap and scale with the viewport */
   #top h1 { font-size: clamp(28px, 8.5vw, 52px) !important; }
-  #top h1 span { white-space: normal !important; }
+  #top h1 { display: block !important; min-height: 0 !important; }
+  #top h1 > span { white-space: normal !important; }
   h2 { font-size: clamp(24px, 7.5vw, 32px) !important; }
   h2.hero-card-title { font-size: 18px !important; }
   .h2-line { display: inline !important; }
