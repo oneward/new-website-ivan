@@ -49,10 +49,10 @@
   .h2-line { display: inline !important; }
   .stub-hero h1 { font-size: clamp(30px, 9vw, 44px) !important; }
 
-  /* the integrations diagram stays readable and scrolls sideways */
-  .diagram-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; width: auto !important; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .diagram-scroll::-webkit-scrollbar { display: none; }
-  [data-diagram-wrap] { min-width: 660px; }
+  /* the integrations diagram: the fixed canvas is replaced by a one-column
+     version of the same nodes (IntegrationDiagram.astro) */
+  .diagram-canvas { display: none !important; }
+  .diagram-stack { display: flex !important; }
 
   /* lifecycle card: five narrow columns fit the phone; the active task card
      leaves its column and sits centered under the timeline */
