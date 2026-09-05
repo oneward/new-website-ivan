@@ -50,9 +50,9 @@ const contrasts = [
       <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #4a463c; white-space: nowrap;">Every hire, move, and exit becomes tickets that people carry by hand. Agents change who carries them.</p>
     </div>
     <div class="problem-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch;">
-      <div style="position: relative; overflow: hidden; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
-        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: url('/assets/5aafafb5.png') center 30% / cover no-repeat; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%);"></div>
-        <div style="position: absolute; left: 0; right: 0; top: 220px; height: 180px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%);"></div>
+      <div class="problem-card" style="position: relative; overflow: hidden; background: #f7f6f3; border: 1px solid #e3e1db; border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="problem-art" style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: url('/assets/5aafafb5.png') center 30% / cover no-repeat; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 68%, rgba(0,0,0,0.12) 88%, transparent 100%);"></div>
+        <div class="problem-blur" style="position: absolute; left: 0; right: 0; top: 220px; height: 180px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, #000 100%);"></div>
         <div style="position: relative; display: flex; align-items: center; gap: 12px;">
           <span style="width: 40px; height: 40px; border-radius: 10px; background: #ffffff; border: 1px solid #e3e1db; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><Icon src="/assets/70316f42.svg" size={20} /></span>
           <div style="display: flex; flex-direction: column; gap: 2px;">
@@ -74,9 +74,9 @@ const contrasts = [
           ))}
         </div>
       </div>
-      <div style="position: relative; overflow: hidden; background: #05071F; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
-        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: linear-gradient(to bottom, #030FFF 0%, #020865 55%, #05071F 100%);"></div>
-        <div style="position: absolute; left: 0; right: 0; top: 0; height: 400px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%);">
+      <div class="problem-card" style="position: relative; overflow: hidden; background: #05071F; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 380px 36px 30px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="problem-art" style="position: absolute; left: 0; right: 0; top: 0; height: 400px; background: linear-gradient(to bottom, #030FFF 0%, #020865 55%, #05071F 100%);"></div>
+        <div class="problem-art" style="position: absolute; left: 0; right: 0; top: 0; height: 400px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 35%, rgba(0,0,0,0.4) 70%, transparent 100%);">
           {agentField.map((a) => (
             <span style={`position: absolute; left: ${a.left}; top: ${a.top}px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #ffffff; opacity: ${a.op}; animation: ${a.anim};`}></span>
           ))}

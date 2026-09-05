@@ -69,6 +69,9 @@
 
   /* problem section */
   .problem-grid { grid-template-columns: 1fr !important; }
+  .problem-card { padding: 280px 20px 22px !important; }
+  .problem-art { height: 300px !important; }
+  .problem-blur { top: 140px !important; height: 160px !important; }
   .contrast-row { grid-template-columns: 1fr !important; gap: 8px !important; }
   .contrast-arrow { display: none !important; }
   .contrast-row > span { justify-self: stretch !important; }
