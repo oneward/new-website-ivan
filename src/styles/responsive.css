@@ -44,8 +44,6 @@
   h2 { font-size: clamp(24px, 7.5vw, 32px) !important; }
   h2.hero-card-title { font-size: 18px !important; }
   .h2-line { display: inline !important; }
-  .lifecycle-scroll { scrollbar-width: none; }
-  .lifecycle-scroll::-webkit-scrollbar { display: none; }
   .stub-hero h1 { font-size: clamp(30px, 9vw, 44px) !important; }
 
   /* the integrations diagram stays readable and scrolls sideways */
@@ -53,9 +51,18 @@
   .diagram-scroll::-webkit-scrollbar { display: none; }
   [data-diagram-wrap] { min-width: 660px; }
 
-  /* lifecycle card keeps its 5-column layout and scrolls sideways */
-  .lifecycle-scroll { overflow-x: auto; margin: 0 -20px; padding: 0 20px; width: auto !important; align-self: stretch; min-width: 0; -webkit-overflow-scrolling: touch; }
-  [data-lifecycle] { min-width: 660px; }
+  /* lifecycle card: five narrow columns fit the phone; the active task card
+     leaves its column and sits centered under the timeline */
+  .lifecycle-card { padding: 24px 12px 12px !important; }
+  .lifecycle-card .stage-grid { column-gap: 4px !important; margin: 10px 0 16px !important; min-height: 176px; }
+  .lifecycle-card .stage-grid .stage-card { position: absolute !important; top: 6px; width: 264px; box-sizing: border-box; transform: translateX(-50%); z-index: 2; }
+  .lifecycle-card .stage-grid .stage.is-active { z-index: 3; }
+  .lifecycle-card .stage-grid > .stage:nth-child(1) .stage-card { left: calc(50% + 2 * (100% + 4px)); }
+  .lifecycle-card .stage-grid > .stage:nth-child(2) .stage-card { left: calc(50% + 1 * (100% + 4px)); }
+  .lifecycle-card .stage-grid > .stage:nth-child(3) .stage-card { left: 50%; }
+  .lifecycle-card .stage-grid > .stage:nth-child(4) .stage-card { left: calc(50% - 1 * (100% + 4px)); }
+  .lifecycle-card .stage-grid > .stage:nth-child(5) .stage-card { left: calc(50% - 2 * (100% + 4px)); }
+  .lifecycle-card .stage-flow { inset: 5px 0 0 !important; }
 
   /* problem section */
   .problem-grid { grid-template-columns: 1fr !important; }

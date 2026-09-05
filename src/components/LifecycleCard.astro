@@ -6,7 +6,7 @@ import DotMark from './DotMark.astro';
 import { stages } from '../data/stages';
 ---
 <div class="lifecycle-scroll" style="width: 100%;">
-<div style="width: 100%; background: #ffffff; border-radius: 12px; padding: 34px 16px 16px; box-sizing: border-box; box-shadow: 0 24px 50px rgba(2,7,31,0.45); display: flex; flex-direction: column;" data-lifecycle>
+<div class="lifecycle-card" style="width: 100%; background: #ffffff; border-radius: 12px; padding: 34px 16px 16px; box-sizing: border-box; box-shadow: 0 24px 50px rgba(2,7,31,0.45); display: flex; flex-direction: column;" data-lifecycle>
   <div style="display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px;">
     {stages.map((s, i) => (
       <span class:list={['stage', 'stage-label-wrap', { 'is-active': i === 0 }]} data-stage-i={i} style="display: contents;">
@@ -27,7 +27,7 @@ import { stages } from '../data/stages';
       ))}
     </div>
   </div>
-  <div style="display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px; margin: 12px 0 28px;">
+  <div class="stage-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 10px; margin: 12px 0 28px;">
     {stages.map((s, i) => (
       <div class:list={['stage', { 'is-active': i === 0 }]} data-stage-i={i} style="position: relative;">
         <div class="stage-flow" style="position: absolute; inset: 5px 0 -10px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
